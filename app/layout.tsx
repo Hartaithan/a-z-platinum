@@ -7,6 +7,7 @@ import "./globals.css";
 const font = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  fallback: ["Arial", "Helvetica", "sans-serif"],
 });
 
 export const metadata: Metadata = {

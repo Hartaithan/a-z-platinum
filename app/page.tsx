@@ -1,11 +1,6 @@
+import MainSection from "@/components/main-section";
 import { FC } from "react";
 
-const Home: FC = () => {
-  return (
-    <div className="flex size-full items-center justify-center">
-      <p>Home</p>
-    </div>
-  );
-};
+const Home: FC = () => <MainSection />;
 
 export default Home;

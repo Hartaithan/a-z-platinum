@@ -1,3 +1,4 @@
+import { cn } from "@/utils/styles";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
@@ -18,7 +19,7 @@ const RootLayout: FC<PropsWithChildren> = (props) => {
   const { children } = props;
   return (
     <html lang="en">
-      <body className={`${font.variable} antialiased`}>{children}</body>
+      <body className={cn(font.variable, "antialiased")}>{children}</body>
     </html>
   );
 };

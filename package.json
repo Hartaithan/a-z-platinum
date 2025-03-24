@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev -H local.hartaithan.com --experimental-https --turbopack",
+    "dev:inspect": "NODE_OPTIONS='--inspect' next dev --turbopack",
+    "dev:http": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --dir .",

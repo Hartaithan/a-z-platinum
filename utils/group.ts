@@ -13,21 +13,43 @@ const setItem = (key: string, item: Platinum, list: GroupedPlatinumKeys) => {
   }
 };
 
-const groupItem = (group: Data, item: Platinum) => {
-  if (!item.trophy?.earned_at) return group;
-  const year = item.trophy.earned_at.slice(0, 4);
+interface SetGroupParams {
+  key: string;
+  item: Platinum;
+  group: Data;
+}
+
+const setGroup = (params: SetGroupParams) => {
+  const { key, item, group } = params;
 
   const isPlatinum = item?.completion === "platinum";
-  if (isPlatinum) setItem(year, item, group.platinums);
+  if (isPlatinum) setItem(key, item, group.platinums);
 
   const isComplete = item?.completion === "complete";
-  if (isComplete) setItem(year, item, group.completes);
+  if (isComplete) setItem(key, item, group.completes);
 
   const isUltraRare = item?.trophy?.rarity === "ultra-rare";
-  if (isPlatinum && isUltraRare) setItem(year, item, group["ultra-rare"]);
+  if (isPlatinum && isUltraRare) setItem(key, item, group["ultra-rare"]);
 
-  setItem(year, item, group.all);
+  setItem(key, item, group.all);
+};
 
+const getGroupKeys = (item: Platinum) => {
+  if (!item.trophy?.earned_at) return [];
+
+  const year = item.trophy.earned_at.slice(0, 4);
+  const letter = item.title.replace("The ", "")[0].toUpperCase();
+
+  const letterYearKey = letter + "-" + year;
+  const letterKey = letter + "-" + "*";
+
+  return [letterKey, letterYearKey];
+};
+
+const groupItem = (group: Data, item: Platinum) => {
+  if (!item.trophy?.earned_at) return group;
+  const keys = getGroupKeys(item);
+  for (const key of keys) setGroup({ key, item, group });
   return group;
 };
 

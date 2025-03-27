@@ -30,6 +30,18 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      "import/no-unresolved": [
+        "error",
+        {
+          ignore: ["^@/"],
+        },
+      ],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["./*", "../*"],
+        },
+      ],
     },
   },
 ];

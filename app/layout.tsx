@@ -1,8 +1,9 @@
+import "@/app/globals.css";
+import RootProviders from "@/providers/root";
 import { cn } from "@/utils/styles";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
-import "./globals.css";
 
 const font = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,9 @@ const RootLayout: FC<PropsWithChildren> = (props) => {
   const { children } = props;
   return (
     <html lang="en">
-      <body className={cn(font.variable, "antialiased")}>{children}</body>
+      <body className={cn(font.variable, "antialiased")}>
+        <RootProviders>{children}</RootProviders>
+      </body>
     </html>
   );
 };

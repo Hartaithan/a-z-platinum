@@ -2,6 +2,7 @@
 
 import { useAbortController } from "@/hooks/use-abort-controller";
 import type { PlatinumProgressData } from "@/models/platinum";
+import { useData } from "@/providers/data";
 import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
@@ -36,6 +37,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
 
   const { getSignal } = useAbortController();
+  const { setStatus, setProfile, setData } = useData();
 
   const onProgress = useCallback((data: PlatinumProgressData) => {
     const current = data?.current || 0;
@@ -53,13 +55,17 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
       try {
         if (id.length === 0) throw new Error(errors.empty);
 
+        setStatus("profile-loading");
+
         const { profile, expires: profileExpires } = await API.getProfile({
           id,
           signal: getSignal(),
         });
         if (!profile) throw new Error(errors.fetch);
         expires = profileExpires;
-        console.info("profile", profile);
+        setProfile(profile);
+
+        setStatus("platinums-loading");
 
         const { list, expires: platinumsExpires } = await API.getPlatinums({
           id,
@@ -67,14 +73,17 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
           signal: getSignal(),
         });
         expires = platinumsExpires;
-        console.info("list", list, expires);
+        setData(list);
+
+        setStatus("completed");
+        console.info("expires", expires);
       } catch (error) {
         console.error("submit error", error);
         const message = readError(error);
         console.info("error", message, error);
       }
     },
-    [getSignal, onProgress],
+    [setStatus, getSignal, onProgress, setProfile, setData],
   );
 
   const exposed: Context = useMemo(() => ({ onSubmit }), [onSubmit]);

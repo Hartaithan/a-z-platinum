@@ -21,6 +21,12 @@ export interface Platinum {
 export type NullablePlatinum = Platinum | null;
 export type NullablePlatinums = Platinum[] | null;
 
+export type GroupedPlatinums = Record<string, Platinum>;
+export type NullableGroupedPlatinums = GroupedPlatinums | null;
+
+export type GroupedPlatinumKeys = Record<string, string[]>;
+export type NullableGroupedPlatinumKeys = GroupedPlatinumKeys | null;
+
 export type PlatinumEventType = "progress" | "complete" | "error";
 
 export interface PlatinumData<T extends PlatinumEventType> {

@@ -21,6 +21,15 @@ const eslintConfig = [
     ignores: [".next/**", "node_modules/**", "dist/**"],
     rules: {
       "no-console": ["error", { allow: ["info", "error", "warn"] }],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ];

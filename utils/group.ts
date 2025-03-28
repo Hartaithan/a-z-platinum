@@ -1,9 +1,21 @@
-import { Data } from "@/models/data";
+import { Data, DataKey } from "@/models/data";
 import {
   GroupedPlatinumKeys,
   NullablePlatinum,
   Platinum,
 } from "@/models/platinum";
+
+export interface DataKeyParams {
+  dataKey?: DataKey;
+  letter: string;
+  year?: number | string | null;
+}
+
+export const getDataKey = (params: DataKeyParams): [DataKey, string] => {
+  const { dataKey = "all", letter, year } = params;
+  const y = year ? year.toString() : "*";
+  return [dataKey, `${letter}-${y}`];
+};
 
 const setItem = (key: string, item: Platinum, list: GroupedPlatinumKeys) => {
   if (list[key] !== undefined) {
@@ -37,13 +49,13 @@ const setGroup = (params: SetGroupParams) => {
 const getGroupKeys = (item: Platinum) => {
   if (!item.trophy?.earned_at) return [];
 
-  const year = item.trophy.earned_at.slice(0, 4);
+  const year = Number(item.trophy.earned_at.slice(0, 4));
   const letter = item.title.replace("The ", "")[0].toUpperCase();
 
-  const letterYearKey = letter + "-" + year;
-  const letterKey = letter + "-" + "*";
+  const letterKey = getDataKey({ letter });
+  const letterYearKey = getDataKey({ letter, year });
 
-  return [letterKey, letterYearKey];
+  return [letterKey[1], letterYearKey[1]];
 };
 
 const groupItem = (group: Data, item: Platinum) => {

@@ -2,10 +2,10 @@
 
 import { dataKey, profileKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { DataKey, NullableData } from "@/models/data";
+import { NullableData } from "@/models/data";
 import { NullablePlatinum } from "@/models/platinum";
 import { NullableProfile } from "@/models/profile";
-import { groupPlatinumList } from "@/utils/group";
+import { DataKeyParams, getDataKey, groupPlatinumList } from "@/utils/group";
 import {
   createContext,
   Dispatch,
@@ -20,12 +20,21 @@ import {
 
 type Status = "idle" | "profile-loading" | "platinums-loading" | "completed";
 
-export interface DataContext {
+interface Items {
+  items: string[];
+  count: number;
+  hasItems: boolean;
+}
+
+const defaultItems: Items = { items: [], count: 0, hasItems: false };
+
+interface DataContext {
   status: Status;
   setStatus: Dispatch<SetStateAction<Status>>;
   profile: NullableProfile;
   setProfile: (profile: NullableProfile) => void;
-  getData: (dataKey: DataKey, groupKey: string) => string[];
+  getItem: (key: string | null) => NullablePlatinum;
+  getItemKeys: (params: DataKeyParams) => Items;
   setData: (list: NullablePlatinum[]) => void;
 }
 
@@ -36,7 +45,8 @@ const initial: DataContext = {
   setStatus: () => null,
   profile: null,
   setProfile: () => null,
-  getData: () => [],
+  getItem: () => null,
+  getItemKeys: () => defaultItems,
   setData: () => null,
 };
 
@@ -54,12 +64,21 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
     defaultValue: null,
   });
 
-  const getData: Context["getData"] = useCallback(
-    (dataKey, groupKey) => {
-      if (!data) return [];
-      if (!data[dataKey]) return [];
-      if (!data[dataKey][groupKey]) return [];
-      return data[dataKey][groupKey];
+  const getItem: Context["getItem"] = useCallback(
+    (key) => {
+      if (!key) return null;
+      if (!data?.games?.[key]) return null;
+      return data.games[key];
+    },
+    [data],
+  );
+
+  const getItemKeys: Context["getItemKeys"] = useCallback(
+    (params) => {
+      const [dataKey, groupKey] = getDataKey(params);
+      if (!data?.[dataKey]?.[groupKey]) return defaultItems;
+      const items = data[dataKey][groupKey];
+      return { items, count: items.length, hasItems: items.length > 0 };
     },
     [data],
   );
@@ -74,8 +93,16 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
   );
 
   const exposed: Context = useMemo(
-    () => ({ status, setStatus, profile, setProfile, getData, setData }),
-    [status, profile, setProfile, getData, setData],
+    () => ({
+      status,
+      setStatus,
+      profile,
+      setProfile,
+      getItem,
+      getItemKeys,
+      setData,
+    }),
+    [status, profile, setProfile, getItem, getItemKeys, setData],
   );
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;

@@ -1,7 +1,7 @@
 import { useData } from "@/providers/data";
 import { FC } from "react";
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#0".split("");
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#0賞".split("");
 
 interface LetterProps {
   letter: string;

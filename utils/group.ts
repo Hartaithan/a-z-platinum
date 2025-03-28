@@ -4,6 +4,7 @@ import {
   NullablePlatinum,
   Platinum,
 } from "@/models/platinum";
+import { recognizeLetter } from "@/utils/letter";
 
 export interface DataKeyParams {
   dataKey?: DataKey;
@@ -50,7 +51,7 @@ const getGroupKeys = (item: Platinum) => {
   if (!item.trophy?.earned_at) return [];
 
   const year = Number(item.trophy.earned_at.slice(0, 4));
-  const letter = item.title.replace("The ", "")[0].toUpperCase();
+  const letter = recognizeLetter(item.title);
 
   const letterKey = getDataKey({ letter });
   const letterYearKey = getDataKey({ letter, year });

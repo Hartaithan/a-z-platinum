@@ -1,6 +1,7 @@
 import ListAlphabet from "@/components/list-alphabet";
 import { defaultTheme } from "@/constants/app";
 import { Theme } from "@/models/app";
+import { useTheme } from "@/providers/theme";
 import { FC } from "react";
 
 const alphabet: Record<Theme, FC> = {
@@ -8,7 +9,7 @@ const alphabet: Record<Theme, FC> = {
 };
 
 const PickedAlphabet: FC = () => {
-  const theme: Theme = "list";
+  const { theme } = useTheme();
   const Picked = alphabet[theme || defaultTheme];
   return <Picked />;
 };

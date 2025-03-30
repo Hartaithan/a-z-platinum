@@ -9,7 +9,7 @@ import { FC } from "react";
 const Submit: FC = () => {
   const { onSubmit } = useSubmit();
   return (
-    <form className="mb-4 flex items-center gap-2" onSubmit={onSubmit}>
+    <form className="mb-4 flex w-full items-center gap-2" onSubmit={onSubmit}>
       <Input name="id" placeholder="Enter your PSN ID" />
       <Button type="submit" variant="outline">
         <SendHorizontalIcon className="size-5" />

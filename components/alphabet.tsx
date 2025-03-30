@@ -1,3 +1,5 @@
+"use client";
+
 import ListAlphabet from "@/components/list-alphabet";
 import { defaultTheme } from "@/constants/app";
 import { Theme } from "@/models/app";

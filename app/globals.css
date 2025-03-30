@@ -86,6 +86,6 @@
   }
 
   body {
-    @apply bg-background text-foreground h-full;
+    @apply bg-background text-foreground min-h-full;
   }
 }

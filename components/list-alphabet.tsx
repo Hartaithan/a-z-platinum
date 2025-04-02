@@ -2,6 +2,7 @@
 
 import GameImage from "@/components/game-image";
 import { useData } from "@/providers/data";
+import { useFilters } from "@/providers/filters";
 import { FC } from "react";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#0賞".split("");
@@ -12,8 +13,9 @@ interface LetterProps {
 
 const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
+  const { year } = useFilters();
   const { getItemKeys, getItem } = useData();
-  const { items, hasItems, count } = getItemKeys({ letter });
+  const { items, hasItems, count } = getItemKeys({ letter, year });
   const firstKey = hasItems ? items[0] : null;
   const item = getItem(firstKey);
   return (

@@ -86,7 +86,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
     [setStatus, getSignal, onProgress, setProfile, setData],
   );
 
-  const exposed: Context = useMemo(() => ({ onSubmit }), [onSubmit]);
+  const exposed = useMemo(() => ({ onSubmit }) satisfies Context, [onSubmit]);
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
 };

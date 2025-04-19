@@ -52,8 +52,8 @@ const ThemeProvider: FC<Props> = (props) => {
     changeTheme(defaultTheme);
   }, [changeTheme]);
 
-  const exposed: Context = useMemo(
-    () => ({ theme, setTheme, changeTheme, resetTheme }),
+  const exposed = useMemo(
+    () => ({ theme, setTheme, changeTheme, resetTheme }) satisfies Context,
     [theme, changeTheme, resetTheme],
   );
 

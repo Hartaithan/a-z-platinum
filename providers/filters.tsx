@@ -44,8 +44,8 @@ const FiltersProvider: FC<PropsWithChildren> = (props) => {
 
   const resetYear = useCallback(() => setYear(null), []);
 
-  const exposed: Context = useMemo(
-    () => ({ year, handleYear, resetYear }),
+  const exposed = useMemo(
+    () => ({ year, handleYear, resetYear }) satisfies Context,
     [year, handleYear, resetYear],
   );
 

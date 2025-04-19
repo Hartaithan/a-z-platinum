@@ -92,8 +92,8 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
     [setDataState],
   );
 
-  const exposed: Context = useMemo(
-    () => ({
+  const exposed = useMemo(() => {
+    return {
       status,
       setStatus,
       profile,
@@ -101,9 +101,8 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
       getItem,
       getItemKeys,
       setData,
-    }),
-    [status, profile, setProfile, getItem, getItemKeys, setData],
-  );
+    } satisfies Context;
+  }, [status, profile, setProfile, getItem, getItemKeys, setData]);
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
 };

@@ -1,4 +1,4 @@
-import { GroupedPlatinumKeys, GroupedPlatinums } from "./platinum";
+import { GroupedPlatinumKeys, GroupedPlatinums } from "@/models/platinum";
 
 export type DataKey = "platinums" | "completes" | "ultra-rare" | "all";
 

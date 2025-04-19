@@ -3,6 +3,7 @@
 import { letters } from "@/constants/letters";
 import { useData } from "@/providers/data";
 import { useFilters } from "@/providers/filters";
+import { usePick } from "@/providers/pick";
 import { FC } from "react";
 
 interface LetterProps {
@@ -12,10 +13,13 @@ interface LetterProps {
 const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
   const { year } = useFilters();
+  const { getPickedKey } = usePick();
   const { getItemKeys, getItem } = useData();
   const { items, hasItems, count } = getItemKeys({ letter, year });
-  const firstKey = hasItems ? items[0] : null;
-  const item = getItem(firstKey);
+
+  const key = getPickedKey(letter, items[0]);
+  const item = getItem(key);
+
   return (
     <div className="flex items-center">
       <p className="w-5 text-center font-bold capitalize">{letter}</p>

@@ -1,9 +1,9 @@
 "use client";
 
-import { dataKey, profileKey } from "@/constants/storage";
+import { dataKey, gamesKey, profileKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { NullableData } from "@/models/data";
-import { NullablePlatinum } from "@/models/platinum";
+import { NullableGroupedPlatinums, NullablePlatinum } from "@/models/platinum";
 import { NullableProfile } from "@/models/profile";
 import { DataKeyParams, getDataKey, groupPlatinumList } from "@/utils/group";
 import {
@@ -63,14 +63,18 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
     key: dataKey,
     defaultValue: null,
   });
+  const [games, setGames] = useLocalStorage<NullableGroupedPlatinums>({
+    key: gamesKey,
+    defaultValue: null,
+  });
 
   const getItem: Context["getItem"] = useCallback(
     (key) => {
       if (!key) return null;
-      if (!data?.games?.[key]) return null;
-      return data.games[key];
+      if (!games?.[key]) return null;
+      return games[key];
     },
-    [data],
+    [games],
   );
 
   const getItemKeys: Context["getItemKeys"] = useCallback(
@@ -86,10 +90,11 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
   const setData: Context["setData"] = useCallback(
     (list) => {
       if (list.length === 0) return;
-      const data = groupPlatinumList(list);
+      const { games, ...data } = groupPlatinumList(list);
       setDataState(data);
+      setGames(games);
     },
-    [setDataState],
+    [setDataState, setGames],
   );
 
   const exposed = useMemo(() => {

@@ -1,4 +1,4 @@
-import { Data, DataKey } from "@/models/data";
+import { Data, DataKey, GroupedData } from "@/models/data";
 import {
   GroupedPlatinumKeys,
   NullablePlatinum,
@@ -59,15 +59,15 @@ const getGroupKeys = (item: Platinum) => {
   return [letterKey[1], letterYearKey[1]];
 };
 
-const groupItem = (group: Data, item: Platinum) => {
+const groupItem = (group: GroupedData, item: Platinum) => {
   if (!item.trophy?.earned_at) return group;
   const keys = getGroupKeys(item);
   for (const key of keys) setGroup({ key, item, group });
   return group;
 };
 
-export const groupPlatinumList = (list: NullablePlatinum[]): Data =>
-  list.reduce<Data>(
+export const groupPlatinumList = (list: NullablePlatinum[]) =>
+  list.reduce<GroupedData>(
     (acc, item) => {
       if (!item) return acc;
       const { id } = item;

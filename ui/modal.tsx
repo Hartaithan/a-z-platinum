@@ -40,7 +40,7 @@ function Modal({
         <DialogHeader>
           <DialogTitle
             className={cn(
-              "w-full text-center text-sm font-medium md:text-base",
+              "mb-3 w-full text-center text-sm font-medium md:text-base",
               titleClassName,
             )}>
             {title}

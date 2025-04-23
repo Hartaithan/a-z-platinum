@@ -40,7 +40,7 @@ const PickModal: FC<ModalProps<PickModalData>> = (props) => {
       {(!items || items.length === 0) && (
         <p className="text-center">Nothing found :(</p>
       )}
-      <div className="flex flex-col gap-y-3">
+      <div className="w-full-scrollbar scrollbar-gutter flex max-h-[80vh] flex-col gap-y-3 overflow-auto">
         {items &&
           items.map((item) => (
             <MemoizedPickItem key={item} item={item} letter={letter} />

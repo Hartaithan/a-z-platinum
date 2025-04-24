@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
+import type { FC, PropsWithChildren } from "react";
 import {
   createContext,
   useCallback,
@@ -15,7 +15,7 @@ type YearSetHandler = (dir: YearSetDirection) => void;
 interface Context {
   year: number | null;
   handleYear: YearSetHandler;
-  resetYear: Dispatch<SetStateAction<number | null>>;
+  resetYear: () => void;
 }
 
 const initialValue: Context = {

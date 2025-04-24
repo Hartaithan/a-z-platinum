@@ -35,18 +35,23 @@ const buttonVariants = cva(
   },
 );
 
+export interface ButtonProps
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  unstyled?: boolean;
+}
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  unstyled,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: ButtonProps) {
+  if (unstyled) return <button className={className} {...props} />;
   const Comp = asChild ? Slot : "button";
-
   return (
     <Comp
       data-slot="button"

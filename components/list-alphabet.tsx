@@ -38,7 +38,7 @@ const Letter: FC<LetterProps> = (props) => {
 
 const ListAlphabet: FC = () => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="container mx-auto flex flex-col gap-1 py-4">
       {letters.map((letter) => (
         <Letter key={letter} letter={letter} />
       ))}

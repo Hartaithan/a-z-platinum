@@ -21,18 +21,20 @@ const Letter: FC<LetterProps> = (props) => {
   const item = getItem(key);
 
   return (
-    <button
-      className="flex items-center"
-      onClick={() => openPickModal(items, letter)}>
+    <div className="flex items-center">
       <p className="w-5 text-center font-bold capitalize">{letter}</p>
       <p className="mr-1">-</p>
       {hasItems && (
-        <>
-          <p>{item?.title}</p>
-          <p className="text-sm text-neutral-500">&nbsp;({count} more...) </p>
-        </>
+        <p
+          className="cursor-pointer"
+          onClick={() => openPickModal(items, letter)}>
+          {item?.title}
+        </p>
       )}
-    </button>
+      {hasItems && count > 1 && (
+        <p className="text-sm text-neutral-500">&nbsp;({count - 1} more...)</p>
+      )}
+    </div>
   );
 };
 

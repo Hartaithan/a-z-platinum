@@ -80,8 +80,8 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
   const getItemKeys: Context["getItemKeys"] = useCallback(
     (params) => {
       const [dataKey, groupKey] = getDataKey(params);
-      if (!data?.[dataKey]?.[groupKey]) return defaultItems;
-      const items = data[dataKey][groupKey];
+      const items = data?.[dataKey]?.[groupKey];
+      if (!items) return defaultItems;
       return { items, count: items.length, hasItems: items.length > 0 };
     },
     [data],

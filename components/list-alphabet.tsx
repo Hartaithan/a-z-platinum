@@ -1,9 +1,10 @@
 "use client";
 
-import { letters } from "@/constants/letters";
+import { completed, letters } from "@/constants/letters";
 import { useData } from "@/providers/data";
 import { useFilters } from "@/providers/filters";
 import { usePick } from "@/providers/pick";
+import { cn } from "@/utils/styles";
 import { FC } from "react";
 
 interface LetterProps {
@@ -21,7 +22,7 @@ const Letter: FC<LetterProps> = (props) => {
   const item = getItem(key);
 
   return (
-    <div className="flex items-center">
+    <div className={cn("flex items-center", hasItems && completed)}>
       <p className="w-5 text-center font-bold capitalize">{letter}</p>
       <p className="mr-1">-</p>
       {hasItems && (

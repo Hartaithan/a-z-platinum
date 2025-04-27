@@ -7,10 +7,10 @@ import { FC } from "react";
 const Submit: FC = () => {
   const { onSubmit } = useSubmit();
   return (
-    <form className="flex" onSubmit={onSubmit}>
+    <form className="flex w-full" onSubmit={onSubmit}>
       <Input
         name="id"
-        className="rounded-none border-none bg-transparent p-0 font-bold shadow-none focus-visible:border-none focus-visible:ring-0"
+        className="h-auto min-w-auto grow rounded-none border-none bg-transparent p-0 font-bold shadow-none focus-visible:ring-0"
         placeholder="Enter your PSN ID"
       />
     </form>

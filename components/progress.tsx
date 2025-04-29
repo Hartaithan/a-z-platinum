@@ -1,19 +1,31 @@
 "use client";
 
 import { useProgress } from "@/hooks/use-progress";
-import { toFixed } from "@/utils/number";
+import { useFilters } from "@/providers/filters";
 import { FC } from "react";
 
 const Progress: FC = () => {
-  const { value, count, total } = useProgress();
+  const { year } = useFilters();
+  const { label, count, total } = useProgress();
   return (
-    <div className="container mt-4 flex justify-between">
-      <h1 className="font-bold">Progress</h1>
-      <div className="mt-1 flex items-center gap-x-2">
-        <p className="leading-[normal] font-extrabold">{toFixed(value)}%</p>
-        <p className="text-sm leading-[normal]">
-          {count}/{total} letters
-        </p>
+    <div className="container mt-4">
+      <div className="flex justify-between">
+        <h1 className="font-bold">
+          Progress
+          {year && <span>&nbsp;{year}</span>}
+        </h1>
+        <div className="flex items-center gap-x-2 font-bold">
+          <p className="leading-[normal]">{label}</p>
+          <p className="leading-[normal]">
+            ({count}/{total})
+          </p>
+        </div>
+      </div>
+      <div className="mt-1 h-2 rounded bg-neutral-100">
+        <div
+          className="h-full rounded bg-black transition-all duration-700 ease-in-out"
+          style={{ width: label }}
+        />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { FC } from "react";
 
 const Progress: FC = () => {
   const { year } = useFilters();
-  const { label, count, total } = useProgress();
+  const { label, completed, total } = useProgress();
   return (
     <div className="container mt-4">
       <div className="flex justify-between">
@@ -17,7 +17,7 @@ const Progress: FC = () => {
         <div className="flex items-center gap-x-2 font-bold">
           <p className="leading-[normal]">{label}</p>
           <p className="leading-[normal]">
-            ({count}/{total})
+            ({completed}/{total})
           </p>
         </div>
       </div>

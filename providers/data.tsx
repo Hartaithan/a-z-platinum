@@ -24,9 +24,20 @@ interface Items {
   items: string[];
   count: number;
   hasItems: boolean;
+  status: string;
 }
 
-const defaultItems: Items = { items: [], count: 0, hasItems: false };
+export const status = {
+  completed: "completed-letter",
+  uncompleted: "uncompleted-letter",
+};
+
+const defaultItems: Items = {
+  items: [],
+  count: 0,
+  hasItems: false,
+  status: status.uncompleted,
+};
 
 interface DataContext {
   status: Status;
@@ -82,7 +93,9 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
       const [dataKey, groupKey] = getDataKey(params);
       const items = data?.[dataKey]?.[groupKey];
       if (!items) return defaultItems;
-      return { items, count: items.length, hasItems: items.length > 0 };
+      const hasItems = items.length > 0;
+      const status = hasItems ? "completed" : "uncompleted";
+      return { items, count: items.length, hasItems, status };
     },
     [data],
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { letterStatus } from "@/constants/alphabet";
 import { dataKey, gamesKey, profileKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { NullableData } from "@/models/data";
@@ -27,16 +28,11 @@ interface Items {
   status: string;
 }
 
-export const status = {
-  completed: "completed-letter",
-  uncompleted: "uncompleted-letter",
-};
-
 const defaultItems: Items = {
   items: [],
   count: 0,
   hasItems: false,
-  status: status.uncompleted,
+  status: letterStatus.uncompleted,
 };
 
 interface DataContext {
@@ -94,7 +90,7 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
       const items = data?.[dataKey]?.[groupKey];
       if (!items) return defaultItems;
       const hasItems = items.length > 0;
-      const status = hasItems ? "completed" : "uncompleted";
+      const status = letterStatus[hasItems ? "completed" : "uncompleted"];
       return { items, count: items.length, hasItems, status };
     },
     [data],

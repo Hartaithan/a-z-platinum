@@ -1,6 +1,7 @@
 "use client";
 
-import { status, useData } from "@/providers/data";
+import { letterStatus } from "@/constants/alphabet";
+import { useData } from "@/providers/data";
 import { toFixed } from "@/utils/number";
 import { useEffect, useState } from "react";
 
@@ -27,12 +28,12 @@ export const useProgress = () => {
   const [progress, setProgress] = useState(defaultProgress);
 
   useEffect(() => {
-    const completed = getCount(status.completed);
-    const uncompleted = getCount(status.uncompleted);
+    const completed = getCount(letterStatus.completed);
+    const uncompleted = getCount(letterStatus.uncompleted);
     const total = completed + uncompleted;
     const { value, label } = getProgress(completed, total);
     setProgress({ completed, uncompleted, total, value, label });
   }, [getItemKeys]);
 
-  return { ...progress };
+  return progress;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { letters } from "@/constants/letters";
+import { letters } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useFilters } from "@/providers/filters";
 import { usePick } from "@/providers/pick";

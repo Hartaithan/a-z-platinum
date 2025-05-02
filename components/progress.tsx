@@ -16,9 +16,7 @@ const Progress: FC = () => {
         </h1>
         <div className="flex items-center gap-x-2 font-bold">
           <p className="leading-[normal]">{label}</p>
-          <p className="leading-[normal]">
-            ({completed}/{total})
-          </p>
+          <p className="leading-[normal]">{`(${completed}/${total})`}</p>
         </div>
       </div>
       <div className="mt-1 h-2 rounded bg-neutral-100">

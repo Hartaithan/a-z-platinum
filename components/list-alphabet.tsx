@@ -14,8 +14,8 @@ interface LetterProps {
 const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
   const { year } = useFilters();
-  const { getPickedKey, openPickModal } = usePick();
   const { getItemKeys, getItem } = useData();
+  const { getPickedKey, openLetterModal } = usePick();
   const { items, hasItems, count, status } = getItemKeys({ letter, year });
 
   const key = getPickedKey(letter, items[0]);
@@ -24,16 +24,18 @@ const Letter: FC<LetterProps> = (props) => {
   return (
     <div className={cn("flex items-center", status)}>
       <p className="w-5 text-center font-bold capitalize">{letter}</p>
-      <p className="mr-1">-</p>
+      <p>-&nbsp;</p>
       {hasItems && (
         <p
           className="cursor-pointer"
-          onClick={() => openPickModal(items, letter)}>
+          onClick={() => openLetterModal(items, letter)}>
           {item?.title}
         </p>
       )}
       {hasItems && count > 1 && (
-        <p className="text-sm text-neutral-500">&nbsp;({count - 1} more...)</p>
+        <p className="text-sm text-neutral-500">
+          &nbsp;{`(${count - 1} more...)`}
+        </p>
       )}
     </div>
   );

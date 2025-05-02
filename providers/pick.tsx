@@ -1,6 +1,6 @@
 "use client";
 
-import PickModal, { PickModalData } from "@/components/pick-modal";
+import LetterModal, { LetterModalData } from "@/components/letter-modal";
 import { pickKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
@@ -12,13 +12,13 @@ type State = Record<string, string>;
 interface Context {
   setPick: (key: string, letter: string) => void;
   getPickedKey: (letter: string, fallback: string) => string | null;
-  openPickModal: (items: string[], letter: string) => void;
+  openLetterModal: (items: string[], letter: string) => void;
 }
 
 const initial: Context = {
   setPick: () => null,
   getPickedKey: () => null,
-  openPickModal: () => null,
+  openLetterModal: () => null,
 };
 
 const Context = createContext<Context>(initial);
@@ -29,7 +29,7 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
     defaultValue: {},
     key: pickKey,
   });
-  const [modal, open, close] = useModal<PickModalData>();
+  const [modal, open, close] = useModal<LetterModalData>();
 
   const setPick: Context["setPick"] = useCallback(
     (key, letter) => {
@@ -47,20 +47,20 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
     [picked],
   );
 
-  const openPickModal: Context["openPickModal"] = useCallback(
+  const openLetterModal: Context["openLetterModal"] = useCallback(
     (items, letter) => open({ items, letter }),
     [open],
   );
 
   const exposed = useMemo(
-    () => ({ setPick, getPickedKey, openPickModal }) satisfies Context,
-    [setPick, getPickedKey, openPickModal],
+    () => ({ setPick, getPickedKey, openLetterModal }) satisfies Context,
+    [setPick, getPickedKey, openLetterModal],
   );
 
   return (
     <Context.Provider value={exposed}>
       {children}
-      <PickModal {...modal} title="Pick platinum modal" onClose={close} />
+      <LetterModal {...modal} onClose={close} />
     </Context.Provider>
   );
 };

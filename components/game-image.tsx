@@ -10,7 +10,7 @@ const GameImage: FC<Props> = (props) => {
   return (
     <div
       className={twMerge(
-        "relative flex aspect-[20/11] h-9 w-auto flex-shrink-0 justify-center overflow-hidden rounded-md",
+        "relative flex aspect-[20/11] h-12 w-auto flex-shrink-0 justify-center overflow-hidden rounded-md",
         className,
       )}>
       <Image

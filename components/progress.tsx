@@ -1,5 +1,6 @@
 "use client";
 
+import ProgressBar from "@/components/progress-bar";
 import { useProgress } from "@/hooks/use-progress";
 import { useFilters } from "@/providers/filters";
 import { FC } from "react";
@@ -19,12 +20,7 @@ const Progress: FC = () => {
           <p className="leading-[normal]">{`(${completed}/${total})`}</p>
         </div>
       </div>
-      <div className="mt-1 h-2 rounded bg-neutral-100">
-        <div
-          className="h-full rounded bg-black transition-all duration-700 ease-in-out"
-          style={{ width: label }}
-        />
-      </div>
+      <ProgressBar value={label} />
     </div>
   );
 };

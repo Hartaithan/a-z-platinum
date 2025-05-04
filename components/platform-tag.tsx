@@ -8,7 +8,7 @@ interface TagProps {
 export const PlatformTag: FC<TagProps> = (props) => {
   const { platform } = props;
   return (
-    <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs">
+    <span className="rounded-full border border-neutral-300 bg-neutral-100 px-2 py-0.5 text-xs font-medium">
       {platform}
     </span>
   );

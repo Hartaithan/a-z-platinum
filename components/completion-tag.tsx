@@ -8,8 +8,8 @@ interface Props {
 }
 
 const colors: Record<CompletionType, string> = {
-  platinum: "bg-blue-100 text-blue-800",
-  complete: "bg-green-100 text-green-800",
+  platinum: "bg-blue-100 text-blue-800 border border-blue-300",
+  complete: "bg-green-100 text-green-800 border border-green-300",
 };
 
 const icons: Record<CompletionType, FC<LucideProps>> = {
@@ -24,7 +24,7 @@ const CompletionTag: FC<Props> = (props) => {
   return (
     <span
       className={cn(
-        "flex items-center rounded-full px-2 py-0.5 text-xs",
+        "flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
         colors[completion],
       )}>
       <Icon className="size-3" />

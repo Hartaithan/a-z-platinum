@@ -12,17 +12,14 @@ const GameProgress: FC<Props> = (props) => {
   const { getItem } = useData();
   const game = getItem(item);
   if (!game) return null;
-  const value = `${game?.progress}%`;
+  const label = `${game?.progress}%`;
   return (
     <div className="mt-2">
-      <ProgressBar
-        value={value}
-        trackClassName="rounded-full h-4"
-        fillClassName="rounded-full">
-        <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-semibold text-white mix-blend-exclusion">
-          {value}
-        </p>
-      </ProgressBar>
+      <div className="mb-1 flex justify-between text-sm">
+        <span className="font-medium">Progress</span>
+        <span className="font-bold">{label}</span>
+      </div>
+      <ProgressBar value={label} />
       <div className="mt-2 flex justify-center gap-3">
         <TrophyCounter
           type="platinum"

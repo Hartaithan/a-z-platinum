@@ -14,7 +14,7 @@ const GameProgress: FC<Props> = (props) => {
   if (!game) return null;
   const label = `${game?.progress}%`;
   return (
-    <div className="mt-2">
+    <div className="mt-3">
       <div className="mb-1 flex justify-between text-sm">
         <span className="font-medium">Progress</span>
         <span className="font-bold">{label}</span>

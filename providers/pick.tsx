@@ -11,7 +11,7 @@ type State = Record<string, string>;
 
 interface Context {
   setPick: (key: string, letter: string) => void;
-  getPickedKey: (letter: string, fallback: string) => string | null;
+  getPickedKey: (letter: string | undefined, fallback: string) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
 
@@ -43,7 +43,7 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
   );
 
   const getPickedKey: Context["getPickedKey"] = useCallback(
-    (letter, fallback) => picked[letter] ?? fallback,
+    (letter, fallback) => picked[letter ?? ""] ?? fallback,
     [picked],
   );
 

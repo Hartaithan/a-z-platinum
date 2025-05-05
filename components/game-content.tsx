@@ -17,7 +17,7 @@ const GameContent: FC<Props> = (props) => {
     <div className="flex items-center">
       <GameImage src={game?.image_url} alt={game?.title} />
       <div className="ml-3">
-        <h1 className="font-bold">{game?.title}</h1>
+        <h1 className="pr-6 font-bold">{game?.title}</h1>
         <div className="mt-1 flex gap-1 text-xs">
           <CompletionTag completion={game?.completion} />
           <PlatformTags platforms={game?.platforms} />

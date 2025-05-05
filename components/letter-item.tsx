@@ -1,8 +1,8 @@
 import GameContent from "@/components/game-content";
 import GameProgress from "@/components/game-progress";
 import GameTrophy from "@/components/game-trophy";
-import { usePick } from "@/providers/pick";
-import { FC, memo, useCallback } from "react";
+import LetterPick from "@/components/letter-pick";
+import { FC, memo } from "react";
 
 interface ItemProps {
   item: string;
@@ -11,15 +11,9 @@ interface ItemProps {
 
 const Item: FC<ItemProps> = (props) => {
   const { item, letter } = props;
-  const { setPick } = usePick();
-
-  const handlePick = useCallback(
-    () => setPick(item, letter ?? ""),
-    [item, letter, setPick],
-  );
-
   return (
-    <div className="flex flex-col rounded-md border p-3" onClick={handlePick}>
+    <div className="relative flex flex-col rounded-md border p-3">
+      <LetterPick item={item} letter={letter} />
       <GameContent item={item} />
       <GameProgress item={item} />
       <GameTrophy item={item} />

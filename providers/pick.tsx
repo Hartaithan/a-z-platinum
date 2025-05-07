@@ -11,12 +11,14 @@ type State = Record<string, string>;
 
 interface Context {
   setPick: (key: string, letter: string) => void;
+  resetPick: () => void;
   getPickedKey: (letter: string | undefined, fallback: string) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
 
 const initial: Context = {
   setPick: () => null,
+  resetPick: () => null,
   getPickedKey: () => null,
   openLetterModal: () => null,
 };
@@ -42,6 +44,10 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
     [setPicked],
   );
 
+  const resetPick: Context["resetPick"] = useCallback(() => {
+    setPicked({});
+  }, [setPicked]);
+
   const getPickedKey: Context["getPickedKey"] = useCallback(
     (letter, fallback) => picked[letter ?? ""] ?? fallback,
     [picked],
@@ -52,10 +58,14 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
     [open],
   );
 
-  const exposed = useMemo(
-    () => ({ setPick, getPickedKey, openLetterModal }) satisfies Context,
-    [setPick, getPickedKey, openLetterModal],
-  );
+  const exposed = useMemo(() => {
+    return {
+      setPick,
+      resetPick,
+      getPickedKey,
+      openLetterModal,
+    } satisfies Context;
+  }, [setPick, resetPick, getPickedKey, openLetterModal]);
 
   return (
     <Context.Provider value={exposed}>

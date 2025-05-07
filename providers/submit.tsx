@@ -3,6 +3,7 @@
 import { useAbortController } from "@/hooks/use-abort-controller";
 import type { PlatinumProgressData } from "@/models/platinum";
 import { useData } from "@/providers/data";
+import { usePick } from "@/providers/pick";
 import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
@@ -38,6 +39,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
 
   const { getSignal } = useAbortController();
   const { setStatus, setProfile, setData } = useData();
+  const { resetPick } = usePick();
 
   const onProgress = useCallback((data: PlatinumProgressData) => {
     const current = data?.current || 0;
@@ -73,6 +75,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
           signal: getSignal(),
         });
         expires = platinumsExpires;
+        resetPick();
         setData(list);
 
         setStatus("completed");
@@ -83,7 +86,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         console.info("error", message, error);
       }
     },
-    [setStatus, getSignal, onProgress, setProfile, setData],
+    [setStatus, getSignal, onProgress, setProfile, resetPick, setData],
   );
 
   const exposed = useMemo(() => ({ onSubmit }) satisfies Context, [onSubmit]);

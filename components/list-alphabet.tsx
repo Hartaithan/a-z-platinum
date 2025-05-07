@@ -2,8 +2,8 @@
 
 import { letters } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
+import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
-import { usePick } from "@/providers/pick";
 import { cn } from "@/utils/styles";
 import { FC } from "react";
 
@@ -15,10 +15,10 @@ const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
   const { year } = useFilters();
   const { getItemKeys, getItem } = useData();
-  const { getPickedKey, openLetterModal } = usePick();
+  const { getFeatured, openLetterModal } = useFeatured();
   const { items, hasItems, count, status } = getItemKeys({ letter, year });
 
-  const key = getPickedKey(letter, items[0]);
+  const key = getFeatured(letter, items[0]);
   const item = getItem(key);
 
   return (

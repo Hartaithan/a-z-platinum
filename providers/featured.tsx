@@ -1,7 +1,7 @@
 "use client";
 
 import LetterModal, { LetterModalData } from "@/components/letter-modal";
-import { pickKey } from "@/constants/storage";
+import { featuredKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
 import type { FC, PropsWithChildren } from "react";
@@ -10,47 +10,47 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 type State = Record<string, string>;
 
 interface Context {
-  setPick: (key: string, letter: string) => void;
-  resetPick: () => void;
-  getPickedKey: (letter: string | undefined, fallback: string) => string | null;
+  setFeatured: (key: string, letter: string) => void;
+  resetFeatured: () => void;
+  getFeatured: (letter: string | undefined, fallback: string) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
 
 const initial: Context = {
-  setPick: () => null,
-  resetPick: () => null,
-  getPickedKey: () => null,
+  setFeatured: () => null,
+  resetFeatured: () => null,
+  getFeatured: () => null,
   openLetterModal: () => null,
 };
 
 const Context = createContext<Context>(initial);
 
-const PickProvider: FC<PropsWithChildren> = (props) => {
+const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
-  const [picked, setPicked] = useLocalStorage<State>({
+  const [featured, setFeaturedState] = useLocalStorage<State>({
     defaultValue: {},
-    key: pickKey,
+    key: featuredKey,
   });
   const [modal, open, close] = useModal<LetterModalData>();
 
-  const setPick: Context["setPick"] = useCallback(
+  const setFeatured: Context["setFeatured"] = useCallback(
     (key, letter) => {
-      setPicked((prev) => {
+      setFeaturedState((prev) => {
         const copy = { ...prev };
         copy[letter] = key;
         return copy;
       });
     },
-    [setPicked],
+    [setFeaturedState],
   );
 
-  const resetPick: Context["resetPick"] = useCallback(() => {
-    setPicked({});
-  }, [setPicked]);
+  const resetFeatured: Context["resetFeatured"] = useCallback(() => {
+    setFeaturedState({});
+  }, [setFeaturedState]);
 
-  const getPickedKey: Context["getPickedKey"] = useCallback(
-    (letter, fallback) => picked[letter ?? ""] ?? fallback,
-    [picked],
+  const getFeatured: Context["getFeatured"] = useCallback(
+    (letter, fallback) => featured[letter ?? ""] ?? fallback,
+    [featured],
   );
 
   const openLetterModal: Context["openLetterModal"] = useCallback(
@@ -60,12 +60,12 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
 
   const exposed = useMemo(() => {
     return {
-      setPick,
-      resetPick,
-      getPickedKey,
+      setFeatured,
+      resetFeatured,
+      getFeatured,
       openLetterModal,
     } satisfies Context;
-  }, [setPick, resetPick, getPickedKey, openLetterModal]);
+  }, [setFeatured, resetFeatured, getFeatured, openLetterModal]);
 
   return (
     <Context.Provider value={exposed}>
@@ -75,6 +75,6 @@ const PickProvider: FC<PropsWithChildren> = (props) => {
   );
 };
 
-export const usePick = (): Context => useContext(Context);
+export const useFeatured = (): Context => useContext(Context);
 
-export default PickProvider;
+export default FeaturedProvider;

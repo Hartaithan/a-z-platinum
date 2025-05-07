@@ -1,4 +1,4 @@
-import { usePick } from "@/providers/pick";
+import { useFeatured } from "@/providers/featured";
 import {
   Tooltip,
   TooltipContent,
@@ -15,24 +15,24 @@ interface Props {
 
 const Component: FC<Props> = (props) => {
   const { item, letter } = props;
-  const { setPick, getPickedKey } = usePick();
+  const { getFeatured, setFeatured } = useFeatured();
 
   const isActive = useMemo(
-    () => getPickedKey(letter, "") === item,
-    [getPickedKey, item, letter],
+    () => getFeatured(letter, "") === item,
+    [getFeatured, item, letter],
   );
 
-  const handlePick = useCallback(() => {
+  const handleFeatured = useCallback(() => {
     if (!letter) return;
-    setPick(item, letter);
-  }, [item, letter, setPick]);
+    setFeatured(item, letter);
+  }, [item, letter, setFeatured]);
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
           className="absolute top-3 right-3 cursor-pointer"
-          onClick={handlePick}>
+          onClick={handleFeatured}>
           {isActive ? <BookmarkCheck /> : <Bookmark />}
         </TooltipTrigger>
         <TooltipContent>
@@ -43,6 +43,6 @@ const Component: FC<Props> = (props) => {
   );
 };
 
-const LetterPick = memo(Component);
+const LetterFeatured = memo(Component);
 
-export default LetterPick;
+export default LetterFeatured;

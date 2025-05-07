@@ -2,8 +2,8 @@
 
 import { Theme } from "@/models/app";
 import DataProvider from "@/providers/data";
+import FeaturedProvider from "@/providers/featured";
 import FiltersProvider from "@/providers/filters";
-import PickProvider from "@/providers/pick";
 import ThemeProvider from "@/providers/theme";
 import type { FC, PropsWithChildren } from "react";
 
@@ -16,9 +16,9 @@ const RootProviders: FC<Props> = (props) => {
   return (
     <ThemeProvider defaultValue={defaultTheme}>
       <DataProvider>
-        <PickProvider>
+        <FeaturedProvider>
           <FiltersProvider>{children}</FiltersProvider>
-        </PickProvider>
+        </FeaturedProvider>
       </DataProvider>
     </ThemeProvider>
   );

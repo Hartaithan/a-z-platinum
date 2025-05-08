@@ -1,14 +1,14 @@
 import Alphabet from "@/components/alphabet";
+import AlphabetProgress from "@/components/alphabet-progress";
 import Header from "@/components/header";
 import Profile from "@/components/profile";
-import Progress from "@/components/progress";
 import { FC } from "react";
 
 const HomePage: FC = () => (
   <div className="flex flex-col">
     <Header />
     <Profile />
-    <Progress />
+    <AlphabetProgress />
     <Alphabet />
   </div>
 );

@@ -1,13 +1,13 @@
 "use client";
 
-import ProgressBar from "@/components/progress-bar";
 import { useProgress } from "@/hooks/use-progress";
 import { useFilters } from "@/providers/filters";
+import { Progress } from "@/ui/progress";
 import { FC } from "react";
 
-const Progress: FC = () => {
+const AlphabetProgress: FC = () => {
   const { year } = useFilters();
-  const { label, completed, total } = useProgress();
+  const { label, value, completed, total } = useProgress();
   return (
     <div className="container mt-4">
       <div className="flex justify-between">
@@ -20,9 +20,9 @@ const Progress: FC = () => {
           <p className="leading-[normal]">{`(${completed}/${total})`}</p>
         </div>
       </div>
-      <ProgressBar value={label} />
+      <Progress className="mt-1" value={value} />
     </div>
   );
 };
 
-export default Progress;
+export default AlphabetProgress;

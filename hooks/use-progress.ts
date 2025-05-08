@@ -2,6 +2,7 @@
 
 import { letterStatus } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
+import { useSettings } from "@/providers/settings";
 import { toFixed } from "@/utils/number";
 import { useEffect, useState } from "react";
 
@@ -25,6 +26,7 @@ const getCount = (className: string) =>
 
 export const useProgress = () => {
   const { getItemKeys } = useData();
+  const { settings } = useSettings();
   const [progress, setProgress] = useState(defaultProgress);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const useProgress = () => {
     const total = completed + uncompleted;
     const { value, label } = getProgress(completed, total);
     setProgress({ completed, uncompleted, total, value, label });
-  }, [getItemKeys]);
+  }, [settings.data, getItemKeys]);
 
   return progress;
 };

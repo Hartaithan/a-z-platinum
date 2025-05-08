@@ -1,6 +1,7 @@
 "use client";
 
-import { themes, themesLabels } from "@/constants/app";
+import { dataKeys, dataLabels, themes, themesLabels } from "@/constants/app";
+import { useSettings } from "@/providers/settings";
 import { useTheme } from "@/providers/theme";
 import { Button } from "@/ui/button";
 import {
@@ -25,10 +26,12 @@ import { FC, memo, useCallback } from "react";
 
 const Component: FC = () => {
   const { theme, changeTheme, resetTheme } = useTheme();
+  const { settings, handleDataChange, resetSettings } = useSettings();
 
   const handleReset = useCallback(() => {
+    resetSettings();
     resetTheme();
-  }, [resetTheme]);
+  }, [resetSettings, resetTheme]);
 
   return (
     <Drawer direction="right">
@@ -59,6 +62,30 @@ const Component: FC = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="flex flex-col">
+            <Label className="mb-1 text-sm font-semibold" htmlFor="data">
+              Data
+            </Label>
+            <Select value={settings.data} onValueChange={handleDataChange}>
+              <SelectTrigger id="data" className="w-full">
+                <SelectValue placeholder="Select data type" />
+              </SelectTrigger>
+              <SelectContent>
+                {dataKeys.map((theme) => (
+                  <SelectItem key={theme} value={theme}>
+                    {dataLabels[theme]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="mt-2 text-xs font-normal text-neutral-500">
+              select what you want to see:&nbsp;
+              <b>
+                only platinums, only 100% completions or only ultra rare
+                trophies
+              </b>
+            </p>
           </div>
         </div>
         <DrawerFooter>

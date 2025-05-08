@@ -4,6 +4,7 @@ import { letters } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
+import { useSettings } from "@/providers/settings";
 import { cn } from "@/utils/styles";
 import { FC } from "react";
 
@@ -15,8 +16,13 @@ const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
   const { year } = useFilters();
   const { getItemKeys, getItem } = useData();
+  const { settings } = useSettings();
   const { getFeatured, openLetterModal } = useFeatured();
-  const { items, hasItems, count, status } = getItemKeys({ letter, year });
+  const { items, hasItems, count, status } = getItemKeys({
+    dataKey: settings.data,
+    letter,
+    year,
+  });
 
   const key = getFeatured(letter, items[0]);
   const item = getItem(key);

@@ -17,7 +17,7 @@ const Component: FC<Props> = (props) => {
   const { item, letter } = props;
   const { getFeatured, setFeatured } = useFeatured();
 
-  const isActive = useMemo(
+  const isFeatured = useMemo(
     () => getFeatured(letter, "") === item,
     [getFeatured, item, letter],
   );
@@ -33,7 +33,7 @@ const Component: FC<Props> = (props) => {
         <TooltipTrigger
           className="absolute top-3 right-3 cursor-pointer"
           onClick={handleFeatured}>
-          {isActive ? <BookmarkCheck /> : <Bookmark />}
+          {isFeatured ? <BookmarkCheck /> : <Bookmark />}
         </TooltipTrigger>
         <TooltipContent>
           <p>Set this game as the main one</p>

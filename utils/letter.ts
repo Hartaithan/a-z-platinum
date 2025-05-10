@@ -1,5 +1,6 @@
 const specialChar = /[^\p{L}\p{N}]/u;
-const asianChar = /[\u3040-\u30FF\u4E00-\u9FFF\u3400-\u4DBF]/;
+const asianChar =
+  /[\u3040-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/;
 
 export const recognizeLetter = (title: string) => {
   let letter = title[0];

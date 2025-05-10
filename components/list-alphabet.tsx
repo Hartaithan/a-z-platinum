@@ -1,6 +1,5 @@
 "use client";
 
-import { letters } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
@@ -50,6 +49,8 @@ const Letter: FC<LetterProps> = (props) => {
 };
 
 const ListAlphabet: FC = () => {
+  const { getLetterSet } = useSettings();
+  const letters = getLetterSet();
   return (
     <div className="container mx-auto flex flex-col gap-1 py-4">
       {letters.map((letter) => (

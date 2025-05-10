@@ -1,5 +1,6 @@
 "use client";
 
+import { letterSetsKeys, letterSetsLabels } from "@/constants/alphabet";
 import { dataKeys, dataLabels, themes, themesLabels } from "@/constants/app";
 import { useSettings } from "@/providers/settings";
 import { useTheme } from "@/providers/theme";
@@ -26,7 +27,8 @@ import { FC, memo, useCallback } from "react";
 
 const Component: FC = () => {
   const { theme, changeTheme, resetTheme } = useTheme();
-  const { settings, handleDataChange, resetSettings } = useSettings();
+  const { settings, handleDataChange, handleLettersChange, resetSettings } =
+    useSettings();
 
   const handleReset = useCallback(() => {
     resetSettings();
@@ -35,7 +37,7 @@ const Component: FC = () => {
 
   return (
     <Drawer direction="right">
-      <DrawerTrigger>
+      <DrawerTrigger className="cursor-pointer">
         <Settings />
       </DrawerTrigger>
       <DrawerContent>
@@ -84,6 +86,32 @@ const Component: FC = () => {
               <b>
                 only platinums, only 100% completions or only ultra rare
                 trophies
+              </b>
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <Label className="mb-1 text-sm font-semibold" htmlFor="letters">
+              Letter Set
+            </Label>
+            <Select
+              value={settings.letters}
+              onValueChange={handleLettersChange}>
+              <SelectTrigger id="letters" className="w-full">
+                <SelectValue placeholder="Select letter set" />
+              </SelectTrigger>
+              <SelectContent>
+                {letterSetsKeys.map((theme) => (
+                  <SelectItem key={theme} value={theme}>
+                    {letterSetsLabels[theme]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="mt-2 text-xs font-normal text-neutral-500">
+              select what letter set you wanna use:&nbsp;
+              <b>
+                only letters, with numbers, with special characters or with
+                asian characters
               </b>
             </p>
           </div>

@@ -1,3 +1,4 @@
+import { LetterSetKey } from "@/models/alphabet";
 import { DataKey } from "@/models/data";
 
 export type Theme = "list";
@@ -14,4 +15,5 @@ export interface CachedResponse {
 
 export interface Settings {
   data: DataKey;
+  letters: LetterSetKey;
 }

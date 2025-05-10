@@ -1,5 +1,6 @@
 "use client";
 
+import { letterSets } from "@/constants/alphabet";
 import { settingsKey } from "@/constants/storage";
 import {
   readLocalStorageValue,
@@ -12,16 +13,21 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 interface Context {
   settings: Settings;
   handleDataChange: (value: Settings["data"]) => void;
+  getLetterSet: () => string[];
+  handleLettersChange: (value: Settings["letters"]) => void;
   resetSettings: () => void;
 }
 
 const defaultValue: Settings = {
   data: "platinums",
+  letters: "all",
 };
 
 const initialValue: Context = {
   settings: defaultValue,
   handleDataChange: () => null,
+  getLetterSet: () => [],
+  handleLettersChange: () => null,
   resetSettings: () => null,
 };
 
@@ -53,6 +59,16 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     [setSettings],
   );
 
+  const getLetterSet: Context["getLetterSet"] = useCallback(
+    () => letterSets[settings.letters],
+    [settings.letters],
+  );
+
+  const handleLettersChange: Context["handleLettersChange"] = useCallback(
+    (value) => setSettings((prev) => ({ ...prev, letters: value })),
+    [setSettings],
+  );
+
   const resetSettings = useCallback(
     () => setSettings(defaultValue),
     [setSettings],
@@ -62,9 +78,17 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     return {
       settings,
       handleDataChange,
+      getLetterSet,
+      handleLettersChange,
       resetSettings,
     } satisfies Context;
-  }, [settings, handleDataChange, resetSettings]);
+  }, [
+    settings,
+    handleDataChange,
+    getLetterSet,
+    handleLettersChange,
+    resetSettings,
+  ]);
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
 };

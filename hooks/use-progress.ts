@@ -35,7 +35,7 @@ export const useProgress = () => {
     const total = completed + uncompleted;
     const { value, label } = getProgress(completed, total);
     setProgress({ completed, uncompleted, total, value, label });
-  }, [settings.data, settings.letters, getItemKeys]);
+  }, [settings.data, settings.difficulty, getItemKeys]);
 
   return progress;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { letterSets } from "@/constants/alphabet";
+import { difficulty } from "@/constants/alphabet";
 import { settingsKey } from "@/constants/storage";
 import {
   readLocalStorageValue,
@@ -13,21 +13,21 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 interface Context {
   settings: Settings;
   handleDataChange: (value: Settings["data"]) => void;
-  getLetterSet: () => string[];
-  handleLettersChange: (value: Settings["letters"]) => void;
+  getDifficulty: () => string[];
+  handleDifficultyChange: (value: Settings["difficulty"]) => void;
   resetSettings: () => void;
 }
 
 const defaultValue: Settings = {
   data: "platinums",
-  letters: "all",
+  difficulty: "lvl-1",
 };
 
 const initialValue: Context = {
   settings: defaultValue,
   handleDataChange: () => null,
-  getLetterSet: () => [],
-  handleLettersChange: () => null,
+  getDifficulty: () => [],
+  handleDifficultyChange: () => null,
   resetSettings: () => null,
 };
 
@@ -59,13 +59,13 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     [setSettings],
   );
 
-  const getLetterSet: Context["getLetterSet"] = useCallback(
-    () => letterSets[settings.letters],
-    [settings.letters],
+  const getDifficulty: Context["getDifficulty"] = useCallback(
+    () => difficulty[settings.difficulty],
+    [settings.difficulty],
   );
 
-  const handleLettersChange: Context["handleLettersChange"] = useCallback(
-    (value) => setSettings((prev) => ({ ...prev, letters: value })),
+  const handleDifficultyChange: Context["handleDifficultyChange"] = useCallback(
+    (value) => setSettings((prev) => ({ ...prev, difficulty: value })),
     [setSettings],
   );
 
@@ -78,15 +78,15 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     return {
       settings,
       handleDataChange,
-      getLetterSet,
-      handleLettersChange,
+      getDifficulty,
+      handleDifficultyChange,
       resetSettings,
     } satisfies Context;
   }, [
     settings,
     handleDataChange,
-    getLetterSet,
-    handleLettersChange,
+    getDifficulty,
+    handleDifficultyChange,
     resetSettings,
   ]);
 

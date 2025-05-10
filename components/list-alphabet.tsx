@@ -49,8 +49,8 @@ const Letter: FC<LetterProps> = (props) => {
 };
 
 const ListAlphabet: FC = () => {
-  const { getLetterSet } = useSettings();
-  const letters = getLetterSet();
+  const { getDifficulty } = useSettings();
+  const letters = getDifficulty();
   return (
     <div className="container mx-auto flex flex-col gap-1 py-4">
       {letters.map((letter) => (

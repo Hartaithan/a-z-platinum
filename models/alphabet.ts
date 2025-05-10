@@ -1,1 +1,1 @@
-export type LetterSetKey = "all" | "letters" | "numbers" | "special-chars";
+export type DifficultyKey = "lvl-1" | "lvl-2" | "lvl-3" | "lvl-4";

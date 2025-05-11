@@ -1,5 +1,6 @@
 "use client";
 
+import YearFilter from "@/components/year-filter";
 import { difficultyLabels } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useSettings } from "@/providers/settings";
@@ -50,11 +51,9 @@ const Profile: FC = () => {
         <h1 className="font-bold">{profile?.name}</h1>
         <p className="text-sm text-gray-600">Level: {profile?.level}</p>
       </div>
-      <Count
-        className="ml-auto"
-        value={difficultyLabels[settings.difficulty]}
-        label="Difficulty"
-      />
+      <YearFilter className="ml-auto" />
+      <div className="bg-border h-full w-[1px]" />
+      <Count value={difficultyLabels[settings.difficulty]} label="Difficulty" />
       <div className="bg-border h-full w-[1px]" />
       <div className="flex gap-5">
         <Count value={profile?.counts?.platinum} label="Platinum" />

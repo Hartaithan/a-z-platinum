@@ -38,7 +38,7 @@ const Component: FC = () => {
 
   return (
     <Drawer direction="right">
-      <DrawerTrigger className="cursor-pointer">
+      <DrawerTrigger>
         <Settings />
       </DrawerTrigger>
       <DrawerContent>

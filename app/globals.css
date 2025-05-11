@@ -96,6 +96,10 @@
     @apply bg-background text-foreground min-h-full;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   ::-webkit-scrollbar {
     height: var(--scrollbar-width);
     width: var(--scrollbar-width);

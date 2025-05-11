@@ -31,7 +31,7 @@ const Component: FC<Props> = (props) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
-          className="absolute top-3 right-3 cursor-pointer"
+          className="absolute top-3 right-3"
           onClick={handleFeatured}>
           {isFeatured ? <BookmarkCheck /> : <Bookmark />}
         </TooltipTrigger>

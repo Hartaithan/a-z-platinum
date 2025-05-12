@@ -35,12 +35,15 @@ const Letter: FC<LetterProps> = (props) => {
           className="cursor-pointer"
           onClick={() => openLetterModal(items, letter)}>
           <span>&nbsp;{item?.title}</span>
-          <span> | </span>
-          <span className="text-sm">{`${item?.trophy?.rarity_label} ${item?.trophy?.earned_rate}%`}</span>
+          <span>, </span>
+          <span className="text-sm font-medium">
+            {item?.trophy?.rarity_label},&nbsp;
+          </span>
+          <span className="text-sm">{`${item?.trophy?.earned_rate}%`}</span>
         </span>
       )}
       {hasItems && count > 1 && (
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm font-medium text-neutral-500">
           &nbsp;{`(${count - 1} more...)`}
         </p>
       )}

@@ -27,19 +27,17 @@ const Letter: FC<LetterProps> = (props) => {
   const item = getItem(key);
 
   return (
-    <div className={cn("flex items-center", status)}>
-      <p className="w-5 text-center font-bold capitalize">{letter}</p>
+    <div className="flex items-center">
+      <p className={cn("w-5 text-center font-bold capitalize", status)}>
+        {letter}
+      </p>
       <p>-</p>
       {hasItems && (
         <span
           className="cursor-pointer"
           onClick={() => openLetterModal(items, letter)}>
-          <span>&nbsp;{item?.title}</span>
-          <span>, </span>
-          <span className="text-sm font-medium">
-            {item?.trophy?.rarity_label},&nbsp;
-          </span>
-          <span className="text-sm">{`${item?.trophy?.earned_rate}%`}</span>
+          <span>&nbsp;{item?.title}, </span>
+          <span className="text-sm font-medium">{`${item?.trophy?.rarity_label} ${item?.trophy?.earned_rate}%`}</span>
         </span>
       )}
       {hasItems && count > 1 && (

@@ -1,11 +1,12 @@
 "use client";
 
 import { useProgress } from "@/hooks/use-progress";
+import { useData } from "@/providers/data";
 import { useFilters } from "@/providers/filters";
 import { Progress } from "@/ui/progress";
 import { FC } from "react";
 
-const AlphabetProgress: FC = () => {
+const Component: FC = () => {
   const { year } = useFilters();
   const { label, value, completed, total } = useProgress();
   return (
@@ -23,6 +24,12 @@ const AlphabetProgress: FC = () => {
       <Progress className="mt-1" value={value} />
     </div>
   );
+};
+
+const AlphabetProgress: FC = () => {
+  const { profile } = useData();
+  if (!profile) return null;
+  return <Component />;
 };
 
 export default AlphabetProgress;

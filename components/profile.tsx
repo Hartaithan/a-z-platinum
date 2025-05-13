@@ -1,31 +1,15 @@
 "use client";
 
+import EmptyProfile from "@/components/empty-profile";
+import StatItem from "@/components/stat-item";
 import YearFilter from "@/components/year-filter";
 import { difficultyLabels } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useSettings } from "@/providers/settings";
-import { cn } from "@/utils/styles";
 import Image from "next/image";
-import { ComponentPropsWithoutRef, FC } from "react";
+import { FC } from "react";
 
-interface CountProps extends ComponentPropsWithoutRef<"div"> {
-  value: string | number | undefined;
-  label: string;
-}
-
-const Count: FC<CountProps> = (props) => {
-  const { className, value, label, ...rest } = props;
-  return (
-    <div
-      className={cn("flex flex-col items-center leading-[normal]", className)}
-      {...rest}>
-      <p className="font-bold">{value ?? "-"}</p>
-      <p className="text-sm text-gray-600">{label}</p>
-    </div>
-  );
-};
-
-const Profile: FC = () => {
+const Content: FC = () => {
   const { profile } = useData();
   const { settings } = useSettings();
   return (
@@ -50,17 +34,26 @@ const Profile: FC = () => {
       </div>
       <YearFilter className="ml-auto" />
       <div className="bg-border h-full w-[1px]" />
-      <Count value={difficultyLabels[settings.difficulty]} label="Difficulty" />
+      <StatItem
+        value={difficultyLabels[settings.difficulty]}
+        label="Difficulty"
+      />
       <div className="bg-border h-full w-[1px]" />
       <div className="flex gap-5">
-        <Count value={profile?.counts?.platinum} label="Platinum" />
-        <Count value={profile?.counts?.gold} label="Gold" />
-        <Count value={profile?.counts?.silver} label="Silver" />
-        <Count value={profile?.counts?.bronze} label="Bronze" />
-        <Count value={profile?.counts?.total} label="Total" />
+        <StatItem value={profile?.counts?.platinum} label="Platinum" />
+        <StatItem value={profile?.counts?.gold} label="Gold" />
+        <StatItem value={profile?.counts?.silver} label="Silver" />
+        <StatItem value={profile?.counts?.bronze} label="Bronze" />
+        <StatItem value={profile?.counts?.total} label="Total" />
       </div>
     </div>
   );
+};
+
+const Profile: FC = () => {
+  const { profile } = useData();
+  if (!profile) return <EmptyProfile />;
+  return <Content />;
 };
 
 export default Profile;

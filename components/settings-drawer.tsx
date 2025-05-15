@@ -2,6 +2,7 @@
 
 import DifficultyHint from "@/components/difficulty-hint";
 import SettingsSelect from "@/components/settings-select";
+import SettingsSwitch from "@/components/settings-switch";
 import { difficultyKeys, difficultyLabels } from "@/constants/alphabet";
 import { dataKeys, dataLabels, themes, themesLabels } from "@/constants/app";
 import { useSettings } from "@/providers/settings";
@@ -22,8 +23,13 @@ import { FC, memo, useCallback } from "react";
 
 const Content: FC = () => {
   const { theme, changeTheme, resetTheme } = useTheme();
-  const { settings, handleDataChange, handleDifficultyChange, resetSettings } =
-    useSettings();
+  const {
+    settings,
+    handleDataChange,
+    handleDifficultyChange,
+    handleHideChange,
+    resetSettings,
+  } = useSettings();
 
   const handleReset = useCallback(() => {
     resetSettings();
@@ -67,6 +73,16 @@ const Content: FC = () => {
           onValueChange={handleDifficultyChange}>
           <DifficultyHint />
         </SettingsSelect>
+        <SettingsSwitch
+          id="hide"
+          label="Hide Profile"
+          checked={settings.hide}
+          onCheckedChange={handleHideChange}>
+          <p className="text-xs font-normal text-neutral-500">
+            enable this option to <b>blur your profile</b>, making the personal
+            information visually obscured
+          </p>
+        </SettingsSwitch>
       </div>
       <DrawerFooter>
         <Button onClick={handleReset}>Reset settings</Button>

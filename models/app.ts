@@ -16,4 +16,5 @@ export interface CachedResponse {
 export interface Settings {
   data: DataKey;
   difficulty: DifficultyKey;
+  hide: boolean;
 }

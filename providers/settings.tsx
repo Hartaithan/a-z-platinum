@@ -15,12 +15,14 @@ interface Context {
   handleDataChange: (value: Settings["data"]) => void;
   getDifficulty: () => string[];
   handleDifficultyChange: (value: Settings["difficulty"]) => void;
+  handleHideChange: (value: Settings["hide"]) => void;
   resetSettings: () => void;
 }
 
 const defaultValue: Settings = {
   data: "platinums",
   difficulty: "lvl-1",
+  hide: false,
 };
 
 const initialValue: Context = {
@@ -28,6 +30,7 @@ const initialValue: Context = {
   handleDataChange: () => null,
   getDifficulty: () => [],
   handleDifficultyChange: () => null,
+  handleHideChange: () => null,
   resetSettings: () => null,
 };
 
@@ -69,6 +72,11 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     [setSettings],
   );
 
+  const handleHideChange: Context["handleHideChange"] = useCallback(
+    (value) => setSettings((prev) => ({ ...prev, hide: value })),
+    [setSettings],
+  );
+
   const resetSettings = useCallback(
     () => setSettings(defaultValue),
     [setSettings],
@@ -80,6 +88,7 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
       handleDataChange,
       getDifficulty,
       handleDifficultyChange,
+      handleHideChange,
       resetSettings,
     } satisfies Context;
   }, [
@@ -87,6 +96,7 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     handleDataChange,
     getDifficulty,
     handleDifficultyChange,
+    handleHideChange,
     resetSettings,
   ]);
 

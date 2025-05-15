@@ -6,17 +6,19 @@ import YearFilter from "@/components/year-filter";
 import { difficultyLabels } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useSettings } from "@/providers/settings";
+import { cn } from "@/utils/styles";
 import Image from "next/image";
 import { FC } from "react";
 
 const Content: FC = () => {
   const { profile } = useData();
   const { settings } = useSettings();
+  const blurred = settings.hide && "blur-md";
   return (
     <div className="container mt-4 flex h-12 items-center gap-4">
       {profile?.avatar_url ? (
         <Image
-          className="rounded-full"
+          className={cn("rounded-full", blurred)}
           width={48}
           height={48}
           src={profile?.avatar_url}
@@ -26,7 +28,7 @@ const Content: FC = () => {
       ) : (
         <div className="bg-border size-12 rounded-full" />
       )}
-      <div className="flex flex-col leading-[normal]">
+      <div className={cn("flex flex-col leading-[normal]", blurred)}>
         <h1 className="font-bold">{profile?.name ?? "Trophy Hunter"}</h1>
         <p className="text-sm text-gray-600">
           Level: {profile?.level ?? "420"}
@@ -39,7 +41,7 @@ const Content: FC = () => {
         label="Difficulty"
       />
       <div className="bg-border h-full w-[1px]" />
-      <div className="flex gap-5">
+      <div className={cn("flex gap-5", blurred)}>
         <StatItem value={profile?.counts?.platinum} label="Platinum" />
         <StatItem value={profile?.counts?.gold} label="Gold" />
         <StatItem value={profile?.counts?.silver} label="Silver" />

@@ -140,3 +140,5 @@
     max-width: 64rem;
   }
 }
+
+@custom-variant child (& > *);

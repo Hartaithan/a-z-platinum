@@ -11,9 +11,10 @@ import {
   DialogPortal,
   DialogTitle,
 } from "@/ui/dialog";
+import { SpinnerBase } from "@/ui/spinner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { CircleCheckIcon, Loader } from "lucide-react";
+import { CircleCheckIcon } from "lucide-react";
 import type { Dispatch, PropsWithChildren, Ref, SetStateAction } from "react";
 import { FC, useCallback, useImperativeHandle, useState } from "react";
 
@@ -41,7 +42,7 @@ const DataLoadingContent: FC<PropsWithChildren> = (props) => {
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
-        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-transparent p-6 shadow-none duration-200 sm:max-w-md"
+        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-transparent p-6 shadow-none duration-200 sm:max-w-sm"
         onOpenAutoFocus={(e) => e.preventDefault()}>
         {children}
       </DialogPrimitive.Content>
@@ -54,9 +55,7 @@ const DataLoadingPopup: FC<Props> = (props) => {
   const { status } = useData();
   const [pages, setPages] = useState<Pages>(defaultPages);
 
-  const handleReset = useCallback(() => {
-    setPages(defaultPages);
-  }, []);
+  const handleReset = useCallback(() => setPages(defaultPages), []);
 
   useImperativeHandle(ref, () => ({
     setPages,
@@ -72,27 +71,31 @@ const DataLoadingPopup: FC<Props> = (props) => {
         <DialogDescription className="hidden">
           Data Loading Popup
         </DialogDescription>
-        <div className="flex w-full justify-center gap-3">
-          <ProgressSpinner title="Profile">
+        <div className="flex w-full justify-center gap-5">
+          <div className="flex flex-col items-center text-white">
             {status === "profile-loading" ? (
-              <Loader className="size-14 animate-spin" />
+              <ProgressSpinner />
             ) : (
-              <CircleCheckIcon className="size-14" />
+              <CircleCheckIcon className="size-24" />
             )}
-          </ProgressSpinner>
-          <ProgressSpinner title="Platinums">
+            <p className="mt-2 text-xl font-bold">Profile</p>
+          </div>
+          <div className="flex flex-col items-center text-white">
             {status === "platinums-loading" ? (
-              <p className="text-3xl font-bold">
-                {getProgress(pages.current, pages.total).label}
-              </p>
+              <ProgressSpinner>
+                <p className="text-xl font-bold">
+                  {getProgress(pages.current, pages.total).label}
+                </p>
+              </ProgressSpinner>
             ) : (
-              <Loader className="size-14 animate-spin" />
+              <SpinnerBase className="size-24 p-1" />
             )}
-          </ProgressSpinner>
+            <p className="mt-2 text-xl font-bold">Platinums</p>
+          </div>
         </div>
         <Button
           variant="outline"
-          className="h-8 font-semibold text-white"
+          className="h-8 w-10/12 justify-self-center font-semibold text-white"
           onClick={handleAbort}>
           Cancel
         </Button>

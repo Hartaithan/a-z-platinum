@@ -23,8 +23,8 @@ const Letter: FC<LetterProps> = (props) => {
     year,
   });
 
-  const key = getFeatured(letter, items[0]);
-  const item = getItem(key);
+  const featured = getFeatured(letter, year, items[0]);
+  const item = getItem(featured);
 
   return (
     <div className="flex items-center">

@@ -16,13 +16,13 @@ const RootProviders: FC<Props> = (props) => {
   const { defaultTheme, children } = props;
   return (
     <ThemeProvider defaultValue={defaultTheme}>
-      <DataProvider>
-        <FeaturedProvider>
-          <FiltersProvider>
+      <FiltersProvider>
+        <DataProvider>
+          <FeaturedProvider>
             <SettingsProvider>{children}</SettingsProvider>
-          </FiltersProvider>
-        </FeaturedProvider>
-      </DataProvider>
+          </FeaturedProvider>
+        </DataProvider>
+      </FiltersProvider>
     </ThemeProvider>
   );
 };

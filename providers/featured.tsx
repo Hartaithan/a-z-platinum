@@ -10,9 +10,13 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 type State = Record<string, string>;
 
 interface Context {
-  setFeatured: (key: string, letter: string) => void;
+  setFeatured: (key: string, letter: string, year: number | null) => void;
   resetFeatured: () => void;
-  getFeatured: (letter: string | undefined, fallback: string) => string | null;
+  getFeatured: (
+    letter: string | undefined,
+    year: number | null,
+    fallback: string,
+  ) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
 
@@ -25,6 +29,12 @@ const initial: Context = {
 
 const Context = createContext<Context>(initial);
 
+const getFeaturedKey = (letter: string | undefined, year: number | null) => {
+  let key = letter ?? "";
+  if (year) key += "-" + year;
+  return key;
+};
+
 const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const [featured, setFeaturedState] = useLocalStorage<State>({
@@ -34,10 +44,11 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   const [modal, open, close] = useModal<LetterModalData>();
 
   const setFeatured: Context["setFeatured"] = useCallback(
-    (key, letter) => {
+    (key, letter, year) => {
+      const featuredKey = getFeaturedKey(letter, year) ?? letter;
       setFeaturedState((prev) => {
         const copy = { ...prev };
-        copy[letter] = key;
+        copy[featuredKey] = key;
         return copy;
       });
     },
@@ -49,7 +60,10 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   }, [setFeaturedState]);
 
   const getFeatured: Context["getFeatured"] = useCallback(
-    (letter, fallback) => featured[letter ?? ""] ?? fallback,
+    (letter, year, fallback) => {
+      const featuredKey = getFeaturedKey(letter ?? "", year);
+      return featured[featuredKey] ?? fallback;
+    },
     [featured],
   );
 

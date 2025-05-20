@@ -1,13 +1,14 @@
 "use client";
 
 import DifficultyHint from "@/components/difficulty-hint";
+import FeaturedReset from "@/components/featured-reset";
+import SettingsReset from "@/components/settings-reset";
 import SettingsSelect from "@/components/settings-select";
 import SettingsSwitch from "@/components/settings-switch";
 import { difficultyKeys, difficultyLabels } from "@/constants/alphabet";
 import { dataKeys, dataLabels, themes, themesLabels } from "@/constants/app";
 import { useSettings } from "@/providers/settings";
 import { useTheme } from "@/providers/theme";
-import { Button } from "@/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -19,22 +20,16 @@ import {
   DrawerTrigger,
 } from "@/ui/drawer";
 import { Settings, X } from "lucide-react";
-import { FC, memo, useCallback } from "react";
+import { FC, memo } from "react";
 
 const Content: FC = () => {
-  const { theme, changeTheme, resetTheme } = useTheme();
+  const { theme, changeTheme } = useTheme();
   const {
     settings,
     handleDataChange,
     handleDifficultyChange,
     handleHideChange,
-    resetSettings,
   } = useSettings();
-
-  const handleReset = useCallback(() => {
-    resetSettings();
-    resetTheme();
-  }, [resetSettings, resetTheme]);
 
   return (
     <>
@@ -83,9 +78,10 @@ const Content: FC = () => {
             information visually obscured
           </p>
         </SettingsSwitch>
+        <FeaturedReset />
       </div>
       <DrawerFooter>
-        <Button onClick={handleReset}>Reset settings</Button>
+        <SettingsReset />
       </DrawerFooter>
     </>
   );

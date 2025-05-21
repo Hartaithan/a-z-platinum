@@ -18,13 +18,15 @@ const Letter: FC<LetterProps> = (props) => {
   const { getItemKeys, getItem } = useData();
   const { settings } = useSettings();
   const { getFeatured, openLetterModal } = useFeatured();
+
+  const dataKey = settings.data;
   const { items, hasItems, count, status } = getItemKeys({
-    dataKey: settings.data,
+    dataKey,
     letter,
     year,
   });
 
-  const featured = getFeatured(letter, year, items[0]);
+  const featured = getFeatured({ letter, year, dataKey, fallback: items[0] });
   const item = getItem(featured);
   const title = getTitle(settings.data, item);
 

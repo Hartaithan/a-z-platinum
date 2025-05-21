@@ -24,12 +24,8 @@ import { FC, memo } from "react";
 
 const Content: FC = () => {
   const { theme, changeTheme } = useTheme();
-  const {
-    settings,
-    handleDataChange,
-    handleDifficultyChange,
-    handleHideChange,
-  } = useSettings();
+  const { settings, setDataSetting, setDifficultySetting, setHideSetting } =
+    useSettings();
 
   return (
     <>
@@ -50,7 +46,7 @@ const Content: FC = () => {
           options={dataKeys}
           labels={dataLabels}
           value={settings.data}
-          onValueChange={handleDataChange}>
+          onValueChange={setDataSetting}>
           <p className="mt-2 text-xs font-normal text-neutral-500">
             select what you want to see:&nbsp;
             <b>
@@ -65,14 +61,14 @@ const Content: FC = () => {
           options={difficultyKeys}
           labels={difficultyLabels}
           value={settings.difficulty}
-          onValueChange={handleDifficultyChange}>
+          onValueChange={setDifficultySetting}>
           <DifficultyHint />
         </SettingsSelect>
         <SettingsSwitch
           id="hide"
           label="Hide Profile"
           checked={settings.hide}
-          onCheckedChange={handleHideChange}>
+          onCheckedChange={setHideSetting}>
           <p className="text-xs font-normal text-neutral-500">
             enable this option to <b>blur your profile</b>, making the personal
             information visually obscured

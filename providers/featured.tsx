@@ -4,19 +4,32 @@ import LetterModal, { LetterModalData } from "@/components/letter-modal";
 import { featuredKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
+import { DataKey } from "@/models/data";
 import type { FC, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
 type State = Record<string, string>;
 
+interface FeaturedParams {
+  letter: string | undefined;
+  year: number | null;
+  dataKey: DataKey;
+}
+
+interface GetFeaturedParams extends FeaturedParams {
+  fallback: string;
+}
+
+type GetFeaturedKeyParams = FeaturedParams;
+
+interface SetFeaturedParams extends FeaturedParams {
+  key: string;
+}
+
 interface Context {
-  setFeatured: (key: string, letter: string, year: number | null) => void;
+  setFeatured: (params: SetFeaturedParams) => void;
   resetFeatured: () => void;
-  getFeatured: (
-    letter: string | undefined,
-    year: number | null,
-    fallback: string,
-  ) => string | null;
+  getFeatured: (params: GetFeaturedParams) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
 
@@ -29,10 +42,9 @@ const initial: Context = {
 
 const Context = createContext<Context>(initial);
 
-const getFeaturedKey = (letter: string | undefined, year: number | null) => {
-  let key = letter ?? "";
-  if (year) key += "-" + year;
-  return key;
+const getFeaturedKey = (params: GetFeaturedKeyParams) => {
+  const { letter, year, dataKey } = params;
+  return [letter, dataKey ?? "*", year ?? "*"].join("-");
 };
 
 const FeaturedProvider: FC<PropsWithChildren> = (props) => {
@@ -44,8 +56,9 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   const [modal, open, close] = useModal<LetterModalData>();
 
   const setFeatured: Context["setFeatured"] = useCallback(
-    (key, letter, year) => {
-      const featuredKey = getFeaturedKey(letter, year) ?? letter;
+    (params) => {
+      const { key, letter, year, dataKey } = params;
+      const featuredKey = getFeaturedKey({ letter, year, dataKey }) ?? letter;
       setFeaturedState((prev) => {
         const copy = { ...prev };
         copy[featuredKey] = key;
@@ -60,8 +73,10 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   }, [setFeaturedState]);
 
   const getFeatured: Context["getFeatured"] = useCallback(
-    (letter, year, fallback) => {
-      const featuredKey = getFeaturedKey(letter ?? "", year);
+    (params) => {
+      const { letter, year, dataKey, fallback } = params;
+      const keyParams = { letter: letter ?? "", year, dataKey };
+      const featuredKey = getFeaturedKey(keyParams);
       return featured[featuredKey] ?? fallback;
     },
     [featured],

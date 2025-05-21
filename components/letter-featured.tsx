@@ -1,5 +1,6 @@
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
+import { useSettings } from "@/providers/settings";
 import {
   Tooltip,
   TooltipContent,
@@ -17,17 +18,20 @@ interface Props {
 const Component: FC<Props> = (props) => {
   const { item, letter } = props;
   const { year } = useFilters();
+  const { settings } = useSettings();
   const { getFeatured, setFeatured } = useFeatured();
 
+  const dataKey = settings.data;
+
   const isFeatured = useMemo(
-    () => getFeatured(letter, year, "") === item,
-    [getFeatured, item, letter, year],
+    () => getFeatured({ letter, year, dataKey, fallback: "" }) === item,
+    [getFeatured, item, letter, year, dataKey],
   );
 
   const handleFeatured = useCallback(() => {
     if (!letter) return;
-    setFeatured(item, letter, year);
-  }, [item, letter, year, setFeatured]);
+    setFeatured({ key: item, letter, year, dataKey });
+  }, [item, letter, year, dataKey, setFeatured]);
 
   return (
     <TooltipProvider>

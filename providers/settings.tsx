@@ -12,10 +12,10 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 
 interface Context {
   settings: Settings;
-  handleDataChange: (value: Settings["data"]) => void;
+  setDataSetting: (value: Settings["data"]) => void;
   getDifficulty: () => string[];
-  handleDifficultyChange: (value: Settings["difficulty"]) => void;
-  handleHideChange: (value: Settings["hide"]) => void;
+  setDifficultySetting: (value: Settings["difficulty"]) => void;
+  setHideSetting: (value: Settings["hide"]) => void;
   resetSettings: () => void;
 }
 
@@ -27,10 +27,10 @@ const defaultValue: Settings = {
 
 const initialValue: Context = {
   settings: defaultValue,
-  handleDataChange: () => null,
+  setDataSetting: () => null,
   getDifficulty: () => [],
-  handleDifficultyChange: () => null,
-  handleHideChange: () => null,
+  setDifficultySetting: () => null,
+  setHideSetting: () => null,
   resetSettings: () => null,
 };
 
@@ -57,7 +57,7 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     defaultValue,
   });
 
-  const handleDataChange: Context["handleDataChange"] = useCallback(
+  const setDataSetting: Context["setDataSetting"] = useCallback(
     (value) => setSettings((prev) => ({ ...prev, data: value })),
     [setSettings],
   );
@@ -67,12 +67,12 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
     [settings.difficulty],
   );
 
-  const handleDifficultyChange: Context["handleDifficultyChange"] = useCallback(
+  const setDifficultySetting: Context["setDifficultySetting"] = useCallback(
     (value) => setSettings((prev) => ({ ...prev, difficulty: value })),
     [setSettings],
   );
 
-  const handleHideChange: Context["handleHideChange"] = useCallback(
+  const setHideSetting: Context["setHideSetting"] = useCallback(
     (value) => setSettings((prev) => ({ ...prev, hide: value })),
     [setSettings],
   );
@@ -85,18 +85,18 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
   const exposed = useMemo(() => {
     return {
       settings,
-      handleDataChange,
+      setDataSetting,
       getDifficulty,
-      handleDifficultyChange,
-      handleHideChange,
+      setDifficultySetting,
+      setHideSetting,
       resetSettings,
     } satisfies Context;
   }, [
     settings,
-    handleDataChange,
+    setDataSetting,
     getDifficulty,
-    handleDifficultyChange,
-    handleHideChange,
+    setDifficultySetting,
+    setHideSetting,
     resetSettings,
   ]);
 

@@ -5,6 +5,7 @@ import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
 import { useSettings } from "@/providers/settings";
 import { cn } from "@/utils/styles";
+import { getTitle } from "@/utils/title";
 import { FC } from "react";
 
 interface LetterProps {
@@ -25,6 +26,7 @@ const Letter: FC<LetterProps> = (props) => {
 
   const featured = getFeatured(letter, year, items[0]);
   const item = getItem(featured);
+  const title = getTitle(settings.data, item);
 
   return (
     <div className="flex items-center">
@@ -36,7 +38,7 @@ const Letter: FC<LetterProps> = (props) => {
         <span
           className="cursor-pointer"
           onClick={() => openLetterModal(items, letter)}>
-          <span>&nbsp;{item?.title}, </span>
+          <span>&nbsp;{title}, </span>
           <span className="text-sm font-medium">{`${item?.trophy?.rarity_label} ${item?.trophy?.earned_rate}%`}</span>
         </span>
       )}

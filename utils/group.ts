@@ -12,6 +12,11 @@ export interface DataKeyParams {
   year?: number | string | null;
 }
 
+export interface GroupKeysParams {
+  letter: string;
+  year?: number | string | null;
+}
+
 export const getDataKey = (params: DataKeyParams): [DataKey, string] => {
   const { dataKey = "all", letter, year } = params;
   const y = year ? year.toString() : "*";
@@ -47,22 +52,27 @@ const setGroup = (params: SetGroupParams) => {
   setItem(key, item, group.all);
 };
 
-const getGroupKeys = (item: Platinum) => {
-  if (!item.trophy?.earned_at) return [];
-
-  const year = Number(item.trophy.earned_at.slice(0, 4));
-  const letter = recognizeLetter(item.title);
-
+const getGroupKeys = (params: GroupKeysParams) => {
+  const { letter, year } = params;
   const letterKey = getDataKey({ letter });
   const letterYearKey = getDataKey({ letter, year });
-
   return [letterKey[1], letterYearKey[1]];
 };
 
 const groupItem = (group: GroupedData, item: Platinum) => {
   if (!item.trophy?.earned_at) return group;
-  const keys = getGroupKeys(item);
-  for (const key of keys) setGroup({ key, item, group });
+  if (!item.trophy?.title) return group;
+
+  const year = Number(item.trophy.earned_at.slice(0, 4));
+
+  const gameLetter = recognizeLetter(item.title);
+  const gameKeys = getGroupKeys({ letter: gameLetter, year });
+  for (const key of gameKeys) setGroup({ key, item, group });
+
+  const trophyLetter = recognizeLetter(item.trophy.title);
+  const trophyKeys = getGroupKeys({ letter: trophyLetter, year });
+  for (const key of trophyKeys) setItem(key, item, group.names);
+
   return group;
 };
 
@@ -75,10 +85,11 @@ export const groupPlatinumList = (list: NullablePlatinum[]) =>
       return groupItem(acc, item);
     },
     {
+      all: {},
+      names: {},
       games: {},
       platinums: {},
       completes: {},
       ["ultra-rare"]: {},
-      all: {},
     },
   );

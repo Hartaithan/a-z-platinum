@@ -136,6 +136,7 @@
 
 @utility container {
   margin-inline: auto;
+  width: 90%;
   @variant 2xl {
     max-width: 64rem;
   }

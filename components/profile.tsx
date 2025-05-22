@@ -15,33 +15,39 @@ const Content: FC = () => {
   const { settings } = useSettings();
   const blurred = settings.hide && "blur-md";
   return (
-    <div className="container mt-4 flex h-12 items-center gap-4">
-      {profile?.avatar_url ? (
-        <Image
-          className={cn("rounded-full", blurred)}
-          width={48}
-          height={48}
-          src={profile?.avatar_url}
-          alt={profile?.name}
-          unoptimized
-        />
-      ) : (
-        <div className="bg-border size-12 rounded-full" />
-      )}
-      <div className={cn("flex flex-col leading-[normal]", blurred)}>
-        <h1 className="font-bold">{profile?.name ?? "Trophy Hunter"}</h1>
-        <p className="text-sm text-gray-600">
-          Level: {profile?.level ?? "420"}
-        </p>
+    <div className="container mt-4 flex h-auto flex-wrap items-center justify-center gap-4 md:h-12 md:flex-nowrap md:justify-start">
+      <div className="flex w-full items-center gap-4 sm:w-auto">
+        {profile?.avatar_url ? (
+          <Image
+            className={cn("rounded-full", blurred)}
+            width={48}
+            height={48}
+            src={profile?.avatar_url}
+            alt={profile?.name}
+            unoptimized
+          />
+        ) : (
+          <div className="bg-border size-12 rounded-full" />
+        )}
+        <div className={cn("flex flex-col leading-[normal]", blurred)}>
+          <h1 className="font-bold">{profile?.name ?? "Trophy Hunter"}</h1>
+          <p className="text-sm text-gray-600">
+            Level: {profile?.level ?? "420"}
+          </p>
+        </div>
       </div>
-      <YearFilter className="ml-auto" />
+      <YearFilter className="ml-0 md:ml-auto" />
       <div className="bg-border h-full w-[1px]" />
       <StatItem
         value={difficultyLabels[settings.difficulty]}
         label="Difficulty"
       />
       <div className="bg-border h-full w-[1px]" />
-      <div className={cn("flex gap-5", blurred)}>
+      <div
+        className={cn(
+          "flex flex-wrap justify-center gap-5 md:flex-nowrap",
+          blurred,
+        )}>
         <StatItem value={profile?.counts?.platinum} label="Platinum" />
         <StatItem value={profile?.counts?.gold} label="Gold" />
         <StatItem value={profile?.counts?.silver} label="Silver" />

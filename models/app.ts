@@ -1,7 +1,7 @@
 import { DifficultyKey } from "@/models/alphabet";
 import { DataKey } from "@/models/data";
 
-export type Theme = "list";
+export type Theme = "list" | "cards";
 
 interface ResponseBase {
   message: string;

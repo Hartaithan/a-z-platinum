@@ -1,0 +1,91 @@
+"use client";
+
+import GameImage from "@/components/game-image";
+import { useData } from "@/providers/data";
+import { useFeatured } from "@/providers/featured";
+import { useFilters } from "@/providers/filters";
+import { useSettings } from "@/providers/settings";
+import { cn } from "@/utils/styles";
+import { getTitle } from "@/utils/title";
+import { FC } from "react";
+
+interface LetterProps {
+  letter: string;
+}
+
+const styles = {
+  container: "flex flex-col rounded",
+};
+
+const Letter: FC<LetterProps> = (props) => {
+  const { letter } = props;
+  const { year } = useFilters();
+  const { getItemKeys, getItem } = useData();
+  const { settings } = useSettings();
+  const { getFeatured, openLetterModal } = useFeatured();
+
+  const dataKey = settings.data;
+  const { items, hasItems, status } = getItemKeys({
+    dataKey,
+    letter,
+    year,
+  });
+
+  const featured = getFeatured({ letter, year, dataKey, fallback: items[0] });
+  const item = getItem(featured);
+  const title = getTitle(settings.data, item);
+
+  if (!hasItems) {
+    return (
+      <div className={styles.container}>
+        <div className="relative h-24 overflow-hidden rounded">
+          <div className="h-full border-2 border-dashed bg-black/5" />
+          <b
+            className={cn(
+              "absolute top-2 left-2 z-10 flex size-7 items-center justify-center rounded-full bg-white capitalize shadow-md",
+              status,
+            )}>
+            {letter}
+          </b>
+        </div>
+        <p className="mt-1 text-center text-sm font-semibold">Empty</p>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn(styles.container, "cursor-pointer")}
+      onClick={() => openLetterModal(items, letter)}>
+      <div className="relative h-24 overflow-hidden rounded">
+        <GameImage
+          className="size-full rounded-none"
+          src={item?.image_url ?? ""}
+          alt={item?.title ?? "Game image"}
+        />
+        <b
+          className={cn(
+            "absolute top-2 left-2 z-10 flex size-7 items-center justify-center rounded-full bg-white capitalize shadow-md",
+            status,
+          )}>
+          {letter}
+        </b>
+      </div>
+      <p className="mt-1 text-center text-sm font-semibold">{title}</p>
+    </div>
+  );
+};
+
+const CardsAlphabet: FC = () => {
+  const { getDifficulty } = useSettings();
+  const letters = getDifficulty();
+  return (
+    <div className="container mx-auto grid grid-cols-5 gap-4 py-4">
+      {letters.map((letter) => (
+        <Letter key={letter} letter={letter} />
+      ))}
+    </div>
+  );
+};
+
+export default CardsAlphabet;

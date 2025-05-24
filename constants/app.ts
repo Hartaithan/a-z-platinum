@@ -1,9 +1,12 @@
 import type { Theme } from "@/models/app";
 import { DataKey } from "@/models/data";
 
-export const themes: Theme[] = ["list"];
-export const defaultTheme: Theme = "list";
-export const themesLabels: Record<Theme, string> = { list: "List" };
+export const themes: Theme[] = ["cards", "list"];
+export const defaultTheme: Theme = "cards";
+export const themesLabels: Record<Theme, string> = {
+  cards: "Cards",
+  list: "List",
+};
 
 export const dataKeys: DataKey[] = [
   "all",

@@ -13,13 +13,16 @@ import { FC } from "react";
 const Content: FC = () => {
   const { profile } = useData();
   const { settings } = useSettings();
-  const blurred = settings.hide && "blur-md";
   return (
     <div className="container mt-4 flex h-auto flex-wrap items-center justify-center gap-4 md:h-12 md:flex-nowrap md:justify-start">
-      <div className="flex w-full items-center gap-4 sm:w-auto">
+      <div
+        className={cn(
+          "flex w-full items-center gap-4 sm:w-auto",
+          settings.hide && "blur-md",
+        )}>
         {profile?.avatar_url ? (
           <Image
-            className={cn("rounded-full", blurred)}
+            className="rounded-full"
             width={48}
             height={48}
             src={profile?.avatar_url}
@@ -29,7 +32,7 @@ const Content: FC = () => {
         ) : (
           <div className="bg-border size-12 rounded-full" />
         )}
-        <div className={cn("flex flex-col leading-[normal]", blurred)}>
+        <div className="flex flex-col leading-[normal]">
           <h1 className="font-bold">{profile?.name ?? "Trophy Hunter"}</h1>
           <p className="text-sm text-gray-600">
             Level: {profile?.level ?? "420"}
@@ -43,11 +46,7 @@ const Content: FC = () => {
         label="Difficulty"
       />
       <div className="bg-border h-full w-auto md:w-[1px]" />
-      <div
-        className={cn(
-          "flex flex-wrap justify-center gap-5 md:flex-nowrap",
-          blurred,
-        )}>
+      <div className="flex flex-wrap justify-center gap-5 md:flex-nowrap">
         <StatItem value={profile?.counts?.platinum} label="Platinum" />
         <StatItem value={profile?.counts?.gold} label="Gold" />
         <StatItem value={profile?.counts?.silver} label="Silver" />

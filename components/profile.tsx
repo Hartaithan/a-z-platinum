@@ -37,12 +37,12 @@ const Content: FC = () => {
         </div>
       </div>
       <YearFilter className="ml-0 md:ml-auto" />
-      <div className="bg-border h-full w-[1px]" />
+      <div className="bg-border h-full w-auto md:w-[1px]" />
       <StatItem
         value={difficultyLabels[settings.difficulty]}
         label="Difficulty"
       />
-      <div className="bg-border h-full w-[1px]" />
+      <div className="bg-border h-full w-auto md:w-[1px]" />
       <div
         className={cn(
           "flex flex-wrap justify-center gap-5 md:flex-nowrap",

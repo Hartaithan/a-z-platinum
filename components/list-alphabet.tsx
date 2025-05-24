@@ -31,11 +31,11 @@ const Letter: FC<LetterProps> = (props) => {
   const title = getTitle(settings.data, item);
 
   return (
-    <div className="flex items-center">
-      <p className={cn("w-5 text-center font-bold capitalize", status)}>
+    <p>
+      <b className={cn("inline-block w-5 text-center capitalize", status)}>
         {letter}
-      </p>
-      <p>-</p>
+      </b>
+      <span>-</span>
       {hasItems && (
         <span
           className="cursor-pointer"
@@ -45,11 +45,11 @@ const Letter: FC<LetterProps> = (props) => {
         </span>
       )}
       {hasItems && count > 1 && (
-        <p className="text-sm font-medium text-neutral-500">
+        <span className="text-sm font-medium text-neutral-500">
           &nbsp;{`(${count - 1} more...)`}
-        </p>
+        </span>
       )}
-    </div>
+    </p>
   );
 };
 

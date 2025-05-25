@@ -25,7 +25,7 @@ const Letter: FC<LetterProps> = (props) => {
   const { getFeatured, openLetterModal } = useFeatured();
 
   const dataKey = settings.data;
-  const { items, hasItems, status } = getItemKeys({
+  const { items, hasItems, count, status } = getItemKeys({
     dataKey,
     letter,
     year,
@@ -70,6 +70,11 @@ const Letter: FC<LetterProps> = (props) => {
           )}>
           {letter}
         </b>
+        {hasItems && count > 1 && (
+          <b className="absolute top-2 right-2 z-10 flex items-center justify-center rounded-md bg-white px-1.5 text-sm capitalize shadow-md">
+            {`+${count - 1}`}
+          </b>
+        )}
       </div>
       <p className="mt-1 text-center text-sm font-semibold">{title}</p>
       <p className="text-sm">{`${item?.trophy?.rarity_label}, ${item?.trophy?.earned_rate}%`}</p>

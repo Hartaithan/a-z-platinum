@@ -22,9 +22,9 @@ const GameImage: FC<Props> = (props) => {
         height="0"
         unoptimized
       />
-      <div className="absolute z-[2] size-full bg-black/30" />
+      <div className="absolute z-[2] size-full bg-black/10" />
       <Image
-        className="z-[1] object-cover blur"
+        className="z-[1] object-cover blur-xs"
         src={src}
         alt={`${alt} background`}
         {...rest}

@@ -14,7 +14,7 @@ interface LetterProps {
 }
 
 const styles = {
-  container: "flex flex-col rounded",
+  container: "flex flex-col items-center rounded",
 };
 
 const Letter: FC<LetterProps> = (props) => {
@@ -38,7 +38,7 @@ const Letter: FC<LetterProps> = (props) => {
   if (!hasItems) {
     return (
       <div className={styles.container}>
-        <div className="relative h-24 overflow-hidden rounded">
+        <div className="relative h-24 w-full overflow-hidden rounded">
           <div className="h-full border-2 border-dashed bg-black/5" />
           <b
             className={cn(
@@ -57,7 +57,7 @@ const Letter: FC<LetterProps> = (props) => {
     <div
       className={cn(styles.container, "cursor-pointer")}
       onClick={() => openLetterModal(items, letter)}>
-      <div className="relative h-24 overflow-hidden rounded">
+      <div className="relative h-24 w-full overflow-hidden rounded">
         <GameImage
           className="size-full rounded-none"
           src={item?.image_url ?? ""}
@@ -72,6 +72,7 @@ const Letter: FC<LetterProps> = (props) => {
         </b>
       </div>
       <p className="mt-1 text-center text-sm font-semibold">{title}</p>
+      <p className="text-sm">{`${item?.trophy?.rarity_label}, ${item?.trophy?.earned_rate}%`}</p>
     </div>
   );
 };

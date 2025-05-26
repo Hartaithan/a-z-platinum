@@ -1,3 +1,4 @@
+import About from "@/components/about";
 import Alphabet from "@/components/alphabet";
 import AlphabetProgress from "@/components/alphabet-progress";
 import Header from "@/components/header";
@@ -10,6 +11,7 @@ const HomePage: FC = () => (
     <Profile />
     <AlphabetProgress />
     <Alphabet />
+    <About />
   </div>
 );
 

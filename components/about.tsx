@@ -2,10 +2,10 @@ import { FC } from "react";
 
 const About: FC = () => {
   return (
-    <div className="border-t py-3">
+    <div className="border-t pt-5 pb-8">
       <section id="about" className="container flex flex-col flex-nowrap gap-2">
         <h1 className="text-xl font-bold">About</h1>
-        <p className="text-sm">
+        <p className="mt-1 text-sm">
           <b>A-Z Platinum Challenge</b> is a trophy hunting challenge where
           players aim to earn a platinum trophy for a game starting with each
           letter of the alphabet, <b>from A to Z</b>. It&apos;s a fun and

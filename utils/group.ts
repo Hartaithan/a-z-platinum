@@ -52,6 +52,13 @@ const setGroup = (params: SetGroupParams) => {
   setItem(key, item, group.all);
 };
 
+const setLetterGroup = (params: SetGroupParams) => {
+  const { key, item, group } = params;
+  const isPlatinum = item?.completion === "platinum";
+  if (!isPlatinum) return;
+  setItem(key, item, group.names);
+};
+
 const getGroupKeys = (params: GroupKeysParams) => {
   const { letter, year } = params;
   const letterKey = getDataKey({ letter });
@@ -71,7 +78,7 @@ const groupItem = (group: GroupedData, item: Platinum) => {
 
   const trophyLetter = recognizeLetter(item.trophy.title);
   const trophyKeys = getGroupKeys({ letter: trophyLetter, year });
-  for (const key of trophyKeys) setItem(key, item, group.names);
+  for (const key of trophyKeys) setLetterGroup({ key, item, group });
 
   return group;
 };

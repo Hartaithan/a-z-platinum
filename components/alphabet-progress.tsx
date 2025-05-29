@@ -10,7 +10,7 @@ const Component: FC = () => {
   const { year } = useFilters();
   const { label, value, completed, total } = useProgress();
   return (
-    <div className="container mt-4">
+    <section id="progress" className="container mt-4">
       <div className="flex justify-between">
         <h1 className="font-bold">
           Progress
@@ -22,7 +22,7 @@ const Component: FC = () => {
         </div>
       </div>
       <Progress className="mt-1" value={value} />
-    </div>
+    </section>
   );
 };
 

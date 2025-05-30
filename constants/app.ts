@@ -13,6 +13,7 @@ export const dataKeys: DataKey[] = [
   "platinums",
   "completes",
   "ultra-rare",
+  "ultra-rare-plus",
   "names",
 ];
 export const dataLabels: Record<DataKey, string> = {
@@ -20,5 +21,6 @@ export const dataLabels: Record<DataKey, string> = {
   platinums: "Platinums",
   completes: "Completes",
   "ultra-rare": "Ultra Rare",
+  "ultra-rare-plus": "Ultra Rare +",
   names: "Trophy Names",
 };

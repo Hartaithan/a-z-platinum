@@ -1,10 +1,11 @@
 import { GroupedPlatinumKeys, GroupedPlatinums } from "@/models/platinum";
 
 export type DataKey =
+  | "all"
   | "platinums"
   | "completes"
   | "ultra-rare"
-  | "all"
+  | "ultra-rare-plus"
   | "names";
 
 export type Data = Record<DataKey, GroupedPlatinumKeys>;

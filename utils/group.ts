@@ -49,6 +49,9 @@ const setGroup = (params: SetGroupParams) => {
   const isUltraRare = item?.trophy?.rarity === "ultra-rare";
   if (isPlatinum && isUltraRare) setItem(key, item, group["ultra-rare"]);
 
+  const isPlus = (item?.trophy?.earned_rate ?? 100) < 1;
+  if (isPlatinum && isPlus) setItem(key, item, group["ultra-rare-plus"]);
+
   setItem(key, item, group.all);
 };
 
@@ -98,5 +101,6 @@ export const groupPlatinumList = (list: NullablePlatinum[]) =>
       platinums: {},
       completes: {},
       ["ultra-rare"]: {},
+      ["ultra-rare-plus"]: {},
     },
   );

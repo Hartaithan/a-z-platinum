@@ -1,6 +1,5 @@
 "use client";
 
-import { setTheme as setThemeAction } from "@/actions/theme";
 import { defaultTheme } from "@/constants/app";
 import type { Theme } from "@/models/app";
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
@@ -33,6 +32,18 @@ const initial: Context = {
 
 const Context = createContext<Context>(initial);
 
+const setThemeCookie = async (value: Theme) => {
+  try {
+    await fetch("/api/theme", {
+      method: "POST",
+      body: JSON.stringify(value),
+      redirect: "manual",
+    });
+  } catch (error) {
+    console.error("unable to set theme cookie", error);
+  }
+};
+
 const ThemeProvider: FC<Props> = (props) => {
   const { defaultValue = initial.theme, children } = props;
   const [theme, setTheme] = useState<Context["theme"]>(defaultValue);
@@ -42,7 +53,7 @@ const ThemeProvider: FC<Props> = (props) => {
     const html = document.documentElement;
     if (html) html.setAttribute("data-theme", value);
     try {
-      setThemeAction(value);
+      setThemeCookie(value);
     } catch (err) {
       console.error("unable to set theme in cookie", err);
     }
@@ -58,7 +69,7 @@ const ThemeProvider: FC<Props> = (props) => {
   );
 
   useEffect(() => {
-    const extendTheme = async () => await setThemeAction(defaultValue);
+    const extendTheme = async () => await setThemeCookie(defaultValue);
     extendTheme();
   }, [defaultValue]);
 

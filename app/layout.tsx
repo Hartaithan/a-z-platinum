@@ -1,6 +1,7 @@
 import { getTheme } from "@/actions/theme";
 import "@/app/globals.css";
 import RootProviders from "@/providers/root";
+import { Toaster } from "@/ui/sonner";
 import { cn } from "@/utils/styles";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -24,6 +25,7 @@ const RootLayout: FC<PropsWithChildren> = async (props) => {
     <html lang="en" data-theme={defaultTheme}>
       <body className={cn(font.variable, "antialiased")}>
         <RootProviders defaultTheme={defaultTheme}>{children}</RootProviders>
+        <Toaster theme="light" position="top-right" richColors closeButton />
       </body>
     </html>
   );

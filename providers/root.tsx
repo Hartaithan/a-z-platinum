@@ -1,6 +1,7 @@
 "use client";
 
 import { Theme } from "@/models/app";
+import CaptureProvider from "@/providers/capture";
 import DataProvider from "@/providers/data";
 import FeaturedProvider from "@/providers/featured";
 import FiltersProvider from "@/providers/filters";
@@ -19,7 +20,9 @@ const RootProviders: FC<Props> = (props) => {
       <DataProvider>
         <FiltersProvider>
           <SettingsProvider>
-            <FeaturedProvider>{children}</FeaturedProvider>
+            <FeaturedProvider>
+              <CaptureProvider>{children}</CaptureProvider>
+            </FeaturedProvider>
           </SettingsProvider>
         </FiltersProvider>
       </DataProvider>

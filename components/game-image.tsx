@@ -1,3 +1,4 @@
+import { getImageURL } from "@/utils/image";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
 import type { FC } from "react";
@@ -7,6 +8,7 @@ type Props = ImageProps;
 
 const GameImage: FC<Props> = (props) => {
   const { className, src, alt, ...rest } = props;
+  const image = getImageURL(src as string);
   return (
     <div
       className={twMerge(
@@ -15,7 +17,7 @@ const GameImage: FC<Props> = (props) => {
       )}>
       <Image
         className="relative z-[3] h-full w-auto drop-shadow-md"
-        src={src}
+        src={image}
         alt={alt}
         {...rest}
         width="0"
@@ -25,7 +27,7 @@ const GameImage: FC<Props> = (props) => {
       <div className="absolute z-[2] size-full bg-black/10" />
       <Image
         className="z-[1] object-cover blur-xs"
-        src={src}
+        src={image}
         alt={`${alt} background`}
         {...rest}
         fill

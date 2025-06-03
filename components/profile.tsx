@@ -5,6 +5,7 @@ import YearFilter from "@/components/year-filter";
 import { difficultyLabels } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useSettings } from "@/providers/settings";
+import { getImageURL } from "@/utils/image";
 import { cn } from "@/utils/styles";
 import Image from "next/image";
 import { FC } from "react";
@@ -46,7 +47,7 @@ const Content: FC = () => {
             className="rounded-full"
             width={48}
             height={48}
-            src={profile?.avatar_url}
+            src={getImageURL(profile?.avatar_url)}
             alt={profile?.name}
             unoptimized
           />

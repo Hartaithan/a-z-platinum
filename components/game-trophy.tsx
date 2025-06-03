@@ -1,4 +1,5 @@
 import { useData } from "@/providers/data";
+import { getImageURL } from "@/utils/image";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -19,7 +20,7 @@ const GameTrophy: FC<Props> = (props) => {
           width={48}
           height={48}
           alt={trophy?.title ?? "Unknown"}
-          src={trophy?.image_url ?? ""}
+          src={getImageURL(trophy?.image_url)}
           unoptimized
         />
         <div className="ml-3">

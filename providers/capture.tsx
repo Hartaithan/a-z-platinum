@@ -28,9 +28,9 @@ const initialValue: Context = {
 
 const Context = createContext<Context>(initialValue);
 
-const sizes: Record<Theme, { width: number; height: number }> = {
-  cards: { width: 1200, height: 1200 },
-  list: { width: 1200, height: 1200 },
+const sizes: Record<Theme, { width: number }> = {
+  cards: { width: 1100 },
+  list: { width: 1100 },
 };
 
 const CaptureProvider: FC<PropsWithChildren> = (props) => {
@@ -38,7 +38,7 @@ const CaptureProvider: FC<PropsWithChildren> = (props) => {
   const captureRef = useRef<HTMLDivElement>(null);
   const tempRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const { width, height } = sizes[theme];
+  const { width } = sizes[theme];
 
   const capture = useCallback(async (): Promise<Blob | null> => {
     const calendar = captureRef.current;
@@ -72,7 +72,7 @@ const CaptureProvider: FC<PropsWithChildren> = (props) => {
         <div
           className="@container flex flex-col"
           ref={tempRef}
-          style={{ width, height }}
+          style={{ width }}
         />
       </div>
     </Context.Provider>

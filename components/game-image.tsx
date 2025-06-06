@@ -1,20 +1,71 @@
+"use client";
+
+import { Spinner } from "@/ui/spinner";
 import { getImageURL } from "@/utils/image";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
-import type { FC } from "react";
+import {
+  Ref,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+  type FC,
+} from "react";
 import { twMerge } from "tailwind-merge";
 
 type Props = ImageProps;
 
+interface LoaderHandle {
+  start: () => void;
+  stop: () => void;
+}
+
+interface LoaderProps {
+  ref: Ref<LoaderHandle>;
+}
+
+const Loader: FC<LoaderProps> = (props) => {
+  const { ref } = props;
+  const [isLoading, setLoading] = useState(true);
+
+  useImperativeHandle(ref, () => ({
+    start: () => setLoading(true),
+    stop: () => setLoading(false),
+  }));
+
+  if (!isLoading) return null;
+
+  return (
+    <div className="absolute inset-0 z-[4] flex grow items-center justify-center bg-black/50 transition-opacity duration-300">
+      <Spinner className="size-7/12" />
+    </div>
+  );
+};
+
 const GameImage: FC<Props> = (props) => {
   const { className, src, alt, ...rest } = props;
+  const currentSrc = useRef(src);
+  const loader = useRef<LoaderHandle>(null);
+
   const image = getImageURL(src as string);
+
+  const handleLoad = useCallback(() => loader.current?.stop(), []);
+
+  useEffect(() => {
+    if (src === currentSrc.current) return;
+    currentSrc.current = src;
+    loader.current?.start();
+  }, [src]);
+
   return (
     <div
       className={twMerge(
         "relative flex aspect-[20/11] h-14 w-auto flex-shrink-0 justify-center overflow-hidden rounded-md",
         className,
       )}>
+      <Loader ref={loader} />
       <Image
         className="relative z-[3] h-full w-auto drop-shadow-md"
         src={image}
@@ -23,6 +74,8 @@ const GameImage: FC<Props> = (props) => {
         width="0"
         height="0"
         unoptimized
+        loading="lazy"
+        onLoad={handleLoad}
       />
       <div className="absolute z-[2] size-full bg-black/10" />
       <Image
@@ -32,6 +85,7 @@ const GameImage: FC<Props> = (props) => {
         {...rest}
         fill
         unoptimized
+        loading="lazy"
       />
     </div>
   );

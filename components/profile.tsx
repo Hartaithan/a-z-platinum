@@ -36,7 +36,7 @@ const Content: FC = () => {
   return (
     <section
       id="profile"
-      className="container mt-4 flex h-auto flex-wrap items-center justify-center gap-4 md:h-12 md:flex-nowrap md:justify-start">
+      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start container mt-4 flex h-auto flex-wrap items-center justify-center gap-4 md:h-12 md:flex-nowrap md:justify-start">
       <div
         className={cn(
           "flex w-full items-center gap-4 sm:w-auto",
@@ -61,14 +61,14 @@ const Content: FC = () => {
           </p>
         </div>
       </div>
-      <YearFilter className="ml-0 md:ml-auto" />
-      <div className="bg-border h-full w-auto md:w-[1px]" />
+      <YearFilter className="@capture:ml-auto ml-0 md:ml-auto" />
+      <div className="bg-border @capture:w-[1px] h-full w-auto md:w-[1px]" />
       <StatItem
         value={difficultyLabels[settings.difficulty]}
         label="Difficulty"
       />
-      <div className="bg-border h-full w-auto md:w-[1px]" />
-      <div className="flex flex-wrap justify-center gap-5 md:flex-nowrap">
+      <div className="bg-border @capture:w-[1px] h-full w-auto md:w-[1px]" />
+      <div className="@capture:flex-nowrap flex flex-wrap justify-center gap-5 md:flex-nowrap">
         <StatItem value={profile?.counts?.platinum} label="Platinum" />
         <StatItem value={profile?.counts?.gold} label="Gold" />
         <StatItem value={profile?.counts?.silver} label="Silver" />

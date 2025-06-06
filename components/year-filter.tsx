@@ -18,7 +18,7 @@ const YearFilter: FC<Props> = (props) => {
       {...rest}>
       <Button
         unstyled
-        className="rounded"
+        className="@capture:hidden rounded"
         aria-label="Previous year"
         onClick={() => handleYear("prev")}>
         <ArrowLeftIcon className="size-4" />
@@ -29,7 +29,7 @@ const YearFilter: FC<Props> = (props) => {
       </div>
       <Button
         unstyled
-        className="rounded"
+        className="@capture:hidden rounded"
         aria-label="Next year"
         onClick={() => handleYear("next")}>
         <ArrowRightIcon className="size-4" />
@@ -38,7 +38,7 @@ const YearFilter: FC<Props> = (props) => {
         <Button
           unstyled
           aria-label="Reset year filter"
-          className="border-input bg-secondary absolute -top-3 -right-0 flex size-5 items-center justify-center rounded-full border"
+          className="@capture:hidden border-input bg-secondary absolute -top-3 -right-0 flex size-5 items-center justify-center rounded-full border"
           onClick={resetYear}>
           <XIcon className="size-3" />
         </Button>

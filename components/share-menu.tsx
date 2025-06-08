@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
 import { readError } from "@/utils/error";
-import { downloadImage } from "@/utils/image";
+import { downloadImage, isImagesLoading } from "@/utils/image";
 import { uploadImage } from "@/utils/upload";
 import { SaveIcon, Share2Icon, UploadIcon } from "lucide-react";
 import { useCallback, useRef, type FC } from "react";
@@ -27,6 +27,7 @@ const ShareMenu: FC = () => {
 
   const handleSave = useCallback(async () => {
     try {
+      if (isImagesLoading()) return;
       const image = await capture();
       if (!image) throw new Error("Unable to generate image");
       downloadImage(image, profile?.name);
@@ -39,6 +40,7 @@ const ShareMenu: FC = () => {
 
   const handleUpload = useCallback(async () => {
     try {
+      if (isImagesLoading()) return;
       upload?.open();
       const image = await capture();
       if (!image) throw new Error("Unable to generate image");

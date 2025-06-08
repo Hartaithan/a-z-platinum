@@ -1,7 +1,9 @@
 "use client";
 
+import { imageStatues } from "@/constants/image";
 import { Spinner } from "@/ui/spinner";
 import { getImageURL } from "@/utils/image";
+import { cn } from "@/utils/styles";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
 import {
@@ -29,6 +31,7 @@ interface LoaderProps {
 const Loader: FC<LoaderProps> = (props) => {
   const { ref } = props;
   const [isLoading, setLoading] = useState(true);
+  const status = isLoading && imageStatues.loading;
 
   useImperativeHandle(ref, () => ({
     start: () => setLoading(true),
@@ -38,7 +41,11 @@ const Loader: FC<LoaderProps> = (props) => {
   if (!isLoading) return null;
 
   return (
-    <div className="absolute inset-0 z-[4] flex grow items-center justify-center bg-black/50 transition-opacity duration-300">
+    <div
+      className={cn(
+        "absolute inset-0 z-[4] flex grow items-center justify-center bg-black/50 transition-opacity duration-300",
+        status,
+      )}>
       <Spinner className="size-7/12" />
     </div>
   );

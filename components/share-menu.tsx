@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
 import { readError } from "@/utils/error";
+import { downloadImage } from "@/utils/image";
 import { uploadImage } from "@/utils/upload";
 import { SaveIcon, Share2Icon, UploadIcon } from "lucide-react";
 import { useCallback, useRef, type FC } from "react";
@@ -28,11 +29,7 @@ const ShareMenu: FC = () => {
     try {
       const image = await capture();
       if (!image) throw new Error("Unable to generate image");
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(image);
-      link.download = `${profile?.name ?? "a-z platinum challenge"}.png`;
-      link.click();
-      link.remove();
+      downloadImage(image, profile?.name);
     } catch (error) {
       console.error("save error", error);
       const message = readError(error);

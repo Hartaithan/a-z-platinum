@@ -15,6 +15,8 @@ interface LetterProps {
 
 const styles = {
   container: "flex flex-col items-center rounded",
+  letter:
+    "absolute top-2 left-2 z-10 flex size-7 items-center justify-center rounded-full bg-white capitalize shadow-md",
 };
 
 const Letter: FC<LetterProps> = (props) => {
@@ -40,15 +42,11 @@ const Letter: FC<LetterProps> = (props) => {
       <div className={styles.container}>
         <div className="relative h-24 w-full overflow-hidden rounded">
           <div className="h-full border-2 border-dashed bg-black/5" />
-          <b
-            className={cn(
-              "absolute top-2 left-2 z-10 flex size-7 items-center justify-center rounded-full bg-white capitalize shadow-md",
-              status,
-            )}>
-            {letter}
-          </b>
+          <b className={cn(styles.letter, "opacity-50", status)}>{letter}</b>
         </div>
-        <p className="mt-1 text-center text-sm font-semibold">Empty</p>
+        <p className="mt-1 text-center text-sm font-semibold text-neutral-400">
+          Empty
+        </p>
       </div>
     );
   }
@@ -63,13 +61,7 @@ const Letter: FC<LetterProps> = (props) => {
           src={item?.image_url ?? ""}
           alt={item?.title ?? "Game image"}
         />
-        <b
-          className={cn(
-            "absolute top-2 left-2 z-10 flex size-7 items-center justify-center rounded-full bg-white capitalize shadow-md",
-            status,
-          )}>
-          {letter}
-        </b>
+        <b className={cn(styles.letter, status)}>{letter}</b>
         {hasItems && count > 1 && (
           <b className="absolute top-2 right-2 z-10 flex items-center justify-center rounded-md bg-white px-1.5 text-sm capitalize shadow-md">
             {`+${count - 1}`}

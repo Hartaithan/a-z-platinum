@@ -78,7 +78,7 @@ const CardsAlphabet: FC = () => {
   const { getDifficulty } = useSettings();
   const letters = getDifficulty();
   return (
-    <div className="container mx-auto grid grid-cols-5 gap-4 py-4">
+    <div className="@capture:grid-cols-5 container mx-auto grid grid-cols-2 gap-4 py-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {letters.map((letter) => (
         <Letter key={letter} letter={letter} />
       ))}

@@ -74,7 +74,7 @@ const GameImage: FC<Props> = (props) => {
       )}>
       <Loader ref={loader} />
       <Image
-        className="relative z-[3] h-full w-auto drop-shadow-md"
+        className="relative z-[3] h-full w-auto object-contain drop-shadow-md"
         src={image}
         alt={alt}
         {...rest}

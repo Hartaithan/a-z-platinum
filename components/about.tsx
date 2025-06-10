@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const About: FC = () => {
   return (
-    <div className="border-t pt-5 pb-8">
+    <div className="border-t pt-5">
       <section id="about" className="container flex flex-col flex-nowrap gap-2">
         <h1 className="text-xl font-bold">About</h1>
         <p className="mt-1 text-sm">

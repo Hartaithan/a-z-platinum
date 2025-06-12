@@ -1,8 +1,8 @@
-import AboutLink from "@/components/about-link";
+import SectionLink from "@/components/section-link";
 import SettingsDrawer from "@/components/settings-drawer";
 import ShareMenu from "@/components/share-menu";
 import Submit from "@/components/submit";
-import { CircleUserRound } from "lucide-react";
+import { CircleHelp, CircleUserRound, Info } from "lucide-react";
 import { FC } from "react";
 
 const Header: FC = () => (
@@ -11,7 +11,12 @@ const Header: FC = () => (
       <CircleUserRound />
       <Submit />
       <ShareMenu />
-      <AboutLink />
+      <SectionLink section="about">
+        <Info />
+      </SectionLink>
+      <SectionLink section="faq">
+        <CircleHelp />
+      </SectionLink>
       <SettingsDrawer />
     </div>
   </header>

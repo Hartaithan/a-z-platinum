@@ -15,8 +15,8 @@ const HomePage: FC = () => (
       <AlphabetProgress />
       <Alphabet />
     </CapturedArea>
-    <About />
     <FAQ />
+    <About />
   </div>
 );
 

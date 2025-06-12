@@ -36,10 +36,10 @@ const ExternalLink: FC<ComponentPropsWithoutRef<"a">> = (props) => {
 
 const FAQ: FC = () => {
   return (
-    <div className="pt-6 pb-8">
-      <section id="faq" className="container flex flex-col flex-nowrap gap-2">
+    <div className="py-4">
+      <section id="faq" className="container flex flex-col flex-nowrap">
         <h1 className="text-xl font-bold">FAQ</h1>
-        <Accordion type="multiple">
+        <Accordion className="mt-1" type="multiple">
           <Item
             id="ps-account"
             title="Do I need a PlayStation account to use this app?">

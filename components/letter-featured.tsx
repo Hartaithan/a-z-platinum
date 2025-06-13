@@ -1,12 +1,7 @@
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
 import { useSettings } from "@/providers/settings";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import { FC, memo, useCallback, useMemo } from "react";
 
@@ -34,18 +29,16 @@ const Component: FC<Props> = (props) => {
   }, [item, letter, year, dataKey, setFeatured]);
 
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          className="absolute top-3 right-3"
-          onClick={handleFeatured}>
-          {isFeatured ? <BookmarkCheck /> : <Bookmark />}
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Set this game as the main one</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger
+        className="absolute top-3 right-3"
+        onClick={handleFeatured}>
+        {isFeatured ? <BookmarkCheck /> : <Bookmark />}
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Set this game as the main one</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

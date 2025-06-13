@@ -1,14 +1,15 @@
 "use client";
 
-import { Button } from "@/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { FC, PropsWithChildren, useCallback } from "react";
 
 interface Props extends PropsWithChildren {
   section: string;
+  description: string;
 }
 
 const SectionLink: FC<Props> = (props) => {
-  const { section, children } = props;
+  const { section, description, children } = props;
 
   const handleClick = useCallback(() => {
     const element = document.getElementById(section);
@@ -17,9 +18,12 @@ const SectionLink: FC<Props> = (props) => {
   }, [section]);
 
   return (
-    <Button unstyled onClick={handleClick}>
-      {children}
-    </Button>
+    <Tooltip>
+      <TooltipTrigger onClick={handleClick}>{children}</TooltipTrigger>
+      <TooltipContent>
+        <p>{description}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

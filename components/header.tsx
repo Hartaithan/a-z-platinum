@@ -11,11 +11,11 @@ const Header: FC = () => (
       <CircleUserRound />
       <Submit />
       <ShareMenu />
-      <SectionLink section="about">
-        <Info />
-      </SectionLink>
-      <SectionLink section="faq">
+      <SectionLink section="faq" description="Frequently asked questions">
         <CircleHelp />
+      </SectionLink>
+      <SectionLink section="about" description="Learn more about the project">
+        <Info />
       </SectionLink>
       <SettingsDrawer />
     </div>

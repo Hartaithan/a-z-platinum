@@ -21,6 +21,14 @@ export const dataLabels: Record<DataKey, string> = {
   platinums: "Platinums",
   completes: "Completes",
   "ultra-rare": "Ultra Rare",
-  "ultra-rare-plus": "Ultra Rare +",
+  "ultra-rare-plus": "Ultra Rare+",
   names: "Trophy Names",
+};
+export const dataDescriptions: Record<DataKey, string> = {
+  all: "both platinums and completes",
+  platinums: "only platinum trophies",
+  completes: "only completed games without platinum",
+  "ultra-rare": "platinums classified as ultra rare by PSN",
+  "ultra-rare-plus": "platinums with PSN rarity under 1%",
+  names: "group by trophy name instead of game title",
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import DataHint from "@/components/data-hint";
 import DifficultyHint from "@/components/difficulty-hint";
 import FeaturedReset from "@/components/featured-reset";
 import SettingsReset from "@/components/settings-reset";
@@ -47,12 +48,7 @@ const Content: FC = () => {
           labels={dataLabels}
           value={settings.data}
           onValueChange={setDataSetting}>
-          <p className="mt-2 text-xs font-normal text-neutral-500">
-            select what you want to see:&nbsp;
-            <b>
-              only platinums, only 100% completions or only ultra rare trophies
-            </b>
-          </p>
+          <DataHint />
         </SettingsSelect>
         <SettingsSelect
           id="difficulty"

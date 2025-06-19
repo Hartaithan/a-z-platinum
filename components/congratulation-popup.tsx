@@ -1,5 +1,6 @@
 "use client";
 
+import { useData } from "@/providers/data";
 import { Button } from "@/ui/button";
 import {
   Dialog,
@@ -10,7 +11,7 @@ import {
 } from "@/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { XIcon } from "lucide-react";
+import { PartyPopper } from "lucide-react";
 import type { PropsWithChildren, Ref } from "react";
 import { FC, useCallback, useImperativeHandle, useState } from "react";
 
@@ -33,7 +34,7 @@ const CongratulationContent: FC<PropsWithChildren> = (props) => {
       <DialogOverlay className="bg-black/75" />
       <DialogPrimitive.Content
         data-slot="dialog-content"
-        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg bg-transparent p-6 shadow-none duration-200 sm:max-w-sm">
+        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed inset-0 z-50 flex size-full flex-col items-center justify-center bg-transparent p-6 text-white shadow-none outline-0 duration-200">
         {children}
       </DialogPrimitive.Content>
     </DialogPortal>
@@ -42,7 +43,8 @@ const CongratulationContent: FC<PropsWithChildren> = (props) => {
 
 const CongratulationPopup: FC<Props> = (props) => {
   const { ref, open: _, ...rest } = props;
-  const [opened, setOpen] = useState<State>(true);
+  const [opened, setOpen] = useState<State>(false);
+  const { profile } = useData();
 
   const open = useCallback(() => setOpen(true), []);
   const close = useCallback(() => setOpen(false), []);
@@ -57,19 +59,23 @@ const CongratulationPopup: FC<Props> = (props) => {
   return (
     <Dialog open={opened} {...rest}>
       <CongratulationContent>
-        <DialogTitle className="hidden">Congratulation Popup</DialogTitle>
-        <DialogDescription className="hidden">
-          Congratulation Popup
+        <DialogTitle className="text-4xl">
+          Congratulations <b>{profile?.name}</b>!
+        </DialogTitle>
+        <DialogDescription className="mt-2 text-lg text-white">
+          You&apos;ve completed the A-Z Platinum Challenge!
         </DialogDescription>
-        <div className="flex w-full justify-center gap-5">
-          <pre className="text-white">Congratulation Popup</pre>
-        </div>
+        <PartyPopper className="mt-6 h-24 w-24 animate-pulse" />
+        <p className="mt-4 max-w-4/12 text-center">
+          You&apos;ve achieved the impossible - a Platinum trophy for every
+          letter of the alphabet! Your dedication and skill are truly
+          remarkable.
+        </p>
         <Button
-          unstyled
           variant="outline"
-          className="fixed top-2 right-2"
+          className="te mt-6 px-5 font-semibold"
           onClick={close}>
-          <XIcon className="stroke-white" />
+          Continue
         </Button>
       </CongratulationContent>
     </Dialog>

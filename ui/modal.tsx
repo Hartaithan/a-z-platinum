@@ -36,9 +36,7 @@ function Modal({
 }: ModalProps) {
   return (
     <Dialog open={isVisible} onOpenChange={onClose}>
-      <DialogContent
-        className="w-[calc(100%-1.5rem)] gap-0 rounded-lg px-4 py-3 md:w-full"
-        onOpenAutoFocus={(e) => e.preventDefault()}>
+      <DialogContent className="w-[calc(100%-1.5rem)] gap-0 rounded-lg px-4 py-3 md:w-full">
         <DialogHeader>
           <DialogTitle
             className={cn(

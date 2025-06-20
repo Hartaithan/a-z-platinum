@@ -18,6 +18,12 @@ export interface Platinum {
   trophy?: Trophy;
 }
 
+export interface PlatinumCounts {
+  total: number;
+  platinum: number;
+  complete: number;
+}
+
 export type NullablePlatinum = Platinum | null;
 export type NullablePlatinums = Platinum[] | null;
 
@@ -40,6 +46,7 @@ export interface PlatinumProgressData extends PlatinumData<"progress"> {
 }
 
 export interface PlatinumCompleteData extends PlatinumData<"complete"> {
+  counts: PlatinumCounts;
   platinums?: NullablePlatinum[];
   expires?: string;
 }
@@ -58,5 +65,6 @@ export interface FetchPlatinumsParams {
 }
 
 export interface FetchPlatinumsResponse extends CachedResponse {
+  counts: PlatinumCounts;
   list: NullablePlatinum[];
 }

@@ -10,7 +10,7 @@ import type {
 import type { FetchProfileParams, ProfileResponse } from "@/models/profile";
 import type { UploadResponse } from "@/models/upload";
 import { readError } from "@/utils/error";
-import { getHeaders } from "@/utils/signature";
+import { getInit } from "@/utils/signature";
 import { EventSource } from "eventsource";
 
 const statuses: Record<number, string> = {
@@ -32,8 +32,8 @@ const getProfile = async (
   const url = new URL(API_URL);
   url.pathname += "/" + id;
   url.pathname += "/profile";
-  const headers = await getHeaders("GET", url.toString());
-  const response = await fetch(url, { headers, signal });
+  const init = await getInit({ method: "GET", url, signal });
+  const response = await fetch(url, init);
   return await handleResponse(response);
 };
 
@@ -46,9 +46,9 @@ const getPlatinums = async (
   url.pathname += "/" + id;
   url.pathname += "/platinums";
 
-  const headers = await getHeaders("GET", url.toString());
+  const init = await getInit({ method: "GET", url });
   const source = new EventSource(url, {
-    fetch: (input, init) => fetch(input, { ...init, headers, signal }),
+    fetch: (input, ini) => fetch(input, { ...ini, ...init }),
   });
 
   return new Promise((resolve, reject) => {
@@ -62,7 +62,8 @@ const getPlatinums = async (
           case "complete": {
             const list = data?.platinums || [];
             const expires = data?.expires;
-            resolve({ list, expires });
+            const counts = data?.counts;
+            resolve({ list, counts, expires });
             source.close();
             break;
           }
@@ -111,8 +112,8 @@ const getPlatinums = async (
 const uploadImage = async (body: FormData): Promise<UploadResponse> => {
   const url = new URL(API_URL);
   url.pathname += "/upload";
-  const headers = await getHeaders("POST", url.toString(), body);
-  const response = await fetch(url, { body, method: "POST", headers });
+  const init = await getInit({ method: "POST", url, body });
+  const response = await fetch(url, init);
   return await handleResponse(response);
 };
 

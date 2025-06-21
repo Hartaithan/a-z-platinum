@@ -2,7 +2,7 @@
 
 import { Theme } from "@/models/app";
 import CaptureProvider from "@/providers/capture";
-import ConfettiProvider from "@/providers/confetti";
+import CongratulationProvider from "@/providers/congratulation";
 import DataProvider from "@/providers/data";
 import FeaturedProvider from "@/providers/featured";
 import FiltersProvider from "@/providers/filters";
@@ -23,7 +23,7 @@ const RootProviders: FC<Props> = (props) => {
           <SettingsProvider>
             <FeaturedProvider>
               <CaptureProvider>
-                <ConfettiProvider>{children}</ConfettiProvider>
+                <CongratulationProvider>{children}</CongratulationProvider>
               </CaptureProvider>
             </FeaturedProvider>
           </SettingsProvider>

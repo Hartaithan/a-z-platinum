@@ -5,6 +5,7 @@ import DataLoadingPopup, {
 } from "@/components/data-loading-popup";
 import { useAbortController } from "@/hooks/use-abort-controller";
 import type { PlatinumProgressData } from "@/models/platinum";
+import { useCongratulation } from "@/providers/congratulation";
 import { useData } from "@/providers/data";
 import { useFeatured } from "@/providers/featured";
 import { API } from "@/utils/api";
@@ -40,6 +41,7 @@ const Context = createContext<Context>(initialValue);
 const SubmitProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
 
+  const { check } = useCongratulation();
   const { resetFeatured } = useFeatured();
   const { abort, getSignal } = useAbortController();
   const { setStatus, setProfile, setData } = useData();
@@ -82,6 +84,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         resetFeatured();
         setData(list);
 
+        check();
         setStatus("completed");
         popupRef.current?.reset();
         console.info("expires", expires);
@@ -92,7 +95,15 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         popupRef.current?.reset();
       }
     },
-    [setStatus, getSignal, onProgress, setProfile, resetFeatured, setData],
+    [
+      setStatus,
+      getSignal,
+      setProfile,
+      onProgress,
+      resetFeatured,
+      setData,
+      check,
+    ],
   );
 
   const exposed = useMemo(() => ({ onSubmit }) satisfies Context, [onSubmit]);

@@ -4,7 +4,7 @@ import { letterStatus } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useFilters } from "@/providers/filters";
 import { useSettings } from "@/providers/settings";
-import { toFixed } from "@/utils/number";
+import { getCount, getProgress } from "@/utils/progress";
 import { useEffect, useState } from "react";
 
 const defaultProgress = {
@@ -14,16 +14,6 @@ const defaultProgress = {
   value: 0,
   label: "0%",
 };
-
-export const getProgress = (current: number, total: number) => {
-  const progress = (current / total) * 100;
-  const notValid = progress < 0 || isNaN(progress) || !isFinite(progress);
-  if (notValid) return { value: 0, label: "0%" };
-  return { value: progress, label: `${toFixed(progress)}%` };
-};
-
-const getCount = (className: string) =>
-  document.getElementsByClassName(className)?.length || 0;
 
 export const useProgress = () => {
   const { getItemKeys } = useData();

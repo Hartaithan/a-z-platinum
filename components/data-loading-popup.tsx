@@ -1,7 +1,6 @@
 "use client";
 
 import ProgressSpinner from "@/components/progress-spinner";
-import { getProgress } from "@/hooks/use-progress";
 import { useData } from "@/providers/data";
 import { Button } from "@/ui/button";
 import {
@@ -12,6 +11,7 @@ import {
   DialogTitle,
 } from "@/ui/dialog";
 import { SpinnerBase } from "@/ui/spinner";
+import { getProgress } from "@/utils/progress";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { CircleCheckIcon } from "lucide-react";

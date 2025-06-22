@@ -12,6 +12,7 @@ import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo, useRef } from "react";
+import { toast } from "sonner";
 
 interface Context {
   onSubmit: FormEventHandler<HTMLFormElement>;
@@ -91,8 +92,10 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
       } catch (error) {
         console.error("submit error", error);
         const message = readError(error);
+        toast.error(message);
         console.info("error", message, error);
         popupRef.current?.reset();
+        setStatus("idle");
       }
     },
     [

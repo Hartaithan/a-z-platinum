@@ -6,8 +6,6 @@ import { useCallback, useEffect, useRef } from "react";
 
 const delay = 1000;
 const duration = 15 * 1000;
-const animationEnd = Date.now() + duration;
-
 const options = {
   fire: { particleCount: 100, spread: 70, origin: { y: 0.6 } },
   fireworks: { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 },
@@ -28,7 +26,8 @@ const useConfetti = () => {
 
   const fireworks = useCallback(() => {
     if (!confettiRef.current) return;
-    interval.current = setInterval(function () {
+    const animationEnd = Date.now() + duration;
+    interval.current = setInterval(() => {
       if (!confettiRef.current) return clearInterval(interval.current);
       const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) return clearInterval(interval.current);

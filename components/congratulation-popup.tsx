@@ -17,6 +17,7 @@ import { FC, useCallback, useImperativeHandle, useState } from "react";
 
 interface Props extends DialogProps {
   ref: Ref<CongratulationPopupHandle>;
+  onClose?: () => void;
 }
 
 type State = boolean;
@@ -42,13 +43,18 @@ const CongratulationContent: FC<PropsWithChildren> = (props) => {
 };
 
 const CongratulationPopup: FC<Props> = (props) => {
-  const { ref, open: _, ...rest } = props;
+  const { ref, onClose, open: _, ...rest } = props;
   const [opened, setOpen] = useState<State>(false);
   const { profile } = useData();
 
   const open = useCallback(() => setOpen(true), []);
   const close = useCallback(() => setOpen(false), []);
   const toggle = useCallback(() => setOpen((prev) => !prev), []);
+
+  const handleClose = useCallback(() => {
+    close();
+    onClose?.();
+  }, [close, onClose]);
 
   useImperativeHandle(ref, () => ({
     open,
@@ -74,7 +80,7 @@ const CongratulationPopup: FC<Props> = (props) => {
         <Button
           variant="outline"
           className="te mt-6 px-5 font-semibold"
-          onClick={close}>
+          onClick={handleClose}>
           Continue
         </Button>
       </CongratulationContent>

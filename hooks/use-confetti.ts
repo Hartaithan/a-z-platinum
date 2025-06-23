@@ -18,6 +18,7 @@ const randomRange = (min: number, max: number) => {
 };
 
 const useConfetti = () => {
+  const interval = useRef<NodeJS.Timeout>(undefined);
   const confettiRef = useRef<typeof confetti | null>(null);
 
   const fire = useCallback(() => {
@@ -27,10 +28,10 @@ const useConfetti = () => {
 
   const fireworks = useCallback(() => {
     if (!confettiRef.current) return;
-    const interval = setInterval(function () {
-      if (!confettiRef.current) return clearInterval(interval);
+    interval.current = setInterval(function () {
+      if (!confettiRef.current) return clearInterval(interval.current);
       const timeLeft = animationEnd - Date.now();
-      if (timeLeft <= 0) return clearInterval(interval);
+      if (timeLeft <= 0) return clearInterval(interval.current);
       const particleCount = 50 * (timeLeft / duration);
       const y = Math.random() - 0.2;
       confettiRef.current({
@@ -44,6 +45,12 @@ const useConfetti = () => {
         origin: { x: randomRange(0.7, 0.9), y },
       });
     }, 250);
+  }, []);
+
+  const reset = useCallback(() => {
+    if (!confettiRef.current) return;
+    confettiRef.current.reset();
+    clearInterval(interval.current);
   }, []);
 
   useEffect(() => {
@@ -61,7 +68,7 @@ const useConfetti = () => {
     preload();
   }, []);
 
-  return { fire, fireworks };
+  return { fire, fireworks, reset };
 };
 
 export default useConfetti;

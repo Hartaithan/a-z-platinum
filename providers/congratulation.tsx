@@ -22,7 +22,7 @@ const Context = createContext<Context>(initialValue);
 
 const CongratulationProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
-  const { fireworks } = useConfetti();
+  const { fireworks, reset } = useConfetti();
   const popupRef = useRef<CongratulationPopupHandle>(null);
 
   const check: Context["check"] = useCallback(async () => {
@@ -33,6 +33,10 @@ const CongratulationProvider: FC<PropsWithChildren> = (props) => {
     fireworks();
   }, [fireworks]);
 
+  const handleClose = useCallback(() => {
+    reset();
+  }, [reset]);
+
   const exposed: Context = useMemo(
     () => ({ check }) satisfies Context,
     [check],
@@ -41,7 +45,7 @@ const CongratulationProvider: FC<PropsWithChildren> = (props) => {
   return (
     <Context.Provider value={exposed}>
       {children}
-      <CongratulationPopup ref={popupRef} />
+      <CongratulationPopup ref={popupRef} onClose={handleClose} />
     </Context.Provider>
   );
 };

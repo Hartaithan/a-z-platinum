@@ -4,6 +4,7 @@ import AlphabetProgress from "@/components/alphabet-progress";
 import CapturedArea from "@/components/captured-area";
 import FAQ from "@/components/faq";
 import Header from "@/components/header";
+import LinkMessage from "@/components/link-message";
 import Profile from "@/components/profile";
 import { FC } from "react";
 
@@ -14,6 +15,7 @@ const HomePage: FC = () => (
       <Profile />
       <AlphabetProgress />
       <Alphabet />
+      <LinkMessage />
     </CapturedArea>
     <FAQ />
     <About />

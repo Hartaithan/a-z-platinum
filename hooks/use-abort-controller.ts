@@ -1,12 +1,19 @@
 import { useCallback, useRef } from "react";
 
-export const useAbortController = () => {
+interface Params {
+  message?: string;
+}
+
+const defaultMessage = "Request was canceled by the user";
+
+export const useAbortController = (params?: Params) => {
+  const { message = defaultMessage } = params ?? {};
   const controller = useRef<AbortController | null>(null);
 
   const abort = useCallback(() => {
     if (!controller.current) return;
-    controller.current.abort("The user canceled the data download");
-  }, []);
+    controller.current.abort(message);
+  }, [message]);
 
   const getSignal = useCallback(() => {
     if (controller.current) controller.current.abort();
@@ -14,5 +21,10 @@ export const useAbortController = () => {
     return controller.current.signal;
   }, []);
 
-  return { controller, abort, getSignal };
+  const isAborted = useCallback(
+    () => controller.current?.signal.aborted ?? false,
+    [],
+  );
+
+  return { controller, abort, getSignal, isAborted };
 };

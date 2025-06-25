@@ -22,8 +22,9 @@ interface Form extends HTMLFormControlsCollection {
   id: { value: string };
 }
 
-const errors = {
+const messages = {
   empty: "Enter your PSN ID. This field cannot be empty",
+  cancel: "Data download was canceled by the user",
   fetch: "Unable to fetch profile",
 };
 
@@ -44,7 +45,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
 
   const { check } = useCongratulation();
   const { resetFeatured } = useFeatured();
-  const { abort, getSignal } = useAbortController();
+  const { abort, getSignal } = useAbortController({ message: messages.cancel });
   const { setStatus, setProfile, setData } = useData();
   const popupRef = useRef<DataLoadingPopupHandle>(null);
 
@@ -62,7 +63,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
       let expires: string | undefined;
 
       try {
-        if (id.length === 0) throw new Error(errors.empty);
+        if (id.length === 0) throw new Error(messages.empty);
 
         setStatus("profile-loading");
 
@@ -70,7 +71,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
           id,
           signal: getSignal(),
         });
-        if (!profile) throw new Error(errors.fetch);
+        if (!profile) throw new Error(messages.fetch);
         expires = profileExpires;
         setProfile(profile);
 
@@ -114,7 +115,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
   return (
     <Context.Provider value={exposed}>
       {children}
-      <DataLoadingPopup ref={popupRef} handleAbort={abort} />
+      <DataLoadingPopup ref={popupRef} abort={abort} />
     </Context.Provider>
   );
 };

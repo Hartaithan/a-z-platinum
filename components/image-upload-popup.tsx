@@ -12,7 +12,7 @@ import { Spinner } from "@/ui/spinner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { DialogProps } from "@radix-ui/react-dialog";
 import type { FC, PropsWithChildren, Ref } from "react";
-import { useCallback, useImperativeHandle, useMemo, useState } from "react";
+import { useCallback, useImperativeHandle, useState } from "react";
 
 export type UploadStatus = "generate" | "upload" | "complete" | "error";
 
@@ -25,18 +25,15 @@ interface UploadState {
 
 type StatusHandler = (params: Partial<UploadState>) => void;
 
-interface UploadHandler {
-  open: () => void;
-  close: () => void;
-  set: StatusHandler;
-}
-
 interface Props extends DialogProps {
   ref: Ref<ImageUploadPopupHandle>;
+  abort: () => void;
 }
 
 export interface ImageUploadPopupHandle {
-  upload: UploadHandler;
+  open: () => void;
+  close: () => void;
+  set: StatusHandler;
 }
 
 const defaultState: UploadState = {
@@ -61,7 +58,7 @@ const DataLoadingContent: FC<PropsWithChildren> = (props) => {
 };
 
 const ImageUploadPopup: FC<Props> = (props) => {
-  const { ref, ...rest } = props;
+  const { ref, abort, ...rest } = props;
   const [state, setState] = useState<UploadState>(defaultState);
   const { visible, status, error, image } = state;
   const isLoading = status === "generate" || status === "upload";
@@ -78,11 +75,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
     setState((prev) => ({ ...prev, ...params }));
   }, []);
 
-  const upload = useMemo(() => ({ open, close, set }), [close, open, set]);
-
-  useImperativeHandle(ref, () => ({
-    upload,
-  }));
+  useImperativeHandle(ref, () => ({ open, close, set }));
 
   return (
     <Dialog open={visible} {...rest}>
@@ -115,11 +108,20 @@ const ImageUploadPopup: FC<Props> = (props) => {
               {image}
             </a>
           )}
+          {status === "upload" && (
+            <Button
+              variant="outline"
+              aria-label="Cancel image upload"
+              className="mt-3 h-8 w-10/12 justify-self-center font-semibold"
+              onClick={abort}>
+              Cancel
+            </Button>
+          )}
           {!isLoading && (
             <Button
               variant="outline"
               aria-label="Close image upload modal"
-              className="mt-2 h-8 w-10/12 justify-self-center font-semibold"
+              className="mt-3 h-8 w-10/12 justify-self-center font-semibold"
               onClick={close}>
               Close
             </Button>

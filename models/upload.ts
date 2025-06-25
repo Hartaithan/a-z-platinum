@@ -17,4 +17,9 @@ export interface UploadErrorResponse {
   message: string;
 }
 
+export interface UploadParams {
+  body: FormData;
+  signal?: AbortSignal;
+}
+
 export type UploadResponse = UploadSuccessResponse | UploadErrorResponse;

@@ -9,6 +9,7 @@ import type {
 } from "@/models/platinum";
 import type { FetchProfileParams, ProfileResponse } from "@/models/profile";
 import type { UploadResponse } from "@/models/upload";
+import { UploadParams } from "@/models/upload";
 import { readError } from "@/utils/error";
 import { getInit } from "@/utils/signature";
 import { EventSource } from "eventsource";
@@ -109,10 +110,11 @@ const getPlatinums = async (
   });
 };
 
-const uploadImage = async (body: FormData): Promise<UploadResponse> => {
+const uploadImage = async (params: UploadParams): Promise<UploadResponse> => {
+  const { body, signal } = params;
   const url = new URL(API_URL);
   url.pathname += "/upload";
-  const init = await getInit({ method: "POST", url, body });
+  const init = await getInit({ method: "POST", url, body, signal });
   const response = await fetch(url, init);
   return await handleResponse(response);
 };

@@ -3,6 +3,7 @@
 import ImageUploadPopup, {
   ImageUploadPopupHandle,
 } from "@/components/image-upload-popup";
+import { useAbortController } from "@/hooks/use-abort-controller";
 import { useCapture } from "@/providers/capture";
 import { useData } from "@/providers/data";
 import { Button } from "@/ui/button";
@@ -12,24 +13,30 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/ui/dropdown-menu";
+import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import { downloadImage, isImagesLoading } from "@/utils/image";
-import { uploadImage } from "@/utils/upload";
+import { getUploadFormData } from "@/utils/upload";
 import { SaveIcon, Share2Icon, UploadIcon } from "lucide-react";
 import { useCallback, useRef, type FC } from "react";
 import { toast } from "sonner";
 
+const messages = {
+  cancel: "Image upload was canceled by the user",
+  generate: "Unable to generate image",
+};
+
 const ShareMenu: FC = () => {
   const { profile } = useData();
   const { capture } = useCapture();
+  const { abort, getSignal } = useAbortController({ message: messages.cancel });
   const popupRef = useRef<ImageUploadPopupHandle>(null);
-  const { upload } = popupRef.current ?? {};
 
   const handleSave = useCallback(async () => {
     try {
       if (isImagesLoading()) return;
       const image = await capture();
-      if (!image) throw new Error("Unable to generate image");
+      if (!image) throw new Error(messages.generate);
       downloadImage(image, profile?.name);
     } catch (error) {
       console.error("save error", error);
@@ -39,22 +46,27 @@ const ShareMenu: FC = () => {
   }, [profile?.name, capture]);
 
   const handleUpload = useCallback(async () => {
+    const { set, open, close } = popupRef.current ?? {};
+    const signal = getSignal();
     try {
       if (isImagesLoading()) return;
-      upload?.open();
+      open?.();
       const image = await capture();
-      if (!image) throw new Error("Unable to generate image");
-      upload?.set({ status: "upload" });
-      const response = await uploadImage(image, profile?.name);
+      if (!image) throw new Error(messages.generate);
+      set?.({ status: "upload" });
+      const psnId = profile?.name ?? "A-Z Platinum Challenge";
+      const body = getUploadFormData(image, psnId);
+      const response = await API.uploadImage({ body, signal });
       if (!response.success) throw new Error(response.message);
-      upload?.set({ status: "complete", image: response.link });
+      set?.({ status: "complete", image: response.link });
     } catch (error) {
       console.error("upload error", error);
       const message = readError(error);
-      upload?.set({ status: "error", error: message });
       toast.error(message);
+      if (signal.aborted) close?.();
+      else set?.({ status: "error", error: message });
     }
-  }, [profile?.name, capture, upload]);
+  }, [capture, profile?.name, getSignal]);
 
   return (
     <>
@@ -80,7 +92,7 @@ const ShareMenu: FC = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ImageUploadPopup ref={popupRef} />
+      <ImageUploadPopup ref={popupRef} abort={abort} />
     </>
   );
 };

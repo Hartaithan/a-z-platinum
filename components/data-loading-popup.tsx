@@ -20,7 +20,7 @@ import { FC, useCallback, useImperativeHandle, useState } from "react";
 
 interface Props extends DialogProps {
   ref: Ref<DataLoadingPopupHandle>;
-  handleAbort: () => void;
+  abort: () => void;
 }
 
 export interface DataLoadingPopupHandle {
@@ -50,7 +50,7 @@ const DataLoadingContent: FC<PropsWithChildren> = (props) => {
 };
 
 const DataLoadingPopup: FC<Props> = (props) => {
-  const { ref, handleAbort, ...rest } = props;
+  const { ref, abort, ...rest } = props;
   const { status } = useData();
   const [pages, setPages] = useState<Pages>(defaultPages);
 
@@ -94,8 +94,8 @@ const DataLoadingPopup: FC<Props> = (props) => {
         </div>
         <Button
           variant="outline"
-          className="h-8 w-10/12 justify-self-center font-semibold text-white"
-          onClick={handleAbort}>
+          className="h-8 w-10/12 justify-self-center font-semibold"
+          onClick={abort}>
           Cancel
         </Button>
       </DataLoadingContent>

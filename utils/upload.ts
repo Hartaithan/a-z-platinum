@@ -1,5 +1,4 @@
-import type { UploadBody, UploadResponse } from "@/models/upload";
-import { API } from "@/utils/api";
+import type { UploadBody } from "@/models/upload";
 
 export const getUploadFormData = (
   image: UploadBody["image"],
@@ -9,14 +8,4 @@ export const getUploadFormData = (
   formData.append("title", `${psnId}’s A-Z Platinum Challenge`);
   formData.append("image", image);
   return formData;
-};
-
-export const uploadImage = async (
-  image: Blob,
-  name: string | undefined,
-): Promise<UploadResponse> => {
-  const psnId = name ?? "A-Z Platinum Challenge";
-  const formData = getUploadFormData(image, psnId);
-  const response = await API.uploadImage(formData);
-  return response;
 };

@@ -59,6 +59,7 @@ const GameImage: FC<Props> = (props) => {
   const image = getImageURL(src as string);
 
   const handleLoad = useCallback(() => loader.current?.stop(), []);
+  const handleError = useCallback(() => loader.current?.stop(), []);
 
   useEffect(() => {
     if (src === currentSrc.current) return;
@@ -83,6 +84,7 @@ const GameImage: FC<Props> = (props) => {
         unoptimized
         loading="lazy"
         onLoad={handleLoad}
+        onError={handleError}
       />
       <div className="absolute z-[2] size-full bg-black/10" />
       <Image

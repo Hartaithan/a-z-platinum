@@ -15,7 +15,12 @@ export const getImageURL = (url: string | undefined): string => {
   if (!url) return "";
   if (url.trim().length === 0) return url;
   const parsed = new URL(url);
-  return APP_URL + "/api/image" + parsed.pathname;
+  let dest: string | null = null;
+  if (parsed.host.startsWith("image.api")) dest = "/api/image/ps";
+  if (parsed.host.startsWith("psnobj.prod")) dest = "/api/image/obj";
+  if (parsed.host.startsWith("psn-rsc.prod")) dest = "/api/image/rsc";
+  if (dest === null) return url;
+  return APP_URL + dest + parsed.pathname;
 };
 
 export const downloadImage = (image: Blob | null, name?: string) => {

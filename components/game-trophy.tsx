@@ -20,7 +20,7 @@ const GameTrophy: FC<Props> = (props) => {
           width={48}
           height={48}
           alt={trophy?.title ?? "Unknown"}
-          src={getImageURL(trophy?.image_url)}
+          src={getImageURL(trophy?.image_url, { height: 48 })}
           unoptimized
         />
         <div className="ml-3">

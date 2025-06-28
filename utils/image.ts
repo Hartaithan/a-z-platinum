@@ -11,7 +11,12 @@ const errors = {
     "Cannot proceed while images are still loading. Please wait until all images have finished loading",
 };
 
-export const getImageURL = (url: string | undefined): string => {
+interface Sizes {
+  width?: number;
+  height?: number;
+}
+
+export const getImageURL = (url: string | undefined, sizes?: Sizes): string => {
   if (!url) return "";
   if (url.trim().length === 0) return url;
   const parsed = new URL(url);
@@ -20,7 +25,9 @@ export const getImageURL = (url: string | undefined): string => {
   if (parsed.host.startsWith("psnobj.prod")) dest = "/api/image/obj";
   if (parsed.host.startsWith("psn-rsc.prod")) dest = "/api/image/rsc";
   if (dest === null) return url;
-  return APP_URL + dest + parsed.pathname;
+  if (sizes?.width) parsed.searchParams.set("w", sizes.width.toString());
+  if (sizes?.height) parsed.searchParams.set("h", sizes.height.toString());
+  return APP_URL + dest + parsed.pathname + parsed.search;
 };
 
 export const downloadImage = (image: Blob | null, name?: string) => {

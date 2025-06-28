@@ -56,7 +56,7 @@ const GameImage: FC<Props> = (props) => {
   const currentSrc = useRef(src);
   const loader = useRef<LoaderHandle>(null);
 
-  const image = getImageURL(src as string);
+  const image = getImageURL(src as string, { height: 96 });
 
   const handleLoad = useCallback(() => loader.current?.stop(), []);
   const handleError = useCallback(() => loader.current?.stop(), []);

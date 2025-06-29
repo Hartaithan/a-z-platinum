@@ -1,18 +1,14 @@
 "use client";
 
-import { imageStatues } from "@/constants/image";
-import { Spinner } from "@/ui/spinner";
+import GameLoader, { LoaderHandle } from "@/components/game-loader";
 import { getImageURL } from "@/utils/image";
-import { cn } from "@/utils/styles";
 import { Trophy } from "lucide-react";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
 import {
   ReactEventHandler,
-  Ref,
   useCallback,
   useEffect,
-  useImperativeHandle,
   useRef,
   useState,
   type FC,
@@ -24,38 +20,6 @@ const Placeholder: FC = () => (
     <Trophy className="size-8/12 stroke-white" />
   </div>
 );
-
-interface LoaderHandle {
-  start: () => void;
-  stop: () => void;
-}
-
-interface LoaderProps {
-  ref: Ref<LoaderHandle>;
-}
-
-const Loader: FC<LoaderProps> = (props) => {
-  const { ref } = props;
-  const [isLoading, setLoading] = useState(true);
-  const status = isLoading && imageStatues.loading;
-
-  useImperativeHandle(ref, () => ({
-    start: () => setLoading(true),
-    stop: () => setLoading(false),
-  }));
-
-  if (!isLoading) return null;
-
-  return (
-    <div
-      className={cn(
-        "absolute inset-0 z-[4] flex grow items-center justify-center bg-black/50 transition-opacity duration-300",
-        status,
-      )}>
-      <Spinner className="size-7/12" />
-    </div>
-  );
-};
 
 type Props = ImageProps;
 
@@ -90,7 +54,7 @@ const GameImage: FC<Props> = (props) => {
         "relative flex aspect-[20/11] h-14 w-auto flex-shrink-0 justify-center overflow-hidden rounded-md",
         className,
       )}>
-      <Loader ref={loader} />
+      <GameLoader ref={loader} />
       {hasError ? (
         <Placeholder />
       ) : (

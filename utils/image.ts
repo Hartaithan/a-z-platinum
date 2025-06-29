@@ -2,6 +2,7 @@
 
 import { imageStatues } from "@/constants/image";
 import { APP_URL } from "@/constants/variables";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { toast } from "sonner";
 
 const errors = {
@@ -16,8 +17,12 @@ interface Sizes {
   height?: number;
 }
 
-export const getImageURL = (url: string | undefined, sizes?: Sizes): string => {
+export const getImageURL = (
+  url: string | StaticImport | undefined,
+  sizes?: Sizes,
+): string | StaticImport => {
   if (!url) return "";
+  if (typeof url !== "string") return url;
   if (url.trim().length === 0) return url;
   const parsed = new URL(url);
   let dest: string | null = null;

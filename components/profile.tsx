@@ -1,13 +1,12 @@
 "use client";
 
+import Avatar from "@/components/avatar";
 import StatItem from "@/components/stat-item";
 import YearFilter from "@/components/year-filter";
 import { difficultyLabels } from "@/constants/alphabet";
 import { useData } from "@/providers/data";
 import { useSettings } from "@/providers/settings";
-import { getImageURL } from "@/utils/image";
 import { cn } from "@/utils/styles";
-import Image from "next/image";
 import { FC } from "react";
 
 const EmptyProfile: FC = () => {
@@ -42,18 +41,7 @@ const Content: FC = () => {
           "flex w-full items-center gap-4 sm:w-auto",
           settings.hide && "blur-md",
         )}>
-        {profile?.avatar_url ? (
-          <Image
-            className="rounded-full"
-            width={48}
-            height={48}
-            src={getImageURL(profile?.avatar_url)}
-            alt={profile?.name}
-            unoptimized
-          />
-        ) : (
-          <div className="bg-border size-12 rounded-full" />
-        )}
+        <Avatar src={profile?.avatar_url} name={profile?.name} />
         <div className="flex flex-col leading-[normal]">
           <h1 className="font-bold">{profile?.name ?? "Trophy Hunter"}</h1>
           <p className="text-sm text-gray-600">

@@ -1,7 +1,14 @@
 import { getImageURL } from "@/utils/image";
 import { UserRound } from "lucide-react";
 import Image from "next/image";
-import { FC, ReactEventHandler, useCallback, useState } from "react";
+import {
+  FC,
+  ReactEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface Props {
   src: string | undefined;
@@ -18,9 +25,16 @@ const Placeholder: FC = () => (
 
 const Avatar: FC<Props> = (props) => {
   const { src, name } = props;
+  const currentSrc = useRef(src);
   const [hasError, setError] = useState(false);
 
   const handleError: ImageHandler = useCallback(() => setError(true), []);
+
+  useEffect(() => {
+    if (src === currentSrc.current) return;
+    currentSrc.current = src;
+    setError(false);
+  }, [src]);
 
   if (!src || hasError) return <Placeholder />;
 

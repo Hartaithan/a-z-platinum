@@ -16,7 +16,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 const Placeholder: FC = () => (
-  <div className="flex size-full items-center justify-center bg-neutral-400">
+  <div className="flex size-full items-center justify-center bg-neutral-400/80">
     <Trophy className="size-8/12 stroke-white" />
   </div>
 );
@@ -46,6 +46,7 @@ const GameImage: FC<Props> = (props) => {
     if (src === currentSrc.current) return;
     currentSrc.current = src;
     loader.current?.start();
+    setError(false);
   }, [src]);
 
   return (

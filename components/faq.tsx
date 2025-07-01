@@ -42,8 +42,8 @@ const FAQ: FC = () => {
         <Accordion className="mt-1" type="multiple">
           <Item
             id="ps-account"
-            title="Do I need a PlayStation account to use this app?">
-            Yes, you need a PlayStation account. Additionally,&nbsp;
+            title="What are the requirements for using this app?">
+            You need a PlayStation account. Additionally,&nbsp;
             <b>your PSN account must be set to public</b> so your trophy data
             can be accessed
           </Item>
@@ -58,6 +58,26 @@ const FAQ: FC = () => {
             <ExternalLink href="https://forum.psnprofiles.com/topic/171838-trophies-are-missing-hidden-or-private-trophies-how-to-fix-it">
               here
             </ExternalLink>
+          </Item>
+          <Item
+            id="difficulty"
+            title="What is 'difficulty' and what types are there?">
+            Difficulty affects <b>how many letters</b> you need to complete
+            during a challenge. You can find a detailed explanation in the
+            app&apos;s settings
+          </Item>
+          <Item
+            id="featured"
+            title="Can I choose different games to display on the screen?">
+            Yes, you can select any game to feature by tapping on the letter
+            itself. Then, <b>tap the note icon button to assign a game</b> of
+            your choice
+          </Item>
+          <Item
+            id="rarity"
+            title="I want to see trophy rarity from PSNP instead of PSN. Can I change that?">
+            <b>Unfortunately, no.</b> The app uses data from PSN only, and PSNP
+            rarity data is not available
           </Item>
           <Item
             id="artifacts"

@@ -16,8 +16,12 @@ const Item: FC<ItemProps> = (props) => {
   const { id, title, children } = props;
   return (
     <AccordionItem value={id}>
-      <AccordionTrigger>{title}</AccordionTrigger>
-      <AccordionContent>{children}</AccordionContent>
+      <AccordionTrigger className="py-3 text-xs md:py-4 md:text-sm">
+        {title}
+      </AccordionTrigger>
+      <AccordionContent className="text-xs md:text-sm">
+        {children}
+      </AccordionContent>
     </AccordionItem>
   );
 };
@@ -38,7 +42,7 @@ const FAQ: FC = () => {
   return (
     <div className="py-4">
       <section id="faq" className="container flex flex-col flex-nowrap">
-        <h1 className="text-xl font-bold">FAQ</h1>
+        <h1 className="text-lg font-bold md:text-xl">FAQ</h1>
         <Accordion className="mt-1" type="multiple">
           <Item
             id="ps-account"

@@ -12,8 +12,12 @@ const StatItem: FC<Props> = (props) => {
     <div
       className={cn("flex flex-col items-center leading-[normal]", className)}
       {...rest}>
-      <p className="font-bold">{value ?? "-"}</p>
-      <p className="text-sm text-gray-600">{label}</p>
+      <p className="@capture:text-base text-sm font-bold md:text-base">
+        {value ?? "-"}
+      </p>
+      <p className="@capture:text-sm text-xs text-gray-600 md:text-sm">
+        {label}
+      </p>
     </div>
   );
 };

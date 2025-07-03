@@ -13,15 +13,15 @@ const EmptyProfile: FC = () => {
   return (
     <section
       id="profile"
-      className="container mt-4 flex h-[100px] flex-col items-center justify-center">
-      <h1 className="mb-1 text-xl font-bold">
+      className="container mt-4 flex flex-col items-center justify-center text-center">
+      <h1 className="text-md mb-1 font-bold md:text-xl">
         Welcome to A-Z Platinum Challenge!
       </h1>
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-xs text-gray-600 md:text-sm">
         Choose a game for every letter from A to Z, earn the platinum trophy in
         each one, and complete the challenge. Track your progress as you go!
       </p>
-      <p className="text-center text-sm font-semibold text-gray-600">
+      <p className="text-xs font-semibold text-gray-600 md:text-sm">
         Just make sure your PSN profile is set to public so your trophy data can
         be accessed!
       </p>
@@ -35,7 +35,7 @@ const Content: FC = () => {
   return (
     <section
       id="profile"
-      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start container mt-4 flex h-auto flex-wrap items-center justify-center gap-4 md:h-12 md:flex-nowrap md:justify-start">
+      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start @capture:gap-4 container mt-4 flex h-auto flex-wrap items-center justify-center gap-3 md:h-12 md:flex-nowrap md:justify-start md:gap-4">
       <div
         className={cn(
           "flex w-full items-center gap-4 sm:w-auto",
@@ -56,7 +56,7 @@ const Content: FC = () => {
         label="Difficulty"
       />
       <div className="bg-border @capture:w-[1px] h-full w-auto md:w-[1px]" />
-      <div className="@capture:flex-nowrap flex flex-wrap justify-center gap-5 md:flex-nowrap">
+      <div className="@capture:flex-nowrap @capture:gap-5 flex flex-wrap justify-center gap-4 md:flex-nowrap md:gap-5">
         <StatItem value={profile?.counts?.platinum} label="Platinum" />
         <StatItem value={profile?.counts?.gold} label="Gold" />
         <StatItem value={profile?.counts?.silver} label="Silver" />

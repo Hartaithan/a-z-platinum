@@ -137,7 +137,11 @@
   }
 
   button {
-    cursor: pointer;
+    @apply cursor-pointer;
+  }
+
+  a {
+    @apply underline;
   }
 
   ::-webkit-scrollbar {

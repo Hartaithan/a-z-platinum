@@ -14,7 +14,7 @@ const YearFilter: FC<Props> = (props) => {
   return (
     <div
       id="year-filter"
-      className={cn("relative flex gap-2", className)}
+      className={cn("@capture::gap-2 relative flex gap-1 md:gap-2", className)}
       {...rest}>
       <Button
         unstyled
@@ -24,8 +24,12 @@ const YearFilter: FC<Props> = (props) => {
         <ArrowLeftIcon className="size-4" />
       </Button>
       <div className="flex flex-col items-center leading-[normal]">
-        <p className="w-11 text-center font-bold">{year ?? "All"}</p>
-        <p className="text-sm text-gray-600">Year</p>
+        <p className="@capture:text-base w-11 text-center text-sm font-bold md:text-base">
+          {year ?? "All"}
+        </p>
+        <p className="@capture:text-sm text-xs text-gray-600 md:text-sm">
+          Year
+        </p>
       </div>
       <Button
         unstyled

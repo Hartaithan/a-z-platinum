@@ -136,6 +136,10 @@
     @apply bg-background text-foreground min-h-full;
   }
 
+  body:has(header[id="mobile"]) {
+    @apply pb-14;
+  }
+
   button {
     @apply cursor-pointer;
   }
@@ -167,6 +171,10 @@
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset !important;
+  }
+
+  nextjs-portal {
+    display: none;
   }
 }
 

@@ -13,6 +13,12 @@ export interface CachedResponse {
   expires?: string;
 }
 
+export type Device = "desktop" | "mobile";
+
+export interface DeviceProps {
+  device?: Device;
+}
+
 export interface Settings {
   data: DataKey;
   difficulty: DifficultyKey;

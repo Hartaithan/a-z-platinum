@@ -10,7 +10,7 @@ const Submit: FC = () => {
     <form className="flex w-full" onSubmit={onSubmit}>
       <Input
         name="id"
-        className="h-auto min-w-auto grow rounded-none border-none bg-transparent p-0 font-bold shadow-none focus-visible:ring-0"
+        className="h-auto min-w-auto grow rounded-none border-none bg-transparent p-0 text-sm font-bold shadow-none focus-visible:ring-0 md:text-base"
         placeholder="Enter your PSN ID"
       />
     </form>

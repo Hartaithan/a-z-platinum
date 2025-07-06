@@ -176,6 +176,11 @@
   nextjs-portal {
     display: none;
   }
+
+  div[data-radix-popper-content-wrapper]:has(div[id="dropdown-full-width"]) {
+    width: 100%;
+    padding: 0 calc(var(--spacing) * 2);
+  }
 }
 
 @utility scrollbar-gutter {

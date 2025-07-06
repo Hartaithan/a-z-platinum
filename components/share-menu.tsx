@@ -4,6 +4,7 @@ import ImageUploadPopup, {
   ImageUploadPopupHandle,
 } from "@/components/image-upload-popup";
 import { useAbortController } from "@/hooks/use-abort-controller";
+import { DeviceProps } from "@/models/app";
 import { useCapture } from "@/providers/capture";
 import { useData } from "@/providers/data";
 import { Button } from "@/ui/button";
@@ -18,7 +19,7 @@ import { readError } from "@/utils/error";
 import { downloadImage, isImagesLoading } from "@/utils/image";
 import { getUploadFormData } from "@/utils/upload";
 import { SaveIcon, Share2Icon, UploadIcon } from "lucide-react";
-import { useCallback, useRef, type FC } from "react";
+import { useCallback, useMemo, useRef, type FC } from "react";
 import { toast } from "sonner";
 
 const messages = {
@@ -26,7 +27,8 @@ const messages = {
   generate: "Unable to generate image",
 };
 
-const ShareMenu: FC = () => {
+const ShareMenu: FC<DeviceProps> = (props) => {
+  const { device = "desktop" } = props;
   const { profile } = useData();
   const { capture } = useCapture();
   const { abort, getSignal } = useAbortController({ message: messages.cancel });
@@ -68,30 +70,40 @@ const ShareMenu: FC = () => {
     }
   }, [capture, profile?.name, getSignal]);
 
+  const items = useMemo(
+    () => (
+      <>
+        <DropdownMenuItem onClick={handleSave} aria-label="Save as PNG">
+          <SaveIcon className="text-primary" />
+          <span>Save as PNG</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleUpload} aria-label="Upload image">
+          <UploadIcon className="text-primary" />
+          <span>Upload image</span>
+        </DropdownMenuItem>
+      </>
+    ),
+    [handleSave, handleUpload],
+  );
+
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            id="share-menu"
-            className="mr-2 inline-flex items-center justify-center gap-2 font-medium"
-            unstyled
-            aria-label="Share">
-            <Share2Icon className="text-primary" />
-            <span>Share</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={handleSave} aria-label="Save as PNG">
-            <SaveIcon className="text-primary" />
-            <span>Save as PNG</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleUpload} aria-label="Upload image">
-            <UploadIcon className="text-primary" />
-            <span>Upload image</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {device === "mobile" && items}
+      {device === "desktop" && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              id="share-menu"
+              className="mr-2 inline-flex items-center justify-center gap-2 font-medium"
+              unstyled
+              aria-label="Share">
+              <Share2Icon className="text-primary" />
+              <span>Share</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>{items}</DropdownMenuContent>
+        </DropdownMenu>
+      )}
       <ImageUploadPopup ref={popupRef} abort={abort} />
     </>
   );

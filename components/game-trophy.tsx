@@ -24,13 +24,15 @@ const GameTrophy: FC<Props> = (props) => {
           unoptimized
         />
         <div className="ml-3">
-          <h4 className="text-sm font-medium">
+          <h4 className="text-xs font-medium sm:text-sm">
             {trophy?.title || "Platinum Trophy"}
           </h4>
-          <p className="mt-0.5 text-sm text-gray-600">{trophy?.description}</p>
+          <p className="mt-0.5 text-xs text-gray-600 md:text-sm">
+            {trophy?.description}
+          </p>
         </div>
       </div>
-      <div className="mt-2 flex items-center gap-3 text-xs text-gray-600">
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600">
         <span>
           <span className="font-medium">Type:&nbsp;</span>
           <span className="capitalize">{trophy?.type}</span>

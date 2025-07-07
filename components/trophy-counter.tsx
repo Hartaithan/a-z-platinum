@@ -28,7 +28,7 @@ const TrophyCounter: FC<Props> = (props) => {
         )}>
         <Trophy className="size-3" />
       </div>
-      <span className="text-sm font-medium">{`${earned} / ${count}`}</span>
+      <span className="text-xs font-medium text-nowrap sm:text-sm">{`${earned} / ${count}`}</span>
     </div>
   );
 };

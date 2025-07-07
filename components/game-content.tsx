@@ -14,11 +14,13 @@ const GameContent: FC<Props> = (props) => {
   const game = getItem(item);
   if (!game) return null;
   return (
-    <div className="flex items-center">
+    <div className="flex w-full items-center">
       <GameImage src={game?.image_url} alt={game?.title} />
-      <div className="ml-3">
-        <h1 className="pr-6 font-bold">{game?.title}</h1>
-        <div className="mt-1 flex gap-1 text-xs">
+      <div className="ml-3 flex-1">
+        <h1 className="pr-6 text-sm leading-[normal] font-bold md:text-base">
+          {game?.title}
+        </h1>
+        <div className="mt-1 flex flex-wrap gap-1 text-xs">
           <CompletionTag completion={game?.completion} />
           <PlatformTags platforms={game?.platforms} />
         </div>

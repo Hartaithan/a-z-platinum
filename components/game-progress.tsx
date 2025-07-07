@@ -19,7 +19,7 @@ const GameProgress: FC<Props> = (props) => {
         <span className="font-bold">{`${game?.progress}%`}</span>
       </div>
       <Progress value={game?.progress} />
-      <div className="mt-2 flex justify-center gap-3">
+      <div className="mt-2 flex flex-wrap justify-center gap-x-3 gap-y-1">
         <TrophyCounter
           type="platinum"
           earned={game.earned_counts.platinum}

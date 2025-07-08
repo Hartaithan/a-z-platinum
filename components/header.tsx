@@ -26,6 +26,7 @@ const DesktopHeader: FC = () => {
         <SectionLink section="about" description="Learn more about the project">
           <Info />
         </SectionLink>
+        <SettingsDrawer />
       </div>
     </header>
   );

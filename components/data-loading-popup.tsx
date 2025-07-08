@@ -50,7 +50,7 @@ const DataLoadingContent: FC<PropsWithChildren> = (props) => {
 };
 
 const DataLoadingPopup: FC<Props> = (props) => {
-  const { ref, abort, ...rest } = props;
+  const { ref, abort, open: _, ...rest } = props;
   const { status } = useData();
   const [pages, setPages] = useState<Pages>(defaultPages);
 
@@ -61,10 +61,10 @@ const DataLoadingPopup: FC<Props> = (props) => {
     reset: handleReset,
   }));
 
-  const open = status !== "idle" && status !== "completed";
+  const opened = status !== "idle" && status !== "completed";
 
   return (
-    <Dialog open={open} {...rest}>
+    <Dialog open={opened} {...rest}>
       <DataLoadingContent>
         <DialogTitle className="hidden">Data Loading Popup</DialogTitle>
         <DialogDescription className="hidden">

@@ -44,12 +44,12 @@ const CongratulationContent: FC<PropsWithChildren> = (props) => {
 
 const CongratulationPopup: FC<Props> = (props) => {
   const { ref, onClose, open: _, ...rest } = props;
-  const [opened, setOpen] = useState<State>(false);
+  const [opened, setOpened] = useState<State>(false);
   const { profile } = useData();
 
-  const open = useCallback(() => setOpen(true), []);
-  const close = useCallback(() => setOpen(false), []);
-  const toggle = useCallback(() => setOpen((prev) => !prev), []);
+  const open = useCallback(() => setOpened(true), []);
+  const close = useCallback(() => setOpened(false), []);
+  const toggle = useCallback(() => setOpened((prev) => !prev), []);
 
   const handleClose = useCallback(() => {
     close();
@@ -65,21 +65,21 @@ const CongratulationPopup: FC<Props> = (props) => {
   return (
     <Dialog open={opened} {...rest}>
       <CongratulationContent>
-        <DialogTitle className="text-4xl">
+        <DialogTitle className="text-center text-4xl">
           Congratulations <b>{profile?.name}</b>!
         </DialogTitle>
-        <DialogDescription className="mt-2 text-lg text-white">
+        <DialogDescription className="mt-4 text-center text-lg text-white md:mt-2">
           You&apos;ve completed the A-Z Platinum Challenge!
         </DialogDescription>
         <PartyPopper className="mt-6 h-24 w-24 animate-pulse" />
-        <p className="mt-4 max-w-4/12 text-center">
+        <p className="mt-4 max-w-full text-center md:max-w-4/12">
           You&apos;ve achieved the impossible - a Platinum trophy for every
           letter of the alphabet! Your dedication and skill are truly
           remarkable.
         </p>
         <Button
           variant="outline"
-          className="te mt-6 px-5 font-semibold"
+          className="mt-6 px-5 font-semibold"
           onClick={handleClose}>
           Continue
         </Button>

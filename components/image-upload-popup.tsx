@@ -17,7 +17,7 @@ import { useCallback, useImperativeHandle, useState } from "react";
 export type UploadStatus = "generate" | "upload" | "complete" | "error";
 
 interface UploadState {
-  visible: boolean;
+  opened: boolean;
   status: UploadStatus;
   error: string | null;
   image: string | null;
@@ -37,7 +37,7 @@ export interface ImageUploadPopupHandle {
 }
 
 const defaultState: UploadState = {
-  visible: false,
+  opened: false,
   status: "generate",
   error: null,
   image: null,
@@ -60,11 +60,11 @@ const DataLoadingContent: FC<PropsWithChildren> = (props) => {
 const ImageUploadPopup: FC<Props> = (props) => {
   const { ref, abort, ...rest } = props;
   const [state, setState] = useState<UploadState>(defaultState);
-  const { visible, status, error, image } = state;
+  const { opened, status, error, image } = state;
   const isLoading = status === "generate" || status === "upload";
 
   const open = useCallback(() => {
-    setState((prev) => ({ ...prev, visible: true }));
+    setState((prev) => ({ ...prev, opened: true }));
   }, []);
 
   const close = useCallback(() => {
@@ -78,7 +78,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
   useImperativeHandle(ref, () => ({ open, close, set }));
 
   return (
-    <Dialog open={visible} {...rest}>
+    <Dialog open={opened} {...rest}>
       <DataLoadingContent>
         <DialogTitle className="hidden">Image Upload Popup</DialogTitle>
         <DialogDescription className="hidden">

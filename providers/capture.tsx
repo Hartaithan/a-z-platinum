@@ -31,6 +31,7 @@ const Context = createContext<Context>(initialValue);
 const sizes: Record<Theme, { width: number }> = {
   cards: { width: 1100 },
   list: { width: 1100 },
+  icons: { width: 1100 },
 };
 
 const CaptureProvider: FC<PropsWithChildren> = (props) => {

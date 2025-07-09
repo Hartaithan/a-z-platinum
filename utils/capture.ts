@@ -15,6 +15,7 @@ const timeout = 2000;
 const background: Record<Theme, string> = {
   cards: "#FFFFFF",
   list: "#FFFFFF",
+  icons: "#FFFFFF",
 };
 
 const options: Record<Step, GetOptions> = {

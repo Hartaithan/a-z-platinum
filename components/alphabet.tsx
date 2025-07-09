@@ -1,6 +1,7 @@
 "use client";
 
-import CardsAlphabet from "@/components//cards-alphabet";
+import CardsAlphabet from "@/components/cards-alphabet";
+import IconsAlphabet from "@/components/icons-alphabet";
 import ListAlphabet from "@/components/list-alphabet";
 import { defaultTheme } from "@/constants/app";
 import { Theme } from "@/models/app";
@@ -10,6 +11,7 @@ import { FC } from "react";
 const alphabet: Record<Theme, FC> = {
   cards: CardsAlphabet,
   list: ListAlphabet,
+  icons: IconsAlphabet,
 };
 
 const PickedAlphabet: FC = () => {

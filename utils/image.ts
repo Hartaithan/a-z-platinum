@@ -2,6 +2,7 @@
 
 import { imageStatues } from "@/constants/image";
 import { APP_URL } from "@/constants/variables";
+import { Sizes } from "@/models/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { toast } from "sonner";
 
@@ -11,11 +12,6 @@ const errors = {
   loadingDescription:
     "Cannot proceed while images are still loading. Please wait until all images have finished loading",
 };
-
-interface Sizes {
-  width?: number;
-  height?: number;
-}
 
 export const getImageURL = (
   url: string | StaticImport | undefined,

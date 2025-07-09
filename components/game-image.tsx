@@ -1,6 +1,7 @@
 "use client";
 
 import GameLoader, { LoaderHandle } from "@/components/game-loader";
+import { Sizes } from "@/models/image";
 import { getImageURL } from "@/utils/image";
 import { Trophy } from "lucide-react";
 import type { ImageProps } from "next/image";
@@ -21,17 +22,21 @@ const Placeholder: FC = () => (
   </div>
 );
 
-type Props = ImageProps;
+interface Props extends ImageProps {
+  imgSizes?: Sizes;
+}
+
+const defaultSizes: Sizes = { height: 96 };
 
 type ImageHandler = ReactEventHandler<HTMLImageElement>;
 
 const GameImage: FC<Props> = (props) => {
-  const { className, src, alt, ...rest } = props;
+  const { className, src, alt, imgSizes = defaultSizes, ...rest } = props;
   const currentSrc = useRef(src);
   const loader = useRef<LoaderHandle>(null);
   const [hasError, setError] = useState(false);
 
-  const image = getImageURL(src, { height: 96 });
+  const image = getImageURL(src, imgSizes);
 
   const handleLoad: ImageHandler = useCallback(() => {
     loader.current?.stop();

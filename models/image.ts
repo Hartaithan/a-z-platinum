@@ -49,3 +49,8 @@ export interface ImageErrorResponse {
 }
 
 export type ImageResponse = ImageSuccessResponse | ImageErrorResponse;
+
+export interface Sizes {
+  width?: number;
+  height?: number;
+}

@@ -40,7 +40,7 @@ const Letter: FC<LetterProps> = (props) => {
 
   if (!hasItems) {
     return (
-      <div className={cn(styles.container, "bg-neutral-200/75")}>
+      <div className={cn(styles.container, "bg-neutral-100")}>
         <b className={cn(styles.letter, status)}>{letter}</b>
       </div>
     );
@@ -56,10 +56,11 @@ const Letter: FC<LetterProps> = (props) => {
         src={item?.trophy?.image_url ?? ""}
         alt={item?.title ?? "Game image"}
       />
-      <p className="text-shadow absolute bottom-2 left-2 z-20 w-[88%] text-xs leading-[normal] font-extrabold break-words text-white">
-        {title}
-      </p>
-      <div className="absolute z-10 size-full bg-linear-to-b from-transparent via-black/10 via-80% to-black/60" />
+      <div className="absolute z-10 flex size-full flex-col justify-end bg-linear-to-b from-transparent via-transparent via-60% to-black/60 p-2">
+        <p className="text-shadow line-clamp-3 text-xs leading-[normal] font-extrabold break-words text-ellipsis text-white">
+          {title}
+        </p>
+      </div>
       <b className={cn("hidden", status)}>{letter}</b>
     </div>
   );
@@ -69,7 +70,7 @@ const IconsAlphabet: FC = () => {
   const { getDifficulty } = useSettings();
   const letters = getDifficulty();
   return (
-    <div className="@capture:grid-cols-7 container mx-auto grid grid-cols-4 gap-4 py-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7">
+    <div className="@capture:grid-cols-7 container mx-auto grid grid-cols-3 gap-4 py-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
       {letters.map((letter) => (
         <Letter key={letter} letter={letter} />
       ))}

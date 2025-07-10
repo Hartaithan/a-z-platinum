@@ -2,7 +2,7 @@
 
 import type { Theme } from "@/models/app";
 import { useTheme } from "@/providers/theme";
-import { captureElement } from "@/utils/capture";
+import { captureElement, debugCapture } from "@/utils/capture";
 import { readError } from "@/utils/error";
 import type { RefObject } from "react";
 import {
@@ -57,7 +57,7 @@ const CaptureProvider: FC<PropsWithChildren> = (props) => {
       toast.error(message);
       return null;
     } finally {
-      hidden.innerHTML = "";
+      if (!debugCapture(tempRef?.current)) hidden.innerHTML = "";
     }
   }, [theme]);
 

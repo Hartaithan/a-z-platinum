@@ -52,3 +52,24 @@ export const captureElement = async (
     return null;
   }
 };
+
+interface Debug {
+  enable: false;
+  styles: Partial<CSSStyleDeclaration>;
+}
+
+const debug: Debug = {
+  enable: false,
+  styles: {
+    left: "0",
+    overflow: "auto",
+    zIndex: "999",
+    background: "white",
+  },
+};
+
+export const debugCapture = (element?: HTMLDivElement | null): boolean => {
+  if (!debug.enable || !element?.parentElement) return false;
+  Object.assign(element.parentElement.style, debug.styles);
+  return true;
+};

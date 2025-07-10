@@ -35,7 +35,7 @@ const Content: FC = () => {
   return (
     <section
       id="profile"
-      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start @capture:gap-4 container mt-4 flex h-auto flex-wrap items-center justify-center gap-3 md:h-12 md:flex-nowrap md:justify-start md:gap-4">
+      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start @capture:gap-4 @capture:mt-0 container mt-4 flex h-auto flex-wrap items-center justify-center gap-3 md:h-12 md:flex-nowrap md:justify-start md:gap-4">
       <div
         className={cn(
           "flex w-full items-center gap-4 sm:w-auto",

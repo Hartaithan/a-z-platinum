@@ -4,7 +4,7 @@ import SectionLink from "@/components/section-link";
 import SettingsDrawer from "@/components/settings-drawer";
 import ShareMenu from "@/components/share-menu";
 import Submit from "@/components/submit";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useDevice } from "@/providers/device";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,7 +67,7 @@ const MobileHeader: FC = () => {
 };
 
 const Header: FC = () => {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { isDesktop } = useDevice();
   if (isDesktop) return <DesktopHeader />;
   return <MobileHeader />;
 };

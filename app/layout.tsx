@@ -1,3 +1,4 @@
+import { getDeviceType } from "@/actions/device";
 import { getTheme } from "@/actions/theme";
 import "@/app/globals.css";
 import RootProviders from "@/providers/root";
@@ -20,11 +21,13 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren> = async (props) => {
   const { children } = props;
-  const defaultTheme = await getTheme();
+  const [theme, device] = await Promise.all([getTheme(), getDeviceType()]);
   return (
-    <html lang="en" data-theme={defaultTheme}>
+    <html lang="en" data-theme={theme}>
       <body className={cn(font.variable, "antialiased")}>
-        <RootProviders defaultTheme={defaultTheme}>{children}</RootProviders>
+        <RootProviders defaultTheme={theme} defaultDevice={device}>
+          {children}
+        </RootProviders>
         <Toaster theme="light" position="top-right" richColors closeButton />
       </body>
     </html>

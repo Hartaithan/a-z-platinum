@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const About: FC = () => {
   return (
-    <div className="py-4 pb-8">
+    <div className="py-4 pb-10">
       <section
         id="about"
         className="container flex flex-col flex-nowrap gap-2 text-xs md:text-sm">

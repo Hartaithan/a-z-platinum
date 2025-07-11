@@ -9,11 +9,18 @@ import { useSettings } from "@/providers/settings";
 import { cn } from "@/utils/styles";
 import { FC } from "react";
 
+const styles = {
+  container: "container mt-7 md:mt-5 @capture:mt-0",
+};
+
 const EmptyProfile: FC = () => {
   return (
     <section
       id="profile"
-      className="container mt-4 flex flex-col items-center justify-center text-center">
+      className={cn(
+        styles.container,
+        "flex flex-col items-center justify-center text-center",
+      )}>
       <h1 className="text-md mb-1 font-bold md:text-xl">
         Welcome to A-Z Platinum Challenge!
       </h1>
@@ -35,7 +42,10 @@ const Content: FC = () => {
   return (
     <section
       id="profile"
-      className="@capture:h-12 @capture:flex-nowrap @capture:justify-start @capture:gap-4 @capture:mt-0 container mt-4 flex h-auto flex-wrap items-center justify-center gap-3 md:h-12 md:flex-nowrap md:justify-start md:gap-4">
+      className={cn(
+        styles.container,
+        "@capture:h-12 @capture:flex-nowrap @capture:justify-start @capture:gap-4 flex h-auto flex-wrap items-center justify-center gap-3 md:h-12 md:flex-nowrap md:justify-start md:gap-4",
+      )}>
       <div
         className={cn(
           "flex w-full items-center gap-4 sm:w-auto",

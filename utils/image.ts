@@ -1,6 +1,6 @@
 "use client";
 
-import { imageStatues } from "@/constants/image";
+import { imageStatuses } from "@/constants/image";
 import { APP_URL } from "@/constants/variables";
 import { Sizes } from "@/models/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -41,7 +41,7 @@ export const downloadImage = (image: Blob | null, name?: string) => {
 };
 
 export const isImagesLoading = () => {
-  const elements = document.getElementsByClassName(imageStatues.loading);
+  const elements = document.getElementsByClassName(imageStatuses.loading);
   if (elements.length > 0) {
     toast.warning(errors.loadingTitle, {
       description: errors.loadingDescription,

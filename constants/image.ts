@@ -1,3 +1,3 @@
-export const imageStatues = {
+export const imageStatuses = {
   loading: "game-image-loader",
 };

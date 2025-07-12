@@ -1,4 +1,4 @@
-import { imageStatues } from "@/constants/image";
+import { imageStatuses } from "@/constants/image";
 import { Spinner } from "@/ui/spinner";
 import { cn } from "@/utils/styles";
 import { FC, Ref, useImperativeHandle, useState } from "react";
@@ -15,7 +15,7 @@ interface Props {
 const GameLoader: FC<Props> = (props) => {
   const { ref } = props;
   const [isLoading, setLoading] = useState(true);
-  const status = isLoading && imageStatues.loading;
+  const status = isLoading && imageStatuses.loading;
 
   useImperativeHandle(ref, () => ({
     start: () => setLoading(true),

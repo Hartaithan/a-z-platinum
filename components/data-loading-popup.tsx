@@ -70,8 +70,8 @@ const DataLoadingPopup: FC<Props> = (props) => {
         <DialogDescription className="hidden">
           Data Loading Popup
         </DialogDescription>
-        <div className="flex w-full justify-center gap-5">
-          <div className="flex flex-col items-center text-white">
+        <div className="flex w-full justify-center gap-5 text-white">
+          <div className="flex flex-col items-center">
             {status === "profile-loading" ? (
               <ProgressSpinner />
             ) : (
@@ -79,7 +79,7 @@ const DataLoadingPopup: FC<Props> = (props) => {
             )}
             <p className="mt-2 text-xl font-bold">Profile</p>
           </div>
-          <div className="flex flex-col items-center text-white">
+          <div className="flex flex-col items-center">
             {status === "platinums-loading" ? (
               <ProgressSpinner>
                 <p className="text-xl font-bold">
@@ -94,7 +94,7 @@ const DataLoadingPopup: FC<Props> = (props) => {
         </div>
         <Button
           variant="outline"
-          className="h-8 w-10/12 justify-self-center font-semibold"
+          className="h-8 w-10/12 justify-self-center font-semibold text-white"
           onClick={abort}>
           Cancel
         </Button>

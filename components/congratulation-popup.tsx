@@ -79,7 +79,7 @@ const CongratulationPopup: FC<Props> = (props) => {
         </p>
         <Button
           variant="outline"
-          className="mt-6 px-5 font-semibold"
+          className="mt-6 px-5 font-semibold text-white"
           onClick={handleClose}>
           Continue
         </Button>

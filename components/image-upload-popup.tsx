@@ -112,7 +112,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
             <Button
               variant="outline"
               aria-label="Cancel image upload"
-              className="mt-3 h-8 w-10/12 justify-self-center font-semibold"
+              className="mt-3 h-8 w-10/12 justify-self-center font-semibold text-white"
               onClick={abort}>
               Cancel
             </Button>
@@ -121,7 +121,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
             <Button
               variant="outline"
               aria-label="Close image upload modal"
-              className="mt-3 h-8 w-10/12 justify-self-center font-semibold"
+              className="mt-3 h-8 w-10/12 justify-self-center font-semibold text-white"
               onClick={close}>
               Close
             </Button>

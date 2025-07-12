@@ -9,11 +9,6 @@
 
   --container-capture: 1100px;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -82,7 +77,6 @@
   --scrollbar-foreground: #d4d4d8;
   --scrollbar-background: transparent;
   --scrollbar-hover: #a1a1aa;
-  --radius: 0.625rem;
 }
 
 :root[data-theme="cards"] {
@@ -120,7 +114,6 @@
   --scrollbar-foreground: #d4d4d8;
   --scrollbar-background: transparent;
   --scrollbar-hover: #a1a1aa;
-  --radius: 0.625rem;
 }
 
 :root[data-theme="icons"] {
@@ -158,7 +151,6 @@
   --scrollbar-foreground: #d4d4d8;
   --scrollbar-background: transparent;
   --scrollbar-hover: #a1a1aa;
-  --radius: 0.625rem;
 }
 
 @layer base {

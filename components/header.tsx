@@ -5,6 +5,7 @@ import SettingsDrawer from "@/components/settings-drawer";
 import ShareMenu from "@/components/share-menu";
 import Submit from "@/components/submit";
 import { useDevice } from "@/providers/device";
+import ShareProvider from "@/providers/share";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -68,8 +69,11 @@ const MobileHeader: FC = () => {
 
 const Header: FC = () => {
   const { isDesktop } = useDevice();
-  if (isDesktop) return <DesktopHeader />;
-  return <MobileHeader />;
+  return (
+    <ShareProvider>
+      {isDesktop ? <DesktopHeader /> : <MobileHeader />}
+    </ShareProvider>
+  );
 };
 
 export default Header;

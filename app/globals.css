@@ -167,7 +167,7 @@
   }
 
   body:has(header[id="mobile"]) {
-    @apply pb-16;
+    @apply pb-10;
   }
 
   button {

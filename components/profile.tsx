@@ -10,7 +10,7 @@ import { cn } from "@/utils/styles";
 import { FC } from "react";
 
 const styles = {
-  container: "container mt-7 md:mt-5 @capture:mt-0",
+  container: "container mt-6 md:mt-5 @capture:mt-0",
 };
 
 const EmptyProfile: FC = () => {

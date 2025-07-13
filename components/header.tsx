@@ -37,7 +37,7 @@ const MobileHeader: FC = () => {
   return (
     <header
       id="mobile"
-      className="bg-background fixed bottom-0 z-30 flex h-16 w-full items-center gap-4 rounded-t-md px-4 shadow-2xl shadow-black">
+      className="bg-background fixed bottom-0 z-30 flex h-14 w-full items-center gap-4 rounded-t-md px-4 shadow-2xl shadow-black">
       <CircleUserRound className="min-w-6" />
       <Submit />
       <SettingsDrawer />

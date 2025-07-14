@@ -7,6 +7,7 @@ import { Trophy } from "lucide-react";
 import type { ImageProps } from "next/image";
 import Image from "next/image";
 import {
+  memo,
   ReactEventHandler,
   useCallback,
   useEffect,
@@ -93,4 +94,4 @@ const GameImage: FC<Props> = (props) => {
   );
 };
 
-export default GameImage;
+export default memo(GameImage);

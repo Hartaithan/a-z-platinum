@@ -1,5 +1,6 @@
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
+import { useLetter } from "@/providers/letter";
 import { useSettings } from "@/providers/settings";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 import { Bookmark, BookmarkCheck } from "lucide-react";
@@ -7,12 +8,12 @@ import { FC, memo, useCallback, useMemo } from "react";
 
 interface Props {
   item: string;
-  letter?: string;
 }
 
-const Component: FC<Props> = (props) => {
-  const { item, letter } = props;
+const LetterFeatured: FC<Props> = (props) => {
+  const { item } = props;
   const { year } = useFilters();
+  const { letter } = useLetter();
   const { settings } = useSettings();
   const { getFeatured, setFeatured } = useFeatured();
 
@@ -42,6 +43,4 @@ const Component: FC<Props> = (props) => {
   );
 };
 
-const LetterFeatured = memo(Component);
-
-export default LetterFeatured;
+export default memo(LetterFeatured);

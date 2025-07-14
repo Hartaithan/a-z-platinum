@@ -6,14 +6,13 @@ import { FC, memo } from "react";
 
 interface ItemProps {
   item: string;
-  letter?: string;
 }
 
-const Item: FC<ItemProps> = (props) => {
-  const { item, letter } = props;
+const LetterItem: FC<ItemProps> = (props) => {
+  const { item } = props;
   return (
     <div className="relative flex flex-col rounded-md border p-3">
-      <LetterFeatured item={item} letter={letter} />
+      <LetterFeatured item={item} />
       <GameContent item={item} />
       <GameProgress item={item} />
       <GameTrophy item={item} />
@@ -21,6 +20,4 @@ const Item: FC<ItemProps> = (props) => {
   );
 };
 
-const LetterItem = memo(Item);
-
-export default LetterItem;
+export default memo(LetterItem);

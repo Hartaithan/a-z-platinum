@@ -1,7 +1,7 @@
 import { TrophyType } from "@/models/trophy";
 import { cn } from "@/utils/styles";
 import { Trophy } from "lucide-react";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 const colors: Record<TrophyType, string> = {
   platinum: "bg-blue-100 text-blue-800",
@@ -33,4 +33,4 @@ const TrophyCounter: FC<Props> = (props) => {
   );
 };
 
-export default TrophyCounter;
+export default memo(TrophyCounter);

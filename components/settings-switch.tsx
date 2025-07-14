@@ -9,7 +9,7 @@ interface Props extends SwitchProps {
   label: string;
 }
 
-const CustomSwitch: FC<Props> = (props) => {
+const SettingsSwitch: FC<Props> = (props) => {
   const { id, label, className, children, ...rest } = props;
   return (
     <div className="flex items-center">
@@ -28,6 +28,4 @@ const CustomSwitch: FC<Props> = (props) => {
   );
 };
 
-const SettingsSwitch = memo(CustomSwitch);
-
-export default SettingsSwitch;
+export default memo(SettingsSwitch);

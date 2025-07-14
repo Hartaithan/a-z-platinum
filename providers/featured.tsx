@@ -1,10 +1,11 @@
 "use client";
 
-import LetterModal, { LetterModalData } from "@/components/letter-modal";
+import LetterModal from "@/components/letter-modal";
 import { featuredKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
 import { DataKey } from "@/models/data";
+import { LetterModalData } from "@/models/letter";
 import type { FC, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 

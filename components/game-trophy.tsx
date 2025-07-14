@@ -1,7 +1,7 @@
 import { useData } from "@/providers/data";
 import { getImageURL } from "@/utils/image";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 interface Props {
   item: string;
@@ -52,4 +52,4 @@ const GameTrophy: FC<Props> = (props) => {
   );
 };
 
-export default GameTrophy;
+export default memo(GameTrophy);

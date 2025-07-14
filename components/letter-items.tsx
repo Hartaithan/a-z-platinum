@@ -1,6 +1,6 @@
 import LetterItem from "@/components/letter-item";
-import { LetterModalData } from "@/components/letter-modal";
-import { FC } from "react";
+import { useLetter } from "@/providers/letter";
+import { FC, memo } from "react";
 
 const EmptyList: FC = () => (
   <div className="flex items-center justify-center">
@@ -8,18 +8,16 @@ const EmptyList: FC = () => (
   </div>
 );
 
-type Props = Partial<LetterModalData>;
-
-const LetterItems: FC<Props> = (props) => {
-  const { items, letter } = props;
+const LetterItems: FC = () => {
+  const { items } = useLetter();
   if (!items || items.length === 0) return <EmptyList />;
   return (
     <div className="w-full-scrollbar scrollbar-gutter flex max-h-[80vh] flex-col gap-y-3 overflow-auto">
       {items.map((item) => (
-        <LetterItem key={item} item={item} letter={letter} />
+        <LetterItem key={item} item={item} />
       ))}
     </div>
   );
 };
 
-export default LetterItems;
+export default memo(LetterItems);

@@ -75,7 +75,7 @@ const Content: FC = () => {
 
 const SettingsContent = memo(Content);
 
-const Component: FC = () => {
+const SettingsSheet: FC = () => {
   return (
     <Sheet>
       <SheetTrigger>
@@ -97,6 +97,4 @@ const Component: FC = () => {
   );
 };
 
-const SettingsSheet = memo(Component);
-
-export default SettingsSheet;
+export default memo(SettingsSheet);

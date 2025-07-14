@@ -17,7 +17,7 @@ interface Props extends SelectProps {
   labels: Record<string, string>;
 }
 
-const CustomSelect: FC<Props> = (props) => {
+const SettingsSelect: FC<Props> = (props) => {
   const { id, label, placeholder, options, labels, children, ...rest } = props;
   return (
     <div className="flex flex-col">
@@ -41,6 +41,4 @@ const CustomSelect: FC<Props> = (props) => {
   );
 };
 
-const SettingsSelect = memo(CustomSelect);
-
-export default SettingsSelect;
+export default memo(SettingsSelect);

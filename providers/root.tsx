@@ -1,6 +1,7 @@
 "use client";
 
 import { Device, Theme } from "@/models/app";
+import AnalyticsProvider from "@/providers/analytics";
 import CaptureProvider from "@/providers/capture";
 import CongratulationProvider from "@/providers/congratulation";
 import DataProvider from "@/providers/data";
@@ -19,21 +20,23 @@ interface Props extends PropsWithChildren {
 const RootProviders: FC<Props> = (props) => {
   const { defaultTheme, defaultDevice, children } = props;
   return (
-    <DeviceProvider initial={defaultDevice}>
-      <ThemeProvider defaultValue={defaultTheme}>
-        <DataProvider>
-          <FiltersProvider>
-            <SettingsProvider>
-              <FeaturedProvider>
-                <CaptureProvider>
-                  <CongratulationProvider>{children}</CongratulationProvider>
-                </CaptureProvider>
-              </FeaturedProvider>
-            </SettingsProvider>
-          </FiltersProvider>
-        </DataProvider>
-      </ThemeProvider>
-    </DeviceProvider>
+    <AnalyticsProvider>
+      <DeviceProvider initial={defaultDevice}>
+        <ThemeProvider defaultValue={defaultTheme}>
+          <DataProvider>
+            <FiltersProvider>
+              <SettingsProvider>
+                <FeaturedProvider>
+                  <CaptureProvider>
+                    <CongratulationProvider>{children}</CongratulationProvider>
+                  </CaptureProvider>
+                </FeaturedProvider>
+              </SettingsProvider>
+            </FiltersProvider>
+          </DataProvider>
+        </ThemeProvider>
+      </DeviceProvider>
+    </AnalyticsProvider>
   );
 };
 

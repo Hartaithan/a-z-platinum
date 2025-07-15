@@ -5,6 +5,7 @@ import CongratulationPopup, {
 } from "@/components/congratulation-popup";
 import { letterStatus } from "@/constants/alphabet";
 import useConfetti from "@/hooks/use-confetti";
+import { capture } from "@/utils/analytics";
 import { sleep } from "@/utils/async";
 import { getCount } from "@/utils/progress";
 import type { FC, PropsWithChildren } from "react";
@@ -29,11 +30,13 @@ const CongratulationProvider: FC<PropsWithChildren> = (props) => {
     await sleep(1000);
     const uncompleted = getCount(letterStatus.uncompleted);
     if (uncompleted > 0) return;
+    capture("congratulation-show", { uncompleted });
     popupRef.current?.open();
     fireworks();
   }, [fireworks]);
 
   const handleClose = useCallback(() => {
+    capture("congratulation-close");
     reset();
   }, [reset]);
 

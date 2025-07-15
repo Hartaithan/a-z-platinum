@@ -7,6 +7,7 @@ import {
   useLocalStorage,
 } from "@/hooks/use-local-storage";
 import type { Settings } from "@/models/app";
+import { capture } from "@/utils/analytics";
 import type { FC, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -58,7 +59,10 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
   });
 
   const setDataSetting: Context["setDataSetting"] = useCallback(
-    (value) => setSettings((prev) => ({ ...prev, data: value })),
+    (value) => {
+      capture("settings-data", { value });
+      setSettings((prev) => ({ ...prev, data: value }));
+    },
     [setSettings],
   );
 
@@ -68,19 +72,25 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
   );
 
   const setDifficultySetting: Context["setDifficultySetting"] = useCallback(
-    (value) => setSettings((prev) => ({ ...prev, difficulty: value })),
+    (value) => {
+      capture("settings-difficulty", { value });
+      setSettings((prev) => ({ ...prev, difficulty: value }));
+    },
     [setSettings],
   );
 
   const setHideSetting: Context["setHideSetting"] = useCallback(
-    (value) => setSettings((prev) => ({ ...prev, hide: value })),
+    (value) => {
+      capture("settings-hide", { value });
+      setSettings((prev) => ({ ...prev, hide: value }));
+    },
     [setSettings],
   );
 
-  const resetSettings = useCallback(
-    () => setSettings(defaultValue),
-    [setSettings],
-  );
+  const resetSettings = useCallback(() => {
+    capture("settings-reset");
+    setSettings(defaultValue);
+  }, [setSettings]);
 
   const exposed = useMemo(() => {
     return {

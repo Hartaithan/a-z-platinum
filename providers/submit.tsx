@@ -8,6 +8,7 @@ import type { PlatinumProgressData } from "@/models/platinum";
 import { useCongratulation } from "@/providers/congratulation";
 import { useData } from "@/providers/data";
 import { useFeatured } from "@/providers/featured";
+import { capture } from "@/utils/analytics";
 import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
@@ -66,6 +67,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         if (id.length === 0) throw new Error(messages.empty);
 
         setStatus("profile-loading");
+        capture("submit-profile", { id });
 
         const { profile, expires: profileExpires } = await API.getProfile({
           id,
@@ -76,8 +78,13 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         setProfile(profile);
 
         setStatus("platinums-loading");
+        capture("submit-platinums", { id, expires });
 
-        const { list, expires: platinumsExpires } = await API.getPlatinums({
+        const {
+          list,
+          counts,
+          expires: platinumsExpires,
+        } = await API.getPlatinums({
           id,
           onProgress,
           signal: getSignal(),
@@ -90,10 +97,16 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         setStatus("completed");
         popupRef.current?.reset();
         console.info("expires", expires);
+        capture("submit-complete", {
+          id,
+          counts: JSON.stringify(counts),
+          expires,
+        });
       } catch (error) {
-        console.error("submit error", error);
         const message = readError(error);
         toast.error(message);
+        console.error("submit error", error);
+        capture("submit-error", { id, message });
         console.info("error", message, error);
         popupRef.current?.reset();
         setStatus("idle");

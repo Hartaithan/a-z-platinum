@@ -6,6 +6,7 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
 import { DataKey } from "@/models/data";
 import { LetterModalData } from "@/models/letter";
+import { capture } from "@/utils/analytics";
 import type { FC, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -60,6 +61,7 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
     (params) => {
       const { key, letter, year, dataKey } = params;
       const featuredKey = getFeaturedKey({ letter, year, dataKey }) ?? letter;
+      capture("featured-set", { featured: featuredKey });
       setFeaturedState((prev) => {
         const copy = { ...prev };
         copy[featuredKey] = key;
@@ -70,6 +72,7 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
   );
 
   const resetFeatured: Context["resetFeatured"] = useCallback(() => {
+    capture("featured-reset");
     setFeaturedState({});
   }, [setFeaturedState]);
 

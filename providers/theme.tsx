@@ -2,6 +2,7 @@
 
 import { defaultTheme } from "@/constants/app";
 import type { Theme } from "@/models/app";
+import { capture } from "@/utils/analytics";
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import {
   createContext,
@@ -50,6 +51,7 @@ const ThemeProvider: FC<Props> = (props) => {
 
   const changeTheme: Context["changeTheme"] = useCallback((value) => {
     setTheme(value);
+    capture("settings-theme", { value });
     const html = document.documentElement;
     if (html) html.setAttribute("data-theme", value);
     try {

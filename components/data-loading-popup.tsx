@@ -1,6 +1,7 @@
 "use client";
 
 import ProgressSpinner from "@/components/progress-spinner";
+import { AbortHandler } from "@/hooks/use-abort-controller";
 import { useData } from "@/providers/data";
 import { Button } from "@/ui/button";
 import {
@@ -20,7 +21,7 @@ import { FC, useCallback, useImperativeHandle, useState } from "react";
 
 interface Props extends DialogProps {
   ref: Ref<DataLoadingPopupHandle>;
-  abort: () => void;
+  abort: AbortHandler;
 }
 
 export interface DataLoadingPopupHandle {
@@ -95,7 +96,7 @@ const DataLoadingPopup: FC<Props> = (props) => {
         <Button
           variant="outline"
           className="h-8 w-10/12 justify-self-center font-semibold text-white"
-          onClick={abort}>
+          onClick={() => abort("data-loading")}>
           Cancel
         </Button>
       </DataLoadingContent>

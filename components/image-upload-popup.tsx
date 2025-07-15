@@ -1,5 +1,6 @@
 "use client";
 
+import { AbortHandler } from "@/hooks/use-abort-controller";
 import { Button } from "@/ui/button";
 import {
   Dialog,
@@ -27,7 +28,7 @@ type StatusHandler = (params: Partial<UploadState>) => void;
 
 interface Props extends DialogProps {
   ref: Ref<ImageUploadPopupHandle>;
-  abort: () => void;
+  abort: AbortHandler;
 }
 
 export interface ImageUploadPopupHandle {
@@ -113,7 +114,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
               variant="outline"
               aria-label="Cancel image upload"
               className="mt-3 h-8 w-10/12 justify-self-center font-semibold text-white"
-              onClick={abort}>
+              onClick={() => abort("image-upload")}>
               Cancel
             </Button>
           )}

@@ -11,6 +11,7 @@ import { useFeatured } from "@/providers/featured";
 import { capture } from "@/utils/analytics";
 import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
+import { showExpiresToast } from "@/utils/toast";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo, useRef } from "react";
 import { toast } from "sonner";
@@ -92,11 +93,11 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
         expires = platinumsExpires;
         resetFeatured();
         setData(list);
-
-        check();
         setStatus("completed");
+        showExpiresToast(expires);
+        check();
+
         popupRef.current?.reset();
-        console.info("expires", expires);
         capture("submit-complete", {
           id,
           counts: JSON.stringify(counts),

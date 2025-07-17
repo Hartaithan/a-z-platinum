@@ -211,6 +211,11 @@
     width: 100%;
     padding: 0 calc(var(--spacing) * 2);
   }
+
+  li[data-sonner-toast][data-styled="true"] button[data-close-button="true"] {
+    left: calc(100% - var(--toast-icon-margin-end)) !important;
+    right: 0 !important;
+  }
 }
 
 @utility scrollbar-gutter {

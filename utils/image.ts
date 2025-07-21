@@ -35,7 +35,8 @@ export const downloadImage = (image: Blob | null, name?: string) => {
   if (!image) throw new Error(errors.notFound);
   const link = document.createElement("a");
   link.href = URL.createObjectURL(image);
-  link.download = `${name ?? "a-z platinum challenge"}.png`;
+  const timestamp = new Date().getTime().toString();
+  link.download = `${name ?? "a-z platinum challenge"} [${[timestamp]}].png`;
   link.click();
   link.remove();
 };

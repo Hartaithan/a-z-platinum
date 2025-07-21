@@ -91,7 +91,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
           signal: getSignal(),
         });
         expires = platinumsExpires;
-        resetFeatured();
+        resetFeatured(false);
         setData(list);
         setStatus("completed");
         showExpiresToast(expires);

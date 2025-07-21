@@ -30,7 +30,7 @@ interface SetFeaturedParams extends FeaturedParams {
 
 interface Context {
   setFeatured: (params: SetFeaturedParams) => void;
-  resetFeatured: () => void;
+  resetFeatured: (withEvent?: boolean) => void;
   getFeatured: (params: GetFeaturedParams) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }
@@ -71,10 +71,13 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
     [setFeaturedState],
   );
 
-  const resetFeatured: Context["resetFeatured"] = useCallback(() => {
-    capture("featured-reset");
-    setFeaturedState({});
-  }, [setFeaturedState]);
+  const resetFeatured: Context["resetFeatured"] = useCallback(
+    (withEvent = true) => {
+      if (withEvent) capture("featured-reset");
+      setFeaturedState({});
+    },
+    [setFeaturedState],
+  );
 
   const getFeatured: Context["getFeatured"] = useCallback(
     (params) => {

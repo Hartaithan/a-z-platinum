@@ -7,7 +7,7 @@ import { useModal } from "@/hooks/use-modal";
 import { DataKey } from "@/models/data";
 import { LetterModalData } from "@/models/letter";
 import { capture } from "@/utils/analytics";
-import type { FC, PropsWithChildren } from "react";
+import type { FC, MouseEvent, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
 type State = Record<string, string>;
@@ -30,7 +30,7 @@ interface SetFeaturedParams extends FeaturedParams {
 
 interface Context {
   setFeatured: (params: SetFeaturedParams) => void;
-  resetFeatured: (withEvent?: boolean) => void;
+  resetFeatured: (withEvent?: boolean | MouseEvent<HTMLButtonElement>) => void;
   getFeatured: (params: GetFeaturedParams) => string | null;
   openLetterModal: (items: string[], letter: string) => void;
 }

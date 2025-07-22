@@ -1,3 +1,4 @@
+import { useData } from "@/providers/data";
 import { useFeatured } from "@/providers/featured";
 import { useFilters } from "@/providers/filters";
 import { useLetter } from "@/providers/letter";
@@ -12,6 +13,7 @@ interface Props {
 
 const LetterFeatured: FC<Props> = (props) => {
   const { item } = props;
+  const { profile } = useData();
   const { year } = useFilters();
   const { letter } = useLetter();
   const { settings } = useSettings();
@@ -20,14 +22,27 @@ const LetterFeatured: FC<Props> = (props) => {
   const dataKey = settings.data;
 
   const isFeatured = useMemo(
-    () => getFeatured({ letter, year, dataKey, fallback: "" }) === item,
-    [getFeatured, item, letter, year, dataKey],
+    () =>
+      getFeatured({
+        name: profile?.name,
+        letter,
+        year,
+        dataKey,
+        fallback: "",
+      }) === item,
+    [profile?.name, getFeatured, item, letter, year, dataKey],
   );
 
   const handleFeatured = useCallback(() => {
     if (!letter) return;
-    setFeatured({ key: item, letter, year, dataKey });
-  }, [item, letter, year, dataKey, setFeatured]);
+    setFeatured({
+      name: profile?.name,
+      key: item,
+      letter,
+      year,
+      dataKey,
+    });
+  }, [profile?.name, item, letter, year, dataKey, setFeatured]);
 
   return (
     <Tooltip>

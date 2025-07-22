@@ -22,7 +22,7 @@ const styles = {
 const Letter: FC<LetterProps> = (props) => {
   const { letter } = props;
   const { year } = useFilters();
-  const { getItemKeys, getItem } = useData();
+  const { profile, getItemKeys, getItem } = useData();
   const { settings } = useSettings();
   const { getFeatured, openLetterModal } = useFeatured();
 
@@ -33,7 +33,13 @@ const Letter: FC<LetterProps> = (props) => {
     year,
   });
 
-  const featured = getFeatured({ letter, year, dataKey, fallback: items[0] });
+  const featured = getFeatured({
+    name: profile?.name,
+    letter,
+    year,
+    dataKey,
+    fallback: items[0],
+  });
   const item = getItem(featured);
   const title = getTitle(settings.data, item);
 

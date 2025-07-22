@@ -13,6 +13,7 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 type State = Record<string, string>;
 
 interface FeaturedParams {
+  name: string | undefined;
   letter: string | undefined;
   year: number | null;
   dataKey: DataKey;
@@ -45,8 +46,8 @@ const initial: Context = {
 const Context = createContext<Context>(initial);
 
 const getFeaturedKey = (params: GetFeaturedKeyParams) => {
-  const { letter, year, dataKey } = params;
-  return [letter, dataKey ?? "*", year ?? "*"].join("-");
+  const { name = "profile", letter = "", year, dataKey } = params;
+  return [name, letter, dataKey ?? "*", year ?? "*"].join("-");
 };
 
 const FeaturedProvider: FC<PropsWithChildren> = (props) => {
@@ -59,8 +60,8 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
 
   const setFeatured: Context["setFeatured"] = useCallback(
     (params) => {
-      const { key, letter, year, dataKey } = params;
-      const featuredKey = getFeaturedKey({ letter, year, dataKey }) ?? letter;
+      const { key, ...rest } = params;
+      const featuredKey = getFeaturedKey(rest) ?? params.letter;
       capture("featured-set", { featured: featuredKey });
       setFeaturedState((prev) => {
         const copy = { ...prev };
@@ -81,9 +82,8 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
 
   const getFeatured: Context["getFeatured"] = useCallback(
     (params) => {
-      const { letter, year, dataKey, fallback } = params;
-      const keyParams = { letter: letter ?? "", year, dataKey };
-      const featuredKey = getFeaturedKey(keyParams);
+      const { fallback, ...rest } = params;
+      const featuredKey = getFeaturedKey(rest);
       return featured[featuredKey] ?? fallback;
     },
     [featured],

@@ -73,9 +73,7 @@ const Letter: FC<LetterProps> = (props) => {
         {letter}
       </b>
       {hasItems && count > 1 && (
-        <b className={cn(styles.badge, "top-2 right-2", status)}>
-          {`+${count - 1}`}
-        </b>
+        <b className={cn(styles.badge, "top-2 right-2")}>{`+${count - 1}`}</b>
       )}
       <div className="absolute z-10 flex size-full flex-col justify-end bg-linear-to-b from-transparent via-transparent via-60% to-black/60 p-2">
         <p className="text-shadow line-clamp-3 text-xs leading-[normal] font-extrabold break-words text-ellipsis text-white">

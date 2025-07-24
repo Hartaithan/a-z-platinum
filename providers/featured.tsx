@@ -62,7 +62,6 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
     (params) => {
       const { key, ...rest } = params;
       const featuredKey = getFeaturedKey(rest) ?? params.letter;
-      capture("featured-set", { featured: featuredKey });
       setFeaturedState((prev) => {
         const copy = { ...prev };
         copy[featuredKey] = key;

@@ -13,16 +13,28 @@ import { SaveIcon, Share2Icon, UploadIcon } from "lucide-react";
 import { type FC } from "react";
 
 const MenuItems: FC = () => {
-  const { handleSave, handleUpload } = useShare();
+  const { isLoading, handleSave, handleUpload } = useShare();
   return (
     <>
-      <DropdownMenuItem onClick={handleSave} aria-label="Save as PNG">
+      <DropdownMenuItem
+        disabled={isLoading}
+        onClick={handleSave}
+        aria-label="Save as PNG">
         <SaveIcon className="text-primary" />
-        <span>Save as PNG</span>
+        <span>
+          {isLoading && "In process.."}
+          {!isLoading && "Save as PNG"}
+        </span>
       </DropdownMenuItem>
-      <DropdownMenuItem onClick={handleUpload} aria-label="Upload image">
+      <DropdownMenuItem
+        disabled={isLoading}
+        onClick={handleUpload}
+        aria-label="Upload image">
         <UploadIcon className="text-primary" />
-        <span>Upload image</span>
+        <span>
+          {isLoading && "In process.."}
+          {!isLoading && "Upload image"}
+        </span>
       </DropdownMenuItem>
     </>
   );

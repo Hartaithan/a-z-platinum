@@ -12,10 +12,18 @@ import { readError } from "@/utils/error";
 import { downloadImage, isImagesLoading } from "@/utils/image";
 import { getUploadFormData } from "@/utils/upload";
 import type { FC, PropsWithChildren } from "react";
-import { createContext, useCallback, useContext, useMemo, useRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
 
 interface Context {
+  isLoading: boolean;
   handleSave: () => void;
   handleUpload: () => void;
 }
@@ -26,6 +34,7 @@ const messages = {
 };
 
 const initialValue: Context = {
+  isLoading: false,
   handleSave: () => null,
   handleUpload: () => null,
 };
@@ -38,12 +47,14 @@ const ShareProvider: FC<PropsWithChildren> = (props) => {
   const { profile } = useData();
   const { capture } = useCapture();
   const { abort, getSignal } = useAbortController({ message: messages.cancel });
+  const [isLoading, setLoading] = useState(initialValue.isLoading);
   const popupRef = useRef<ImageUploadPopupHandle>(null);
 
   const handleSave: Context["handleSave"] = useCallback(async () => {
     try {
       if (isImagesLoading()) return;
       captureEvent("save-start", withTheme({ id: profile?.name }));
+      setLoading(true);
       const image = await capture();
       if (!image) throw new Error(messages.generate);
       downloadImage(image, profile?.name);
@@ -53,6 +64,8 @@ const ShareProvider: FC<PropsWithChildren> = (props) => {
       const message = readError(error);
       toast.error(message);
       captureEvent("save-error", withTheme({ id: profile?.name, message }));
+    } finally {
+      setLoading(false);
     }
   }, [profile?.name, capture]);
 
@@ -63,6 +76,7 @@ const ShareProvider: FC<PropsWithChildren> = (props) => {
       if (isImagesLoading()) return;
       captureEvent("upload-start", withTheme({ id: profile?.name }));
       open?.();
+      setLoading(true);
       const image = await capture();
       if (!image) throw new Error(messages.generate);
       set?.({ status: "upload" });
@@ -80,12 +94,14 @@ const ShareProvider: FC<PropsWithChildren> = (props) => {
       captureEvent("upload-error", withTheme({ id: profile?.name, message }));
       if (signal.aborted) close?.();
       else set?.({ status: "error", error: message });
+    } finally {
+      setLoading(false);
     }
   }, [capture, profile?.name, getSignal]);
 
   const exposed = useMemo(
-    () => ({ handleSave, handleUpload }) satisfies Context,
-    [handleSave, handleUpload],
+    () => ({ isLoading, handleSave, handleUpload }) satisfies Context,
+    [isLoading, handleSave, handleUpload],
   );
 
   return (

@@ -50,7 +50,7 @@ const Letter: FC<LetterProps> = (props) => {
           <div className="h-full border-2 border-dashed bg-black/5" />
           <b className={cn(styles.letter, "opacity-50", status)}>{letter}</b>
         </div>
-        <p className="mt-1 text-center text-sm font-semibold text-neutral-400">
+        <p className="mt-1 text-center text-sm font-semibold text-neutral-500">
           Empty
         </p>
       </div>

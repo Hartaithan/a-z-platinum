@@ -15,13 +15,15 @@ interface ItemProps extends PropsWithChildren {
 const Item: FC<ItemProps> = (props) => {
   const { id, title, children } = props;
   return (
-    <AccordionItem value={id}>
-      <AccordionTrigger className="py-3 text-xs md:py-4 md:text-sm">
-        {title}
-      </AccordionTrigger>
-      <AccordionContent className="text-xs md:text-sm">
-        {children}
-      </AccordionContent>
+    <AccordionItem value={id} asChild>
+      <h2>
+        <AccordionTrigger className="py-3 text-xs md:py-4 md:text-sm">
+          {title}
+        </AccordionTrigger>
+        <AccordionContent className="text-xs md:text-sm">
+          {children}
+        </AccordionContent>
+      </h2>
     </AccordionItem>
   );
 };

@@ -21,10 +21,16 @@ const DesktopHeader: FC = () => {
         <CircleUserRound className="min-w-6" />
         <Submit />
         <ShareMenu />
-        <SectionLink section="faq" description="Frequently asked questions">
+        <SectionLink
+          section="faq"
+          description="Frequently asked questions"
+          aria-label="Frequently asked questions">
           <CircleHelp />
         </SectionLink>
-        <SectionLink section="about" description="Learn more about the project">
+        <SectionLink
+          section="about"
+          description="Learn more about the project"
+          aria-label="About">
           <Info />
         </SectionLink>
         <SettingsDrawer />
@@ -42,7 +48,7 @@ const MobileHeader: FC = () => {
       <Submit />
       <SettingsDrawer />
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger aria-label="Navigation menu">
           <Menu />
         </DropdownMenuTrigger>
         <DropdownMenuContent sideOffset={24} id="dropdown-full-width">
@@ -50,14 +56,16 @@ const MobileHeader: FC = () => {
           <SectionLink
             device="mobile"
             section="faq"
-            description="Frequently asked questions">
+            description="Frequently asked questions"
+            aria-label="Frequently asked questions">
             <CircleHelp className="text-primary" />
             <span>FAQ</span>
           </SectionLink>
           <SectionLink
             device="mobile"
             section="about"
-            description="Learn more about the project">
+            description="Learn more about the project"
+            aria-label="About">
             <Info className="text-primary" />
             <span>About</span>
           </SectionLink>

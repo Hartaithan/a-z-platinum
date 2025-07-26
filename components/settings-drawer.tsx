@@ -78,7 +78,7 @@ const SettingsContent = memo(Content);
 const SettingsSheet: FC = () => {
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger aria-label="Settings">
         <Settings />
       </SheetTrigger>
       <SheetContent className="w-full gap-0 overflow-auto">

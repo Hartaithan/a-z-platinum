@@ -21,7 +21,11 @@ const Component: FC = () => {
           <p className="leading-[normal]">{`(${completed}/${total})`}</p>
         </div>
       </div>
-      <Progress className="mt-1" value={value} />
+      <Progress
+        aria-label="Challenge progress"
+        className="mt-1"
+        value={value}
+      />
     </section>
   );
 };

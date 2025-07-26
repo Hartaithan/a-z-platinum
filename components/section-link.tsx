@@ -11,7 +11,7 @@ interface Props extends PropsWithChildren, DeviceProps {
 }
 
 const SectionLink: FC<Props> = (props) => {
-  const { section, description, device = "desktop", children } = props;
+  const { section, description, device = "desktop", children, ...rest } = props;
 
   const handleClick = useCallback(() => {
     const element = document.getElementById(section);
@@ -21,13 +21,15 @@ const SectionLink: FC<Props> = (props) => {
 
   if (device === "mobile") {
     return (
-      <DropdownMenuItem onClick={handleClick}>{children}</DropdownMenuItem>
+      <DropdownMenuItem onClick={handleClick} {...rest}>
+        {children}
+      </DropdownMenuItem>
     );
   }
 
   return (
     <Tooltip>
-      <TooltipTrigger className="flex" onClick={handleClick}>
+      <TooltipTrigger className="flex" onClick={handleClick} {...rest}>
         {children}
       </TooltipTrigger>
       <TooltipContent>

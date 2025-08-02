@@ -1,7 +1,7 @@
 "use client";
 
 import type { Theme } from "@/models/app";
-import { isMobile } from "@/utils/device";
+import { isMobile, isSafari } from "@/utils/device";
 import type { Options } from "modern-screenshot";
 import { domToBlob } from "modern-screenshot";
 
@@ -25,7 +25,7 @@ const options: Record<Step, GetOptions> = {
     timeout,
   }),
   final: (theme) => ({
-    scale: 2,
+    scale: isSafari() ? 1 : 2,
     quality: 1,
     type: "image/png",
     captureElementInterval: 1000,

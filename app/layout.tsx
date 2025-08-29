@@ -6,8 +6,11 @@ import RootProviders from "@/providers/root";
 import { Toaster } from "@/ui/sonner";
 import { cn } from "@/utils/styles";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Geist } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
+
+const Promo = dynamic(() => import("@/components/promo"));
 
 const font = Geist({
   variable: "--font-geist-sans",
@@ -71,6 +74,7 @@ const RootLayout: FC<PropsWithChildren> = async (props) => {
           {children}
         </RootProviders>
         <Toaster theme="light" position="top-right" richColors closeButton />
+        <Promo />
       </body>
     </html>
   );

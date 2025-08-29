@@ -1,16 +1,14 @@
 import { getDeviceType } from "@/actions/device";
 import { getTheme } from "@/actions/theme";
 import "@/app/globals.css";
+import Promo from "@/components/promo";
 import { APP_URL } from "@/constants/variables";
 import RootProviders from "@/providers/root";
 import { Toaster } from "@/ui/sonner";
 import { cn } from "@/utils/styles";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Geist } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
-
-const Promo = dynamic(() => import("@/components/promo"));
 
 const font = Geist({
   variable: "--font-geist-sans",

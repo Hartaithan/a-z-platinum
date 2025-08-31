@@ -216,6 +216,10 @@
     left: calc(100% - var(--toast-icon-margin-end)) !important;
     right: 0 !important;
   }
+
+  html[data-device="desktop"] > body[data-scroll-locked] > #promo {
+    margin-right: var(--removed-body-scroll-bar-size);
+  }
 }
 
 @utility scrollbar-gutter {

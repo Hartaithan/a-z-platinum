@@ -31,7 +31,9 @@ const Content: FC<ContentProps> = (props) => {
   );
 
   return (
-    <div className="animate-fade-in bg-card text-card-foreground fixed top-auto right-3 bottom-20 z-10 w-11/12 max-w-[340px] rounded-lg border-2 border-emerald-700/50 px-4 py-3 shadow-sm 2xl:top-16 2xl:right-3 2xl:bottom-auto">
+    <div
+      id="promo"
+      className="animate-fade-in bg-card text-card-foreground fixed top-auto right-3 bottom-20 z-10 w-11/12 max-w-[340px] rounded-lg border-2 border-emerald-700/50 px-4 py-3 shadow-sm 2xl:top-16 2xl:right-3 2xl:bottom-auto">
       <h1 className="text-sm font-semibold text-emerald-900">
         Looking for a Platinum Calendar app?
       </h1>

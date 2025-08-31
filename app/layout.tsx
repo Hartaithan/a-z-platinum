@@ -66,7 +66,7 @@ const RootLayout: FC<PropsWithChildren> = async (props) => {
   const { children } = props;
   const [theme, device] = await Promise.all([getTheme(), getDeviceType()]);
   return (
-    <html lang="en" data-theme={theme}>
+    <html lang="en" data-theme={theme} data-device={device}>
       <body className={cn(font.variable, "antialiased")}>
         <RootProviders defaultTheme={theme} defaultDevice={device}>
           {children}

@@ -41,13 +41,13 @@ export interface PlatinumData<T extends PlatinumEventType> {
 }
 
 export interface PlatinumProgressData extends PlatinumData<"progress"> {
+  platinums: NullablePlatinum[];
   current?: number;
   total?: number;
 }
 
 export interface PlatinumCompleteData extends PlatinumData<"complete"> {
   counts: PlatinumCounts;
-  platinums?: NullablePlatinum[];
   expires?: string;
 }
 

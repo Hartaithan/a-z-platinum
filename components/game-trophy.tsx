@@ -39,7 +39,8 @@ const GameTrophy: FC<Props> = (props) => {
         </span>
         <span>
           <span className="font-medium">Earned:&nbsp;</span>
-          {new Date(trophy?.earned_at ?? "").toLocaleString()}
+          {trophy?.earned_at && new Date(trophy.earned_at).toLocaleString()}
+          {!trophy?.earned_at && (trophy?.earned === true ? "Yes" : "No")}
         </span>
         <span>
           <span className="font-medium capitalize">

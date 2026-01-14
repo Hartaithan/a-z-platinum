@@ -98,7 +98,6 @@ const DataProvider: FC<PropsWithChildren> = (props) => {
 
   const setData: Context["setData"] = useCallback(
     (list) => {
-      if (list.length === 0) return;
       const { games, ...data } = groupPlatinumList(list);
       setDataState(data);
       setGames(games);

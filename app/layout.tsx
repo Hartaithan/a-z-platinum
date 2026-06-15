@@ -1,7 +1,7 @@
 import { getDeviceType } from "@/actions/device";
 import { getTheme } from "@/actions/theme";
 import "@/app/globals.css";
-import Promo from "@/components/promo";
+import CrossServiceLink from "@/components/cross-service-link";
 import { APP_URL } from "@/constants/variables";
 import RootProviders from "@/providers/root";
 import { Toaster } from "@/ui/sonner";
@@ -72,7 +72,7 @@ const RootLayout: FC<PropsWithChildren> = async (props) => {
           {children}
         </RootProviders>
         <Toaster theme="light" position="top-right" richColors closeButton />
-        <Promo />
+        <CrossServiceLink />
       </body>
     </html>
   );

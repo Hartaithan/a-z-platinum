@@ -9,7 +9,7 @@ import Profile from "@/components/profile";
 import { FC } from "react";
 
 const HomePage: FC = () => (
-  <div className="flex flex-col">
+  <main className="flex flex-col">
     <Header />
     <CapturedArea>
       <Profile />
@@ -19,7 +19,7 @@ const HomePage: FC = () => (
     </CapturedArea>
     <FAQ />
     <About />
-  </div>
+  </main>
 );
 
 export default HomePage;

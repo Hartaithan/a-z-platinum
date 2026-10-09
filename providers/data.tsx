@@ -4,9 +4,12 @@ import { letterStatus } from "@/constants/alphabet";
 import { dataKey, gamesKey, profileKey } from "@/constants/storage";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { NullableData } from "@/models/data";
-import { NullableGroupedPlatinums, NullablePlatinum } from "@/models/platinum";
-import { NullableProfile } from "@/models/profile";
+import { NullableGroupedPlatinums } from "@/models/platinum";
 import { DataKeyParams, getDataKey, groupPlatinumList } from "@/utils/group";
+import type {
+  NullablePlatinum,
+  NullableProfile,
+} from "@hartaithan/trophy-scout/types";
 import {
   createContext,
   Dispatch,

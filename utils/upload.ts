@@ -1,11 +1,10 @@
 import type { UploadBody } from "@/models/upload";
 
-export const getUploadFormData = (
+export const getUploadImage = (
   image: UploadBody["image"],
   psnId: UploadBody["psnId"],
-): FormData => {
-  const formData = new FormData();
-  formData.append("title", `${psnId}’s A-Z Platinum Challenge`);
-  formData.append("image", image);
-  return formData;
+): File => {
+  const name = `${psnId}’s A-Z Platinum Challenge`;
+  const options: FilePropertyBag = { type: image.type };
+  return new File([image], name, options);
 };

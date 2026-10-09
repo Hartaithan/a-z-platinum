@@ -10,7 +10,7 @@ import { capture as captureEvent, withTheme } from "@/utils/analytics";
 import { API } from "@/utils/api";
 import { readError } from "@/utils/error";
 import { downloadImage, isImagesLoading } from "@/utils/image";
-import { getUploadFormData } from "@/utils/upload";
+import { getUploadImage } from "@/utils/upload";
 import type { FC, PropsWithChildren } from "react";
 import {
   createContext,
@@ -77,15 +77,14 @@ const ShareProvider: FC<PropsWithChildren> = (props) => {
       captureEvent("upload-start", withTheme({ id: profile?.name }));
       open?.();
       setLoading(true);
-      const image = await capture();
-      if (!image) throw new Error(messages.generate);
+      const captured = await capture();
+      if (!captured) throw new Error(messages.generate);
       set?.({ status: "upload" });
       const psnId = profile?.name ?? "A-Z Platinum Challenge";
-      const body = getUploadFormData(image, psnId);
-      const response = await API.uploadImage({ body, signal });
-      if (!response.success) throw new Error(response.message);
-      set?.({ status: "complete", image: response.link });
-      const theme = withTheme({ id: profile?.name, link: response.link });
+      const image = getUploadImage(captured, psnId);
+      const response = await API.uploadImage({ image, signal });
+      set?.({ status: "complete", image: response.image.url });
+      const theme = withTheme({ id: profile?.name, link: response.image.url });
       captureEvent("upload-complete", theme);
     } catch (error) {
       console.error("upload error", error);

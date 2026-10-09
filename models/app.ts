@@ -3,16 +3,6 @@ import { DataKey } from "@/models/data";
 
 export type Theme = "list" | "cards" | "icons";
 
-interface ResponseBase {
-  message: string;
-}
-
-export type Response<T = undefined> = ResponseBase & Partial<T>;
-
-export interface CachedResponse {
-  expires?: string;
-}
-
 export type Device = "desktop" | "mobile";
 
 export interface DeviceProps {

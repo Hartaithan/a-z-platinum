@@ -1,4 +1,4 @@
-import { Platform } from "@/models/platinum";
+import type { Platform } from "@hartaithan/trophy-scout/types";
 import { FC } from "react";
 
 interface TagProps {

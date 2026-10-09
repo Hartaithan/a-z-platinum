@@ -1,10 +1,10 @@
 import { Data, DataKey, GroupedData } from "@/models/data";
-import {
-  GroupedPlatinumKeys,
+import { GroupedPlatinumKeys } from "@/models/platinum";
+import { recognizeLetter } from "@/utils/letter";
+import type {
   NullablePlatinum,
   Platinum,
-} from "@/models/platinum";
-import { recognizeLetter } from "@/utils/letter";
+} from "@hartaithan/trophy-scout/types";
 
 export interface DataKeyParams {
   dataKey?: DataKey;

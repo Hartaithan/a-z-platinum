@@ -1,5 +1,5 @@
-import { CompletionType } from "@/models/platinum";
 import { cn } from "@/utils/styles";
+import type { CompletionType } from "@hartaithan/trophy-scout/types";
 import { Check, LucideProps, Trophy } from "lucide-react";
 import { FC } from "react";
 

@@ -1,5 +1,5 @@
-import { TrophyType } from "@/models/trophy";
 import { cn } from "@/utils/styles";
+import type { TrophyType } from "@hartaithan/trophy-scout/types";
 import { Trophy } from "lucide-react";
 import { FC, memo } from "react";
 

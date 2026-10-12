@@ -1,6 +1,6 @@
 {
   "name": "a-z-platinum",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev -H local.hartaithan.com --experimental-https --turbopack",
@@ -16,7 +16,7 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "@hartaithan/trophy-scout": "^1.0.0",
+    "@hartaithan/trophy-scout": "^2.0.0",
     "@next/bundle-analyzer": "^15.3.3",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.15",

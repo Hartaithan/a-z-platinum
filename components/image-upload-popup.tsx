@@ -114,7 +114,7 @@ const ImageUploadPopup: FC<Props> = (props) => {
               variant="outline"
               aria-label="Cancel image upload"
               className="mt-3 h-8 w-10/12 justify-self-center font-semibold text-white"
-              onClick={() => abort("image-upload")}>
+              onClick={() => abort()}>
               Cancel
             </Button>
           )}

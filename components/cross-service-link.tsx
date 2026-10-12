@@ -1,7 +1,7 @@
 "use client";
 
-import { capture } from "@/utils/analytics";
 import Script from "next/script";
+import posthog from "posthog-js";
 import { FC, useCallback } from "react";
 
 const CrossServiceLink: FC = () => {
@@ -9,10 +9,14 @@ const CrossServiceLink: FC = () => {
     document.addEventListener(
       "cross-service-link:ready",
       () => {
-        const onLinkClick = (link: string) => capture("link-click", { link });
-        const onLearnMoreClick = () => capture("learn-more-click");
-        const onNeverShowClick = () => capture("never-show-click");
-        const onCloseClick = () => capture("close-click");
+        const onLinkClick = (link: string) =>
+          posthog.capture("promo_widget_clicked", { action: "link", link });
+        const onLearnMoreClick = () =>
+          posthog.capture("promo_widget_clicked", { action: "learn_more" });
+        const onNeverShowClick = () =>
+          posthog.capture("promo_widget_clicked", { action: "never_show" });
+        const onCloseClick = () =>
+          posthog.capture("promo_widget_clicked", { action: "close" });
         const widget = new window.CrossServiceLink({
           target: document.body,
           theme: "light",

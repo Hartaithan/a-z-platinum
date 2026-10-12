@@ -6,10 +6,9 @@ import DataLoadingPopup, {
 import { useAbortController } from "@/hooks/use-abort-controller";
 import { useCongratulation } from "@/providers/congratulation";
 import { useData } from "@/providers/data";
-import { capture } from "@/utils/analytics";
 import { API } from "@/utils/api";
-import { readError } from "@/utils/error";
 import { showExpiresToast } from "@/utils/toast";
+import { TrophyScoutError } from "@hartaithan/trophy-scout";
 import type { PlatinumProgressData } from "@hartaithan/trophy-scout/types";
 import type { FC, FormEvent, FormEventHandler, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo, useRef } from "react";
@@ -25,7 +24,6 @@ interface Form extends HTMLFormControlsCollection {
 
 const messages = {
   empty: "Enter your PSN ID. This field cannot be empty",
-  cancel: "Data download was canceled by the user",
   fetch: "Unable to fetch profile",
 };
 
@@ -45,7 +43,7 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
   const { children } = props;
 
   const { check } = useCongratulation();
-  const { abort, getSignal } = useAbortController({ message: messages.cancel });
+  const { abort, getSignal } = useAbortController();
   const { setStatus, setProfile, setData } = useData();
   const popupRef = useRef<DataLoadingPopupHandle>(null);
 
@@ -60,54 +58,48 @@ const SubmitProvider: FC<PropsWithChildren> = (props) => {
       e.preventDefault();
 
       const id = getId(e);
-      let expires: string | undefined;
+      if (id.length === 0) {
+        toast.error(messages.empty);
+        return;
+      }
+
+      const flow = API.flow("fetch", {
+        psn_id: id,
+        data: "platinums",
+        trigger: "form",
+      });
+      const signal = getSignal();
 
       try {
-        if (id.length === 0) throw new Error(messages.empty);
-
         setStatus("profile-loading");
-        capture("submit-profile", { id });
-
-        const { profile, expires: profileExpires } = await API.getProfile({
-          id,
-          signal: getSignal(),
-        });
-        if (!profile) throw new Error(messages.fetch);
-        expires = profileExpires;
+        const { profile } = await API.getProfile({ id, signal, flow });
+        if (!profile) throw new TrophyScoutError(messages.fetch);
         setProfile(profile);
 
         setStatus("platinums-loading");
-        capture("submit-platinums", { id, expires });
-
-        const {
-          list,
-          counts,
-          expires: platinumsExpires,
-        } = await API.getPlatinums({
+        const { list, counts, expires } = await API.getPlatinums({
           id,
           onProgress,
-          signal: getSignal(),
+          signal,
+          flow,
         });
-        expires = platinumsExpires;
         setData(list);
         setStatus("completed");
         showExpiresToast(expires);
         check();
 
-        popupRef.current?.reset();
-        capture("submit-complete", {
-          id,
-          counts: JSON.stringify(counts),
-          expires,
+        flow.complete({
+          platinum_count: counts.platinum,
+          complete_count: counts.complete,
+          total_count: counts.total,
         });
       } catch (error) {
-        const message = readError(error);
-        toast.error(message);
-        console.error("submit error", error);
-        capture("submit-error", { id, message });
-        console.info("error", message, error);
-        popupRef.current?.reset();
         setStatus("idle");
+        if (flow.fail(error) === "failed") {
+          toast.error(API.getErrorMessage(error));
+        }
+      } finally {
+        popupRef.current?.reset();
       }
     },
     [setStatus, getSignal, setProfile, onProgress, setData, check],

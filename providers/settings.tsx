@@ -7,7 +7,7 @@ import {
   useLocalStorage,
 } from "@/hooks/use-local-storage";
 import type { Settings } from "@/models/app";
-import { capture } from "@/utils/analytics";
+import posthog from "posthog-js";
 import type { FC, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -60,7 +60,7 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
 
   const setDataSetting: Context["setDataSetting"] = useCallback(
     (value) => {
-      capture("settings-data", { value });
+      posthog.capture("setting_changed", { setting: "data", value });
       setSettings((prev) => ({ ...prev, data: value }));
     },
     [setSettings],
@@ -73,7 +73,7 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
 
   const setDifficultySetting: Context["setDifficultySetting"] = useCallback(
     (value) => {
-      capture("settings-difficulty", { value });
+      posthog.capture("setting_changed", { setting: "difficulty", value });
       setSettings((prev) => ({ ...prev, difficulty: value }));
     },
     [setSettings],
@@ -81,14 +81,14 @@ const SettingsProvider: FC<PropsWithChildren> = (props) => {
 
   const setHideSetting: Context["setHideSetting"] = useCallback(
     (value) => {
-      capture("settings-hide", { value });
+      posthog.capture("setting_changed", { setting: "hide", value });
       setSettings((prev) => ({ ...prev, hide: value }));
     },
     [setSettings],
   );
 
   const resetSettings = useCallback(() => {
-    capture("settings-reset");
+    posthog.capture("settings_reset");
     setSettings(defaultValue);
   }, [setSettings]);
 

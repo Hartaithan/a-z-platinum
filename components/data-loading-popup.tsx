@@ -96,7 +96,7 @@ const DataLoadingPopup: FC<Props> = (props) => {
         <Button
           variant="outline"
           className="h-8 w-10/12 justify-self-center font-semibold text-white"
-          onClick={() => abort("data-loading")}>
+          onClick={() => abort()}>
           Cancel
         </Button>
       </DataLoadingContent>

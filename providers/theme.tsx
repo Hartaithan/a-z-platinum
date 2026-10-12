@@ -2,7 +2,7 @@
 
 import { defaultTheme } from "@/constants/app";
 import type { Theme } from "@/models/app";
-import { capture } from "@/utils/analytics";
+import posthog from "posthog-js";
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import {
   createContext,
@@ -51,7 +51,7 @@ const ThemeProvider: FC<Props> = (props) => {
 
   const changeTheme: Context["changeTheme"] = useCallback((value) => {
     setTheme(value);
-    capture("settings-theme", { value });
+    posthog.capture("setting_changed", { setting: "theme", value });
     const html = document.documentElement;
     if (html) html.setAttribute("data-theme", value);
     try {

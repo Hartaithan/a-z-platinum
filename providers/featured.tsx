@@ -6,7 +6,7 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useModal } from "@/hooks/use-modal";
 import { DataKey } from "@/models/data";
 import { LetterModalData } from "@/models/letter";
-import { capture } from "@/utils/analytics";
+import posthog from "posthog-js";
 import type { FC, MouseEvent, PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -73,7 +73,7 @@ const FeaturedProvider: FC<PropsWithChildren> = (props) => {
 
   const resetFeatured: Context["resetFeatured"] = useCallback(
     (withEvent = true) => {
-      if (withEvent) capture("featured-reset");
+      if (withEvent) posthog.capture("featured_reset");
       setFeaturedState({});
     },
     [setFeaturedState],

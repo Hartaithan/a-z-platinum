@@ -1,5 +1,8 @@
 import type { Theme } from "@/models/app";
 import { DataKey } from "@/models/data";
+import type { AppName } from "@hartaithan/trophy-scout";
+
+export const APP_NAME: AppName = "a-z-platinum";
 
 export const themes: Theme[] = ["cards", "list", "icons"];
 export const defaultTheme: Theme = "cards";
